@@ -1,0 +1,181 @@
+/* You can add global styles to this file, and also import other style files */
+/**
+* Template Name: Personal
+* Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
+* Updated: Mar 17 2024 with Bootstrap v5.3.3
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #040404;
+  color: #fff;
+  position: relative;
+  background: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  background: #040404 url("../public/Bg.jpeg") ;
+  background-size: cover;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  z-index: -1;
+}
+
+@media (min-width: 1024px) {
+  body::before {
+    background-attachment: fixed;
+  }
+}
+
+a {
+  color: #18d26e;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #35e888;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+
+
+/* rounded circle */
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  top: 140px;
+  bottom: 100%;
+  opacity: 0;
+  transition: ease-in-out 0.4s;
+  z-index: 2;
+}
+
+section.section-show {
+  top: 100px;
+  bottom: auto;
+  opacity: 1;
+  padding-bottom: 45px;
+}
+
+section .container {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 30px;
+}
+
+@media (max-width: 768px) {
+  section {
+    top: 120px;
+  }
+
+  section.section-show {
+    top: 80px;
+  }
+}
+
+.section-title h2 {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 20px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  font-family: "Poppins", sans-serif;
+}
+
+.section-title h2::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  display: inline-block;
+  background: #4ceb95;
+  margin: 4px 10px;
+}
+
+.section-title p {
+  margin: 0;
+  margin: -15px 0 15px 0;
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+
+
+.prior-skill .icon-box {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: ease-in-out 0.3s;
+}
+
+.postman{
+
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  margin-right: 5px;
+  transition: ease-in-out 0.3s;
+  border-radius: 50%;
+
+}
+
+.prior-skill .icon-box i {
+  font-size: 32px;
+  padding-right: 10px;
+  line-height: 1;
+}
+
+.prior-skill .icon-box h3 {
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 16px;
+  color: #fff;
+}
+
+.prior-skill .icon-box:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+
+
+
+
+
+.projects-slider .swiper-pagination-bullet-active {
+  background: #18d26e;   /* active green dot */
+  transform: scale(1.2);
+}
