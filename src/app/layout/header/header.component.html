@@ -1,16 +1,27 @@
 <header id="header">
   <div class="container">
     <!-- navbar -->
-    <nav id="navbar" class="navbar">
+    <nav id="navbar" class="navbar" [class.navbar-mobile]="isMobileOpen">
       <ul>
-        <li><a class="nav-link" routerLink="/">Home</a></li>
-        <li><a class="nav-link" routerLink="/about">About</a></li>
-        <li><a class="nav-link" routerLink="/resume">Resume</a></li>
-        <li><a class="nav-link" routerLink="/portfolio">Portfolio</a></li>
-        <li><a class="nav-link" routerLink="/contact">Contact</a></li>
+        <li><a class="nav-link" routerLink="/" (click)="closeMenu()">Home</a></li>
+        <li><a class="nav-link" routerLink="/about" (click)="closeMenu()">About</a></li>
+        <li><a class="nav-link" routerLink="/resume" (click)="closeMenu()">Resume</a></li>
+        <li><a class="nav-link" routerLink="/portfolio" (click)="closeMenu()">Portfolio</a></li>
+        <li><a class="nav-link" routerLink="/contact" (click)="closeMenu()">Contact</a></li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
+
+       <div>
+        <a class="nav-link" (click)="logout()">
+          <i class="fa-solid fa-sign-out-alt"></i>
+        </a>
+      </div>
+
+      <i class="fa-solid mobile-nav-toggle" [class.fa-bars]="!isMobileOpen" [class.fa-xmark]="isMobileOpen"
+        (click)="toggleMenu()"></i>
     </nav>
+
+
+
     <!-- navbar end -->
 
 

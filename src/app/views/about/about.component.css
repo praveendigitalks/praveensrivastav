@@ -291,3 +291,23 @@
   transform: scale(1.2);
 }
 
+/* ---------- Responsive slides ---------- */
+
+/* Desktop (default: 3 cards) */
+.projects-slider .swiper-slide {
+  flex: 0 0 33.3333%;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .projects-slider .swiper-slide {
+    flex: 0 0 50%; /* 2 cards */
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .projects-slider .swiper-slide {
+    flex: 0 0 100% !important; /* 1 card */
+  }
+}

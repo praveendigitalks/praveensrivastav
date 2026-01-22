@@ -20,19 +20,22 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   private currentSlideIndex = 0;
   private totalSlides = 0;
 
-  ngAfterViewInit(): void {
-    this.initSkillsAnimation();
-    this.initCountsAnimation();
-    this.initProjectsSlider();
-  }
+ ngAfterViewInit(): void {
+  this.initSkillsAnimation();
+  this.initCountsAnimation();
+  this.initProjectsSlider();
+  window.addEventListener('resize', this.onResize);
+}
 
-  ngOnDestroy(): void {
-    this.skillsObserver?.disconnect();
-    this.countsObserver?.disconnect();
-    if (this.sliderIntervalId) {
-      window.clearInterval(this.sliderIntervalId);
-    }
+ngOnDestroy(): void {
+  this.skillsObserver?.disconnect();
+  this.countsObserver?.disconnect();
+  if (this.sliderIntervalId) {
+    window.clearInterval(this.sliderIntervalId);
   }
+  window.removeEventListener('resize', this.onResize);
+}
+
 
   /* ---------- Skills ---------- */
   private initSkillsAnimation(): void {
@@ -130,7 +133,9 @@ private initProjectsSlider(): void {
   ) as NodeListOf<HTMLElement>;
   if (!wrapper || !slides.length) return;
 
-  const slidesPerView = 3;
+  // const slidesPerView = 3;
+  const slidesPerView = this.getSlidesPerView();
+
   const totalSlides = slides.length;
   const totalPages = Math.ceil(totalSlides / slidesPerView);
 
@@ -192,6 +197,24 @@ private updateSliderPages(
     });
   }
 }
+
+private onResize = () => {
+  this.initProjectsSlider();
+};
+
+
+private getSlidesPerView(): number {
+  const width = window.innerWidth;
+
+  if (width <= 576) {
+    return 1; // mobile
+  }
+  if (width <= 991) {
+    return 2; // tablet
+  }
+  return 3; // desktop
+}
+
 
 private resetAutoplayPages(
   wrapper: HTMLElement,

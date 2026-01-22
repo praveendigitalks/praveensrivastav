@@ -12,25 +12,32 @@
     </h2>
 
     <!-- navbar -->
-    <nav id="navbar" class="navbar">
+    <nav id="navbar" class="navbar" [class.navbar-mobile]="isMobileOpen">
       <ul>
-        <li><a class="nav-link active" href="#">Home</a></li>
-        <li><a class="nav-link" routerLink="/about">About</a></li>
-        <li><a class="nav-link" routerLink="/resume">Resume</a></li>
-        <li><a class="nav-link" routerLink="/portfolio">Portfolio</a></li>
-        <li><a class="nav-link" routerLink="/contact">Contact</a></li>
+        <li><a class="nav-link" routerLink="/" (click)="closeMenu()">Home</a></li>
+        <li><a class="nav-link" routerLink="/about" (click)="closeMenu()">About</a></li>
+        <li><a class="nav-link" routerLink="/resume" (click)="closeMenu()">Resume</a></li>
+        <li><a class="nav-link" routerLink="/portfolio" (click)="closeMenu()">Portfolio</a></li>
+        <li><a class="nav-link" routerLink="/contact" (click)="closeMenu()">Contact</a></li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
+
+
+
+      <i class="fa-solid mobile-nav-toggle" [class.fa-bars]="!isMobileOpen" [class.fa-xmark]="isMobileOpen"
+        (click)="toggleMenu()"></i>
     </nav>
     <!-- navbar end -->
-
     <div class="social-links">
       <a href="https://github.com/praveensrivastav3j" class="github"><i class="fa-brands fa-github"></i></a>
       <!-- <a href="https://www.instagram.com/_praveensrivastav_/" class="instagram"><i class="bi bi-instagram"></i></a> -->
       <a href="mailto:praveensrivatav3july@zohomail.in" class="mail"><i class="fa-solid fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/srivastav-praveen-754846160/" class="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.linkedin.com/in/srivastav-praveen-754846160/" class="linkedin"><i
+          class="fa-brands fa-linkedin"></i></a>
     </div>
 
+    <p class="my-4"><u>
+
+      </u><a href="/login"> Are you Admin ?</a></p>
   </div>
 </header>
 <!-- End Header -->

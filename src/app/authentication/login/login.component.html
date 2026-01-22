@@ -1,0 +1,34 @@
+<div class="logcontainer">
+  <div class="login-box">
+    <!-- <img src="DigiLogocropped-removebg-preview 1.png" alt="Catalyst Logo" class="logo" /> -->
+
+    <div class="logo-container">
+      <div class="logo">
+        <img src="/favicon.jpeg" height="60" width="60" alt="" class="logo-image"(error)="onLogoError($event)" />
+      </div>
+    </div>
+
+    <p class="subtitle">Are You Admin?</p>
+
+    <form [formGroup]="onLogin" (ngSubmit)="Login()">
+      <input type="text" placeholder="Username" formControlName="username" class="input-field"
+        autocomplete="username" />
+
+      <input type="password" placeholder="Password" formControlName="password" class="input-field"
+        autocomplete="current-password" />
+
+      <!-- <select
+        formControlName="loginType"
+        class="input-field"
+      >
+        <option value="branch">Branch Admin</option>
+        <option value="user">Branch User</option>
+        <option value="superadmin">Digitalks</option>
+      </select> -->
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <p class="support-text"> All Rights Reserved © {{ currentYear }} <br> Praveen Srivastav  </p>
+  </div>
+</div>

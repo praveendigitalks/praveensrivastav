@@ -64,4 +64,15 @@ export class HomeComponent implements AfterViewInit {
       setTimeout(() => this.type(), this.deletingSpeed);
     }
   }
+
+
+    isMobileOpen = false;
+
+  toggleMenu() {
+    this.isMobileOpen = !this.isMobileOpen;
+  }
+
+  closeMenu() {
+    this.isMobileOpen = false;
+  }
 }
