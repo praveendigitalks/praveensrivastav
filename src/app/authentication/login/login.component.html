@@ -4,14 +4,14 @@
 
     <div class="logo-container">
       <div class="logo">
-        <img src="/favicon.jpeg" height="60" width="60" alt="" class="logo-image"(error)="onLogoError($event)" />
+        <img src="/favicon.jpeg" height="60" width="60" alt="" class="logo-image" />
       </div>
     </div>
 
     <p class="subtitle">Are You Admin?</p>
 
     <form [formGroup]="onLogin" (ngSubmit)="Login()">
-      <input type="text" placeholder="Username" formControlName="username" class="input-field"
+      <input type="text" placeholder="Username" formControlName="userName" class="input-field"
         autocomplete="username" />
 
       <input type="password" placeholder="Password" formControlName="password" class="input-field"
