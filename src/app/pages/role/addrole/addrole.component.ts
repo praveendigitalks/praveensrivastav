@@ -22,14 +22,7 @@ export class AddroleComponent {
 
   ngOnInit(){
 
-   this.checkPermission()
-  }
 
-  checkPermission(){
-     if(!this.authService.hasActionPermission(MODULE.ABOUT, ACTIONS.CREATE)){
-      alert("You Are Not Authorized!")
-      this.router.navigateByUrl('/about')
-    }
   }
 
   OnSubmit(){}
