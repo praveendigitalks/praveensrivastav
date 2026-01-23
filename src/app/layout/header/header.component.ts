@@ -11,11 +11,11 @@ import { AuthService } from '../../authentication/authservice/auth.service';
 })
 export class HeaderComponent {
 
-  isLogin=false
+  isLogin = false
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) {}
+  ) { }
   ngOnInit() {
     this.Isloggin();
   }
@@ -29,13 +29,28 @@ export class HeaderComponent {
     this.isMobileOpen = false;
   }
 
+
   logout() {
-    localStorage.removeItem('profileToken');
-    localStorage.removeItem('profileUser');
-    this.router.navigateByUrl('/');
+    const deviceId = localStorage.getItem('deviceId');
+      
+    this.authService.postLogout(deviceId!).subscribe({
+      next: () => {
+        localStorage.removeItem('profileToken');
+        localStorage.removeItem('profileUser');
+        localStorage.removeItem('loggedDevices');
+        // ❌ DO NOT remove deviceId
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
+
+
+
   Isloggin() {
-   this.isLogin = this.authService.isLoggedIn()
+    this.isLogin = this.authService.isLoggedIn()
   }
 }

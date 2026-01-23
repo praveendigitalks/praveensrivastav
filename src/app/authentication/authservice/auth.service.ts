@@ -6,13 +6,20 @@ import { environment } from '../../../../environment/enviornment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loginurl = `${environment.baseurl}/login`;
 
   postLogin(userdata: any) {
     return this.http.post(`${this.loginurl}`, userdata);
   }
+
+  postLogout(deviceId: string) {
+    return this.http.post(`${this.loginurl}/logout`, {
+      deviceId: deviceId
+    });
+  }
+
 
   getToken(): string | null {
     return localStorage.getItem('profileToken');

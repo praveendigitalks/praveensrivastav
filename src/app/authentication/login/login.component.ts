@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../authservice/auth.service';
+import { getDeviceId, getDeviceInfo } from '../../components/device';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router : Router,
+    private router: Router,
   ) {
     this.onLogin = fb.group({
       userName: ['', Validators.required],
@@ -43,34 +44,39 @@ export class LoginComponent {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   Login() {
-    if (this.onLogin.invalid) {
-      console.log('Please the Form Correctly');
-    }
+    if (this.onLogin.invalid) return;
+
+    const deviceInfo = getDeviceInfo();
 
     const payload = {
       userName: this.onLogin.value.userName,
       password: this.onLogin.value.password,
+
+      deviceId: getDeviceId(),        // ✅ string
+      deviceInfo: deviceInfo,         // ✅ full object
     };
 
     this.authService.postLogin(payload).subscribe({
       next: (res: any) => {
-        // console.log(res, 'response');
         if (res.token) {
           localStorage.setItem('profileToken', res.token);
-           localStorage.setItem('profileUser', JSON.stringify(res.user));
-           this.router.navigateByUrl('/')
+          localStorage.setItem('profileUser', JSON.stringify(res.user));
+
+          // 👇 STORE DEVICES LIST (important)
+          localStorage.setItem('loggedDevices', JSON.stringify(res.devices));
+
+          this.router.navigateByUrl('/');
         }
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: (err) => console.log(err),
     });
   }
 
-   getUser(): any {
+
+  getUser(): any {
     const userStr = localStorage.getItem('profileUser');
     console.log("🚀 ~ AuthService ~ getUser ~ userStr:", userStr)
 
