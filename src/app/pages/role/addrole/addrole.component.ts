@@ -1,0 +1,37 @@
+import { Component } from '@angular/core';
+import { SHARED_IMPORTS } from '../../../components/sharedImport';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from '../../../authentication/authservice/auth.service';
+import { MODULE } from '../../../components/module';
+import { ACTIONS } from '../../../components/permission';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-addrole',
+  imports: [SHARED_IMPORTS],
+  templateUrl: './addrole.component.html',
+  styleUrl: './addrole.component.css'
+})
+export class AddroleComponent {
+
+  roleForm : FormGroup;
+
+  constructor( private fb : FormBuilder, private authService : AuthService, private router : Router){
+    this.roleForm = this.fb.group({})
+  }
+
+  ngOnInit(){
+
+   this.checkPermission()
+  }
+
+  checkPermission(){
+     if(!this.authService.hasActionPermission(MODULE.ABOUT, ACTIONS.CREATE)){
+      alert("You Are Not Authorized!")
+      this.router.navigateByUrl('/about')
+    }
+  }
+
+  OnSubmit(){}
+
+}

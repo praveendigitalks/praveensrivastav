@@ -1,17 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink } from "@angular/router";
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { AuthService } from '../../authentication/authservice/auth.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
 
-  constructor(private router: Router){}
-
-    isMobileOpen = false;
+  isLogin=false
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
+  ngOnInit() {
+    this.Isloggin();
+  }
+  isMobileOpen = false;
 
   toggleMenu() {
     this.isMobileOpen = !this.isMobileOpen;
@@ -21,8 +29,13 @@ export class HeaderComponent {
     this.isMobileOpen = false;
   }
 
-  logout(){
-   this.router.navigateByUrl('/login')
+  logout() {
+    localStorage.removeItem('profileToken');
+    localStorage.removeItem('profileUser');
+    this.router.navigateByUrl('/');
   }
 
+  Isloggin() {
+   this.isLogin = this.authService.isLoggedIn()
+  }
 }

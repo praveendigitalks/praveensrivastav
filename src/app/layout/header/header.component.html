@@ -8,10 +8,14 @@
         <li><a class="nav-link" routerLink="/resume" (click)="closeMenu()">Resume</a></li>
         <li><a class="nav-link" routerLink="/portfolio" (click)="closeMenu()">Portfolio</a></li>
         <li><a class="nav-link" routerLink="/contact" (click)="closeMenu()">Contact</a></li>
+
+        <li *ngIf="isLogin"><a class="nav-link" routerLink="/user" (click)="closeMenu()">User</a></li>
+        <li *ngIf="isLogin"><a class="nav-link" routerLink="/role" (click)="closeMenu()">Role</a></li>
+        <li *ngIf="isLogin"><a class="nav-link" routerLink="/permisison" (click)="closeMenu()">Permission</a></li>
       </ul>
 
        <div>
-        <a class="nav-link" (click)="logout()">
+        <a class="nav-link" (click)="logout()" *ngIf="isLogin">
           <i class="fa-solid fa-sign-out-alt"></i>
         </a>
       </div>

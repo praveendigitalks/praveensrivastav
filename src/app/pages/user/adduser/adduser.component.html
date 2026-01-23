@@ -1,0 +1,43 @@
+<!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact section-show">
+    <div class="container">
+
+      <div class="section-title">
+        <h2 routerLink="/user">user List</h2>
+        <p>Add User</p>
+      </div>
+
+
+      <form (ngSubmit)="OnSubmit()" [formGroup]="userForm" class="php-email-form mt-4">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <input type="text" name="userName" class="form-control" formControlName="userName" id="userName" placeholder="userName" required>
+          </div>
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            <input type="text" class="form-control" name="role" id="role" placeholder="role" formControlName="role" required>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6 form-group">
+          <input type="number" class="form-control" name="age" id="age" placeholder="age" formControlName="age" required>
+          </div>
+          <div class="col-md-6 form-group">
+          <input type="number" class="form-control" name="contact_no" id="contact_no" placeholder="contact_no" formControlName="contact_no" required>
+          </div>
+        </div>
+
+        <div class="form-group mt-3">
+          <input type="password" class="form-control" name="password" id="password" placeholder="password" formControlName="password" required>
+        </div>
+        <!-- <div class="my-3">
+          <div class="loading">Loading</div>
+          <div class="error-message"></div>
+          <div class="sent-message">Your message has been sent. Thank you!</div>
+        </div> -->
+        <div class="text-center my-3"><button type="submit">Create User</button></div>
+      </form>
+
+
+    </div>
+  </section><!-- End Contact Section -->
+

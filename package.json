@@ -23,7 +23,9 @@
     "glightbox": "^3.3.1",
     "isotope-layout": "^3.0.6",
     "rxjs": "~7.8.0",
+    "swal": "^0.1.0",
     "swiper": "^12.0.3",
+    "swirl": "^3.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

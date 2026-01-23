@@ -6,18 +6,19 @@
 }
 
 .login-box {
-  background: #ffffff;
+  /* background: #ffffff; */
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
   text-align: center;
   width: 320px;
+  background-color: rgba(177, 161, 161, 0.3);
 }
 
 
 .subtitle {
   font-size: 14px;
-  color: #555;
+  color: #e0d9d9;
   margin-bottom: 20px;
 }
 

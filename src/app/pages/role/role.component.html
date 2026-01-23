@@ -1,0 +1,57 @@
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact section-show">
+  <div class="container">
+    <i class="fa-solid fa-plus mx-3" routerLink="/adduser"></i>
+    <div class="section-title">
+      <h2 routerLink="/addrole">Roles</h2>
+      <p>List of Roles</p>
+    </div>
+
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Role</th>
+          <th>Module Pemission</th>
+          <th>Module RIGHTS</th>
+          <!-- <th>Phone</th>
+          <th>Role</th>-->
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roleData; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ role.roleName }}</td>
+          <td>{{ role?.permission?.module }}</td>
+          <td>
+            <span *ngFor="let action of role?.permission?.actions; let last = last">
+              {{ action }}<span *ngIf="!last">, </span>
+            </span>
+          </td>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <!-- <button
+                          class="btn btn-outline-primary"
+
+                          title="View Details"
+                        > -->
+              <i class="fas fa-eye"></i>
+              <i class="fas fa-pencil mx-3"></i>
+              <i class="fa-solid fa-trash"></i>
+              <!-- </button> -->
+              <!-- <button
+                          class="btn btn-outline-success"
+                          (click)="printRecord(record)"
+                          title="Print"
+                        >
+                          <i class="fas fa-print"></i>
+                        </button> -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- End Contact Section -->

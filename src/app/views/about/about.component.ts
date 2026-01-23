@@ -1,24 +1,39 @@
+import { AuthService } from './../../authentication/authservice/auth.service';
 import {
   Component,
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SHARED_IMPORTS } from '../../components/sharedImport';
+import { MODULE } from '../../components/module';
+import { ACTIONS } from '../../components/permission';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [MatProgressBarModule],
+  imports: [MatProgressBarModule, SHARED_IMPORTS],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })
 export class AboutComponent implements AfterViewInit, OnDestroy {
+  isLogin = false
+  constructor(private authService : AuthService){}
+
+  ngOnInit(){
+    this.isLogin = this.authService.isLoggedIn();
+
+    // this.authService.hasActionPermission(MODULE.ABOUT,ACTIONS.CREATE)
+  }
+
 
   private skillsObserver?: IntersectionObserver;
   private countsObserver?: IntersectionObserver;
   private sliderIntervalId?: number;
   private currentSlideIndex = 0;
   private totalSlides = 0;
+
+
 
  ngAfterViewInit(): void {
   this.initSkillsAnimation();

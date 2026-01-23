@@ -1,15 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../authentication/authservice/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit {
-
+ isLogin = false
   roles = [
     'MEAN Stack Developer',
     'MERN Stack Developer',
@@ -74,5 +76,10 @@ export class HomeComponent implements AfterViewInit {
 
   closeMenu() {
     this.isMobileOpen = false;
+  }
+
+ constructor(private authService : AuthService){}
+  ngOnInit(){
+  this.isLogin = this.authService.isLoggedIn()
   }
 }

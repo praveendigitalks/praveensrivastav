@@ -1,3 +1,4 @@
+import { authGuard } from './authentication/authguard/auth.guard';
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
 
@@ -16,6 +17,12 @@ export const routes: Routes = [
         path: 'about',
         loadComponent: () =>
           import('./views/about/about.component').then((m) => m.AboutComponent),
+      },
+      {
+        path: 'addabout',
+        canActivate : [authGuard],
+        loadComponent: () =>
+          import('./views/about/addabout/addabout.component').then((m) => m.AddaboutComponent),
       },
       {
         path: 'resume',
@@ -37,6 +44,26 @@ export const routes: Routes = [
           import('./views/contact/contact.component').then(
             (m) => m.ContactComponent,
           ),
+      },
+      {
+        path : 'user',
+        canActivate : [authGuard],
+        loadComponent: () => import('./pages/user/user.component').then(m => m.UserComponent)
+      },
+      {
+        path : 'adduser',
+        canActivate : [authGuard],
+        loadComponent: () => import('./pages/user/adduser/adduser.component').then(m => m.AdduserComponent)
+      },
+      {
+        path : 'role',
+        canActivate : [authGuard],
+        loadComponent: () => import('./pages/role/role.component').then(m => m.RoleComponent)
+      },
+      {
+        path : 'addrole',
+        canActivate : [authGuard],
+        loadComponent: () => import('./pages/role/addrole/addrole.component').then(m => m.AddroleComponent)
       },
     ],
   },
