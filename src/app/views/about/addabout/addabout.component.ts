@@ -5,6 +5,7 @@ import { MODULE } from '../../../components/module';
 import { ACTIONS } from '../../../components/permission';
 import { SHARED_IMPORTS } from '../../../components/sharedImport';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AboutService } from '../aboutservice/about.service';
 
 @Component({
   selector: 'app-addabout',
@@ -14,11 +15,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddaboutComponent {
   aboutForm: FormGroup;
+  imageBase64: string | null = null;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private aboutService: AboutService
   ) {
     this.aboutForm = this.fb.group({
       position: ['', Validators.required],
@@ -29,7 +32,7 @@ export class AddaboutComponent {
       state: [''],
       country: [''],
       degree: [''],
-      email: [''],
+      email: ['']
     });
   }
 
@@ -40,7 +43,39 @@ export class AddaboutComponent {
     }
   }
 
-  OnSubmit() {}
+OnSubmit() {
+  if (this.aboutForm.invalid || !this.selectedFile) {
+    alert('Form or image missing');
+    return;
+  }
+
+  const formData = new FormData();
+
+  formData.append('position', this.aboutForm.value.position);
+  formData.append('description', this.aboutForm.value.description);
+  formData.append('dob', this.aboutForm.value.dob);
+  formData.append('phone', this.aboutForm.value.phone);
+  formData.append('city', this.aboutForm.value.city);
+  formData.append('state', this.aboutForm.value.state);
+  formData.append('country', this.aboutForm.value.country);
+  formData.append('degree', this.aboutForm.value.degree);
+  formData.append('email', this.aboutForm.value.email);
+
+  // 🔥 THIS IS THE KEY LINE
+  formData.append('image', this.selectedFile);
+
+  this.aboutService.postAbout(formData).subscribe({
+    next: () => {
+      this.aboutForm.reset();
+      this.selectedFile = null;
+      this.previewUrl = null;
+      this.router.navigateByUrl('/about');
+    },
+    error: err => console.error(err)
+  });
+}
+
+
 
   // image uplaod
 
@@ -53,37 +88,40 @@ export class AddaboutComponent {
     fileInput?.click();
   }
 
-
-
-   onDragOver(event: any) {
+  onDragOver(event: any) {
     event.preventDefault();
   }
 
-
-
   previewUrl: string | null = null;
 
-onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
-  this.aboutForm.patchValue({ file: this.selectedFile });
+ onFileSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (!input.files || !input.files[0]) return;
 
-  if (this.selectedFile) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => this.previewUrl = e.target.result;
-    reader.readAsDataURL(this.selectedFile);
-  }
+  this.selectedFile = input.files[0];
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    this.previewUrl = reader.result as string;
+  };
+  reader.readAsDataURL(this.selectedFile);
 }
 
-onDrop(event: any) {
+ onDrop(event: DragEvent): void {
   event.preventDefault();
+  if (!event.dataTransfer?.files.length) return;
+
   const file = event.dataTransfer.files[0];
-  if (file.type.startsWith('image/')) {
-    this.selectedFile = file;
-    this.aboutForm.patchValue({ file: this.selectedFile });
-    const reader = new FileReader();
-    reader.onload = (e: any) => this.previewUrl = e.target.result;
-    reader.readAsDataURL(file);
-  }
+  if (!file.type.startsWith('image/')) return;
+
+  this.selectedFile = file;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    this.imageBase64 = reader.result as string;
+    this.previewUrl = this.imageBase64;
+  };
+  reader.readAsDataURL(file);
 }
 
 }

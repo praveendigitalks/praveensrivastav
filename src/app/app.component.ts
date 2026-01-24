@@ -9,4 +9,11 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'praveensrivastva';
+
+  ngOnInit() {
+  if (!localStorage.getItem('deviceId')) {
+    localStorage.setItem('deviceId', crypto.randomUUID());
+  }
+}
+
 }

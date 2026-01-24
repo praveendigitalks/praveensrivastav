@@ -67,6 +67,7 @@ export const routes: Routes = [
       },
       {
         path:'profile/loggeddevices',
+        canActivate : [authGuard],
         loadComponent : () => import("./pages/profile/loggeddevices/loggeddevices.component").then( m => m.LoggeddevicesComponent)
       }
     ],

@@ -3,42 +3,43 @@
 
   <!-- ======= About Me ======= -->
   <div class="about-me container">
-    <i class="fa-solid fa-plus" *ngIf="isLogin"  routerLink="/addabout"></i>
+    <i class="fa-solid fa-plus" *ngIf="isLogin" routerLink="/addabout"></i>
     <div class="section-title">
       <h2>About</h2>
       <p>Learn more about me</p>
     </div>
 
-    <div class="row">
+    <div class="row" *ngFor="let about of aboutData">
       <div class="col-lg-4" data-aos="fade-right">
-        <img src="/favicon.jpeg" class="img-fluid" alt="">
+        <!-- <img [src]="about.image" class="img-fluid" alt="profile image"> -->
+        <img [src]="'http://localhost:5000' + about.image" class="img-fluid" />
+
+
       </div>
       <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
         <!-- <h3>MEAN Stack,MERN Stack , Next Js &amp; Laravel Developer</h3> -->
-        <h3>Executive Full Stack Developer</h3>
+        <h3>{{about.position}}</h3>
         <p class="fst-italic">
-          Full-stack developer with 1.5 years at Digitalks Techno L.L.P,which is Client Based Company,getting
-          experience in MEAN, MERN, and Next.js, & been
-          Project Team Lead for HIMS Phase 1
+          {{about.description}}
         </p>
-        <p class="fst-italic">
+        <!-- <p class="fst-italic">
           <i class="bi bi-chevron-right"></i> Worked as Laravel Developer for 9 months at Trezix Software Pvt.
           Ltd,which is a Product Base Company.
-        </p>
+        </p> -->
         <div class="row">
           <div class="col-lg-6">
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>3 July 2000</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+91 7016225515</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Surat,Gujarat,India</span></li>
+              <li><i class="bi bi-chevron-right"></i><strong>Birthday:</strong><span>{{ about.dob | date:'d MMMM yyyy'
+                  }}</span></li>
+              <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>{{about.phone}}</span></li>
+              <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>{{about.city}}</span></li>
             </ul>
           </div>
           <div class="col-lg-6">
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Bachelor's in Mechanical
-                  Engineering </span></li>
+              <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>{{about.degree}} </span></li>
               <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong>
-                <span>praveensrivastav3julyzohomail.in</span>
+                <span>{{about.email}}</span>
               </li>
             </ul>
           </div>

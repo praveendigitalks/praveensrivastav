@@ -12,7 +12,7 @@ import { getDeviceId, getDeviceInfo } from '../../components/device';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

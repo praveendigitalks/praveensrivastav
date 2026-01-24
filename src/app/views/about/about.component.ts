@@ -8,6 +8,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SHARED_IMPORTS } from '../../components/sharedImport';
 import { MODULE } from '../../components/module';
 import { ACTIONS } from '../../components/permission';
+import { AboutService } from './aboutservice/about.service';
 
 @Component({
   selector: 'app-about',
@@ -17,15 +18,28 @@ import { ACTIONS } from '../../components/permission';
   styleUrl: './about.component.css'
 })
 export class AboutComponent implements AfterViewInit, OnDestroy {
-  isLogin = false
-  constructor(private authService : AuthService){}
+  isLogin = false;
+  aboutData : any = [];
+  constructor(private authService : AuthService, private aboutService : AboutService){};
 
   ngOnInit(){
     this.isLogin = this.authService.isLoggedIn();
-
+    this.loadAbout()
     // this.authService.hasActionPermission(MODULE.ABOUT,ACTIONS.CREATE)
-  }
+  };
 
+
+  loadAbout(){
+   this.aboutService.getAbout().subscribe({
+    next: (res) =>{
+      console.log("🚀 ~ AboutComponent ~ loadAbout ~ res:", res)
+      this.aboutData = res;
+    }, error : (err) =>{
+      console.log("🚀 ~ AboutComponent ~ loadAbout ~ err:", err)
+
+    }
+   })
+  };
 
   private skillsObserver?: IntersectionObserver;
   private countsObserver?: IntersectionObserver;

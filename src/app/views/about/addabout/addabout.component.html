@@ -14,10 +14,10 @@
         <div class="col-lg-4" data-aos="fade-right">
           <div class="profile-upload-circle" (click)="triggerFileInput()" (dragover)="onDragOver($event)"
             (drop)="onDrop($event)" [class.has-image]="selectedFile">
-            <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*" />
+            <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*"  />
 
             <!-- Preview Image -->
-            <img [src]="previewUrl || '/favicon.jpeg'" class="preview-image" alt="Profile Preview" *ngIf="selectedFile">
+            <img [src]="previewUrl || '/favicon.jpeg'" class="preview-image" alt="Profile Preview" *ngIf="selectedFile" >
 
             <!-- No Image: Plus Icon -->
             <div class="no-image-content" *ngIf="!selectedFile">
