@@ -1,4 +1,29 @@
 <div class="logcontainer">
+
+
+  @if(errormessage){
+  <div class="error-overlay">
+    <a href="/login">
+    <div class="letter-image">
+      <div class="animated-mail">
+        <div class="back-fold"></div>
+        <div class="letter">
+          <div class="letter-border"></div>
+          <div class="letter-title">{{ errormessage}}</div>
+          <p class="letter-context">Please Logout from other devices & try Loggin again !</p>
+          <span class="letter-stamp"><i class="fa-solid fa-laptop"></i></span>
+        </div>
+        <div class="top-fold"></div>
+        <div class="body"></div>
+        <div class="left-fold"></div>
+      </div>
+
+      <div class="shadow"></div>
+    </div>
+    </a>
+
+  </div>
+  }@else{
   <div class="login-box">
     <!-- <img src="DigiLogocropped-removebg-preview 1.png" alt="Catalyst Logo" class="logo" /> -->
 
@@ -29,6 +54,8 @@
       <button type="submit" class="login-btn">Login</button>
     </form>
 
-    <p class="support-text"> All Rights Reserved © {{ currentYear }} <br> Praveen Srivastav  </p>
+    <p class="support-text"> All Rights Reserved © {{ currentYear }} <br> Praveen Srivastav </p>
   </div>
+  }
+
 </div>

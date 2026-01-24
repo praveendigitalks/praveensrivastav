@@ -65,6 +65,10 @@ export const routes: Routes = [
         canActivate : [authGuard],
         loadComponent: () => import('./pages/role/addrole/addrole.component').then(m => m.AddroleComponent)
       },
+      {
+        path:'profile/loggeddevices',
+        loadComponent : () => import("./pages/profile/loggeddevices/loggeddevices.component").then( m => m.LoggeddevicesComponent)
+      }
     ],
   },
 

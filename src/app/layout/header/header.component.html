@@ -12,12 +12,14 @@
         <li *ngIf="isLogin"><a class="nav-link" routerLink="/user" (click)="closeMenu()">User</a></li>
         <li *ngIf="isLogin"><a class="nav-link" routerLink="/role" (click)="closeMenu()">Role</a></li>
         <li *ngIf="isLogin"><a class="nav-link" routerLink="/permisison" (click)="closeMenu()">Permission</a></li>
-      </ul>
+        <li *ngIf="isLogin"><a class="nav-link" routerLink="/profile/loggeddevices" (click)="closeMenu()">Log Devices</a></li>
 
-       <div>
         <a class="nav-link" (click)="logout()" *ngIf="isLogin">
           <i class="fa-solid fa-sign-out-alt"></i>
         </a>
+      </ul>
+
+       <div>
       </div>
 
       <i class="fa-solid mobile-nav-toggle" [class.fa-bars]="!isMobileOpen" [class.fa-xmark]="isMobileOpen"

@@ -6,7 +6,7 @@ import { environment } from '../../../../environment/enviornment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   loginurl = `${environment.baseurl}/login`;
 
@@ -14,12 +14,12 @@ export class AuthService {
     return this.http.post(`${this.loginurl}`, userdata);
   }
 
-  postLogout(deviceId: string) {
+  postLogout(userId: string, deviceId: string) {
     return this.http.post(`${this.loginurl}/logout`, {
-      deviceId: deviceId
+      userId: userId,
+      deviceId: deviceId,
     });
   }
-
 
   getToken(): string | null {
     return localStorage.getItem('profileToken');
@@ -29,6 +29,11 @@ export class AuthService {
     console.log('🚀 ~ AuthService ~ getUser ~ userStr:', userStr);
 
     return userStr ? JSON.parse(userStr) : null;
+  }
+
+  getuserId(): string | null {
+    const user = this.getUser();
+    return user?._id ?? null;
   }
   // getUserRole(): any {
   //   const token = localStorage.getItem('profileToken');

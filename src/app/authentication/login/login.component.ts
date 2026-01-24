@@ -6,20 +6,20 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../authservice/auth.service';
 import { getDeviceId, getDeviceInfo } from '../../components/device';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, RouterLink],
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   currentYear = new Date().getFullYear();
-
+ errormessage : string ='';
   onLogin: FormGroup;
 
   constructor(
@@ -71,7 +71,11 @@ export class LoginComponent {
           this.router.navigateByUrl('/');
         }
       },
-      error: (err) => console.log(err),
+      error: (err) =>{
+        this.errormessage = err.error.message;
+        console.log(err.error.message);
+      }
+
     });
   }
 

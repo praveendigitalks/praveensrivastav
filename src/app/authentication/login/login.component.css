@@ -15,7 +15,6 @@
   background-color: rgba(177, 161, 161, 0.3);
 }
 
-
 .subtitle {
   font-size: 14px;
   color: #e0d9d9;
@@ -33,13 +32,13 @@
   box-sizing: border-box;
 }
 
-.logo-image{
+.logo-image {
   border-radius: 50%;
 }
 
 .login-btn {
   width: 100%;
-   background-color:  #35e888;;
+  background-color: #35e888;
   color: #fff;
   border: none;
   padding: 12px;
@@ -56,9 +55,191 @@
   text-decoration: none;
 }
 
-
 .support-text {
   font-size: 12px;
   color: #777;
   margin-top: 15px;
+}
+
+/* letter animation */
+/* ================= ERROR OVERLAY ================= */
+.error-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= LETTER CONTAINER ================= */
+.letter-image {
+  width: 420px;
+  height: 300px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* ================= MAIL WRAPPER ================= */
+.animated-mail {
+  position: relative;
+  width: 420px;
+  height: 260px;
+  transition: 0.4s ease;
+  overflow: hidden; /* CRITICAL: hides letter when closed */
+}
+
+/* ================= BOTTOM TRIANGLE ================= */
+.animated-mail .body {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 140px 420px;
+  border-color: transparent transparent #35e888 transparent;
+  z-index: 3;
+}
+
+/* ================= BACK FOLD ================= */
+.animated-mail .back-fold {
+  position: absolute;
+  bottom: 0;
+  width: 420px;
+  height: 140px;
+  background: #35e888;
+  z-index: 1;
+}
+
+/* ================= LEFT FOLD ================= */
+.animated-mail .left-fold {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 70px 0 70px 210px;
+  border-color: transparent transparent transparent #35e888;
+  z-index: 4;
+}
+
+/* ================= TOP FOLD (PERFECT SEAL) ================= */
+.animated-mail .top-fold {
+  position: absolute;
+  top: 120px; /* EXACT alignment with back fold */
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 70px 210px 0 210px;
+  border-color: #35e888 transparent transparent transparent;
+  transform-origin: 50% 0%;
+  transition: transform 0.4s ease;
+  z-index: 6;
+}
+
+/* ================= LETTER (HIDDEN INITIALLY) ================= */
+.animated-mail .letter {
+  position: absolute;
+  left: 20px;
+  bottom: -160px; /* FULLY hidden */
+  width: 380px;
+  height: 140px;
+  background: #ffffff;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 6px;
+  transition: all 0.5s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ================= LETTER BORDER ================= */
+.letter-border {
+  height: 10px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #18d26e,
+    #18d26e 8px,
+    transparent 8px,
+    transparent 18px
+  );
+}
+
+/* ================= LETTER TITLE ================= */
+.letter-title {
+  padding: 14px 16px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #35e888;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* ================= LETTER CONTENT ================= */
+.letter-context {
+  padding: 0 16px 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  line-height: 1.4;
+}
+
+/* ================= LETTER STAMP ================= */
+.letter-stamp {
+  position: absolute;
+  top: 130px;
+  left: 180px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: #18d26e;
+  opacity: 0.3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter-stamp i {
+  font-size: 22px;
+  color: #000; /* optional */
+}
+/* ================= SHADOW ================= */
+.shadow {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  width: 300px;
+  height: 35px;
+  transform: translateX(-50%);
+  transition: 0.4s;
+  border-radius: 100%;
+  background: radial-gradient(
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+/* ================= HOVER OPEN ================= */
+.letter-image:hover .animated-mail {
+  transform: translateY(35px);
+  overflow: hidden;
+
+
+}
+
+.letter-image:hover .animated-mail .top-fold {
+  /* transform: rotateX(180deg); */
+  visibility: hidden;
+}
+
+.letter-image:hover .animated-mail .letter {
+  bottom: 0px;
+  height: 280px;
+}
+
+.letter-image:hover .shadow {
+  width: 240px;
 }

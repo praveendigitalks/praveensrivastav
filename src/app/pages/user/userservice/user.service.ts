@@ -18,4 +18,8 @@ export class UserService {
     postUser(userData : any):Observable<any>{
     return this.http.post(this.Userapis, userData);
   }
+
+  getLogUserDevices(userid : string):Observable<any>{
+    return this.http.get(`${this.Userapis}/logdevices/${userid}`);
+  }
 }
