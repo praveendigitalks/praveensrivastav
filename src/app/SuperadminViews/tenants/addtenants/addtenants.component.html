@@ -1,0 +1,30 @@
+<!-- ======= Tenant Section ======= -->
+<div id="contact" class="contact section-show">
+
+  <div class="superadmin-container">
+    <div class="section-title">
+      <h2 routerLink="/user">Tenant List</h2>
+      <p>Add Tenant</p>
+    </div>
+
+
+    <form (ngSubmit)="OnSubmit()" [formGroup]="tenantForm" class="php-email-form mt-4">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <input type="text" name="tenantName" class="form-control" formControlName="tenantName" id="tenantName"
+            placeholder="tenantName" required>
+        </div>
+        <div class="col-md-6 form-group mt-3 mt-md-0">
+          <input type="text" class="form-control" name="tenantPhoneNo" id="tenantPhoneNo" placeholder="tenantPhoneNo" formControlName="tenantPhoneNo"
+            required>
+        </div>
+      </div>
+
+      <div class="text-center my-3"><button type="submit">Create Tenant</button></div>
+    </form>
+
+  </div>
+
+
+
+</div><!-- End Contact Section -->

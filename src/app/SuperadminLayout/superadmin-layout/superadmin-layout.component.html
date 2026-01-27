@@ -1,0 +1,9 @@
+<!-- <p>superadmin-layout works!</p> -->
+<div class="admin-layout-container" [class.sidebar-collapsed]="isCollapsed">
+ <app-superadmin-sidebar (collapseChange)="onSidebarCollapseChange($event)"></app-superadmin-sidebar>
+
+
+  <main class="main-content">
+  <router-outlet></router-outlet>
+  </main>
+</div>

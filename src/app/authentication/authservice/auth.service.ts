@@ -17,7 +17,7 @@ export class AuthService {
   postLogout(userId: string, deviceId: string) {
     return this.http.post(`${this.loginurl}/logout`, {
       userId: userId,
-      deviceId: deviceId,
+      deviceId: deviceId, 
     });
   }
 

@@ -1,0 +1,78 @@
+<!-- ==>Sidebar -->
+<aside class="sidebar" [ngClass]="{ collapsed: isCollapsed }">
+  <!-- Logo -->
+  <div class="logo-container" routerLink="/superadmin" *ngFor="let about of abouts">
+        <img [src]="'http://localhost:5000' + about.image" class="img-fluid" />
+  </div>
+
+  <!-- Sidebar Nav -->
+  <nav>
+    <ul class="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/tenant">
+          <i class="fa-solid fa-users nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Platform Tenants</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/billingfinance">
+          <i
+            class="fa-solid fa-file-invoice-dollar nav-icon"
+            *ngIf="isCollapsed"
+          ></i>
+          <span class="nav-text">Billing & Management</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/accesscontrol">
+          <i class="fa-solid fa-chart-line nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Usage & Monitoring</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/supportticekting">
+          <i class="fa-solid fa-headset nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Support & Ticketing</span>
+        </a>
+      </li>
+
+
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/hospitalsreports">
+          <i class="fa-solid fa-chart-pie nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Analytics & Reports</span>
+        </a>
+      </li>
+
+
+
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/braodcastingmessage">
+          <i class="fa-solid fa-bullhorn nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Broadcast Messaging</span>
+        </a>
+      </li> -->
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/digitalks" (click)="logout()">
+          <i class="fa-solid fa-sign-out-alt nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">LogOut</span>
+        </a>
+      </li>
+    </ul>
+
+
+  </nav>
+
+  <!-- Sidebar Toggle -->
+  <div class="sidebar-toggle" (click)="toggleCollapse()">
+    <i
+      class="fa-solid"
+      [ngClass]="isCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"
+    ></i>
+  </div>
+</aside>

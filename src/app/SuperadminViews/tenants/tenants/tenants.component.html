@@ -1,0 +1,37 @@
+<!-- ======= Tenants Section ======= -->
+<div id="" class="Contact section-show">
+  <div class="superadmin-container">
+
+    <i class="fa-solid fa-plus mx-3" routerLink="/superadmin/addtenant"></i>
+    <div class="section-title">
+      <h2 routerLink="/adduser">Tenants</h2>
+      <p>List of Tenants</p>
+    </div>
+
+
+
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Subscription</th>
+          <!-- <th>Role</th> -->
+          <th>Action</th>
+        </tr>
+      </thead>
+       <tbody>
+         <tr *ngFor="let tenant of tenants; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{tenant.tenantName}}</td>
+          <td>{{tenant.tenantPhoneNo}}</td>
+          <td>{{tenant?.subscription?.status}}</td>
+          <td><button class="mx-3 btn btn-sucess" >Activate</button> <button class="btn btn-danger">Deactivate</button> </td>
+         </tr>
+       </tbody>
+    </table>
+
+
+  </div>
+</div><!-- End Contact Section -->

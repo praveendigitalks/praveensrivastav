@@ -19,13 +19,13 @@ import { getDeviceId, getDeviceInfo } from '../../components/device';
 })
 export class LoginComponent {
   currentYear = new Date().getFullYear();
- errormessage : string ='';
+  errormessage: string = '';
   onLogin: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {
     this.onLogin = fb.group({
       userName: ['', Validators.required],
@@ -35,16 +35,16 @@ export class LoginComponent {
 
   hasModuleAccess(
     module: string,
-    action: 'read' | 'create' | 'update' | 'delete' = 'read',
+    action: 'read' | 'create' | 'update' | 'delete' = 'read'
   ): boolean {
     const permissions = JSON.parse(localStorage.getItem('permissions') || '[]');
     return permissions.some(
       (perm: any) =>
-        perm.moduleName === module && perm.permissions?.[action] === 1,
+        perm.moduleName === module && perm.permissions?.[action] === 1
     );
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   Login() {
     if (this.onLogin.invalid) return;
@@ -55,36 +55,50 @@ export class LoginComponent {
       userName: this.onLogin.value.userName,
       password: this.onLogin.value.password,
 
-      deviceId: getDeviceId(),        // ✅ string
-      deviceInfo: deviceInfo,         // ✅ full object
+      deviceId: getDeviceId(), // ✅ string
+      deviceInfo: deviceInfo, // ✅ full object
     };
 
     this.authService.postLogin(payload).subscribe({
       next: (res: any) => {
+        // if (res.token) {
+        //   localStorage.setItem('profileToken', res.token);
+        //   localStorage.setItem('profileUser', JSON.stringify(res.user));
+
+        //   // 👇 STORE DEVICES LIST (important)
+        //   localStorage.setItem('loggedDevices', JSON.stringify(res.devices));
+
+        //   this.router.navigateByUrl('/');
+        // }
+
         if (res.token) {
           localStorage.setItem('profileToken', res.token);
           localStorage.setItem('profileUser', JSON.stringify(res.user));
 
-          // 👇 STORE DEVICES LIST (important)
-          localStorage.setItem('loggedDevices', JSON.stringify(res.devices));
+          if (!res.user.isSuperAdmin) {
+            localStorage.setItem('loggedDevices', JSON.stringify(res.devices));
+            localStorage.setItem('deviceId', getDeviceId()); // 👈 only for normal users
+          }
 
-          this.router.navigateByUrl('/');
+          // 🔀 Redirect
+          if (res.user.isSuperAdmin) {
+            this.router.navigateByUrl('/superadmin');
+          } else {
+            this.router.navigateByUrl('/');
+          }
         }
       },
-      error: (err) =>{
+      error: (err) => {
         this.errormessage = err.error.message;
         console.log(err.error.message);
-      }
-
+      },
     });
   }
 
-
   getUser(): any {
     const userStr = localStorage.getItem('profileUser');
-    console.log("🚀 ~ AuthService ~ getUser ~ userStr:", userStr)
+    console.log('🚀 ~ AuthService ~ getUser ~ userStr:', userStr);
 
     return userStr ? JSON.parse(userStr) : null;
-
   }
 }
