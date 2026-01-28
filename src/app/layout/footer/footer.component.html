@@ -1,0 +1,19 @@
+<!-- ======= Contact Section ======= -->
+<div id="contact" class="subscription section-show ">
+  <!-- <div class="container"> -->
+
+ <!-- <div class="section-title"> -->
+  <div class="d-flex">
+   <h2 class="me-3">Subscription</h2>
+
+   <button class="btn btn-sm btn-success" (click)="tryme()" [routerLink]="['/subscriptionplan']">See Plans</button>
+ </div>
+
+   <p>Package: {{ tenantData?.subscription?.status }}</p>
+   <p>Expires At: {{ tenantData?.subscription?.expiresAt | date }}</p>
+  <!-- </div> -->
+
+
+
+  <!-- </div> -->
+</div><!-- End Contact Section -->

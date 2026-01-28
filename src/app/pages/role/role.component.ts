@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { RoleService } from './roleservice/role.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../authentication/authservice/auth.service';
+import { MODULE } from '../../components/module';
+import { ACTIONS } from '../../components/permission';
 
 @Component({
   selector: 'app-role',
@@ -12,9 +15,16 @@ import { RouterModule } from '@angular/router';
 export class RoleComponent {
   roleData: any = [];
 
-  constructor(private roleService: RoleService) {}
+  constructor(private roleService: RoleService, private authService : AuthService, private router : Router) {}
 
   ngOnInit() {
+
+    if(!this.authService.hasActionPermission(MODULE.ROLE, ACTIONS.READ)){
+      alert("Your are not Authorized to Acess this Module");
+      this.router.navigateByUrl("/");
+
+    }
+
     this.loadRole();
   }
   loadRole() {

@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environment/enviornment';
-
+interface Permission {
+  module: string;
+  actions: string[];
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +20,7 @@ export class AuthService {
   postLogout(userId: string, deviceId: string) {
     return this.http.post(`${this.loginurl}/logout`, {
       userId: userId,
-      deviceId: deviceId, 
+      deviceId: deviceId,
     });
   }
 
@@ -26,7 +29,7 @@ export class AuthService {
   }
   getUser(): any {
     const userStr = localStorage.getItem('profileUser');
-    console.log('🚀 ~ AuthService ~ getUser ~ userStr:', userStr);
+    // console.log('🚀 ~ AuthService ~ getUser ~ userStr:', userStr);
 
     return userStr ? JSON.parse(userStr) : null;
   }
@@ -47,20 +50,42 @@ export class AuthService {
   //     return null;
   //   }
   // }
+  // hasModulePermission(module: string): boolean {
+  //   const user = this.getUser();
+
+  //   return user?.role?.permission?.module === module;
+  // }
+
+  // /** check if user has module + action */
+  // hasActionPermission(module: string, action: string): boolean {
+  //   const permission = this.getUser()?.role?.permission;
+
+  //   return (
+  //     permission?.module === module && permission?.actions?.includes(action)
+  //   );
+  // }
+
   hasModulePermission(module: string): boolean {
     const user = this.getUser();
-
-    return user?.role?.permission?.module === module;
+    return user?.permissions?.some((p: any) => p.module === module) || false;
   }
 
-  /** check if user has module + action */
   hasActionPermission(module: string, action: string): boolean {
-    const permission = this.getUser()?.role?.permission;
+  const user = this.getUser();
+  const perms = user?.role?.permissions;
+  console.log("🚀 ~ AuthService ~ hasActionPermission ~ perms:", perms)
 
-    return (
-      permission?.module === module && permission?.actions?.includes(action)
-    );
-  }
+  // 🔥 Force array conversion
+  const permissionsArray = Array.isArray(perms) ? perms : [];
+  console.log("🚀 ~ AuthService ~ hasActionPermission ~ permissionsArray:", permissionsArray)
+
+  return permissionsArray.some(p =>
+    p.module?.trim() === module.trim() &&
+    Array.isArray(p.actions) &&
+    p.actions.includes(action)
+  );
+}
+
 
   isLoggedIn(): boolean {
     return !!this.getToken();

@@ -23,7 +23,8 @@ export class AddtenantsComponent {
     this.tenantForm = this.fb.group({
       tenantName: ['', Validators.required],
       tenantPhoneNo: ['', Validators.required],
-    }); 
+      email: ['', Validators.required],
+    });
   }
 
   OnSubmit() {

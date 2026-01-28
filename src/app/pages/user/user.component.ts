@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { UserService } from './userservice/user.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterModule } from "@angular/router";
+import { Router, RouterLink, RouterModule } from "@angular/router";
+import { AuthService } from '../../authentication/authservice/auth.service';
+import { MODULE } from '../../components/module';
+import { ACTIONS } from '../../components/permission';
 
 @Component({
   selector: 'app-user',
@@ -11,9 +14,13 @@ import { RouterLink, RouterModule } from "@angular/router";
 })
 export class UserComponent {
   userData: any = [];
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private authService : AuthService, private router : Router) {}
 
   ngOnInit() {
+    if(!this.authService.hasActionPermission(MODULE.USER, ACTIONS.READ)){
+      alert("You are Not Authorized to Access this Module");
+      this.router.navigateByUrl('/');
+    }
     this.loadUsers();
   }
 

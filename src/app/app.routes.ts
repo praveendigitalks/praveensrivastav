@@ -12,6 +12,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'subscriptionplan',
+    loadComponent: () =>
+      import(
+        './pages/subscription plans/subscriptionplans/subscriptionplans.component'
+      ).then((m) => m.SubscriptionplansComponent),
+  },
+
+  {
     path: '',
     component: LayoutComponent,
     children: [
@@ -91,7 +99,7 @@ export const routes: Routes = [
   {
     path: 'superadmin',
     component: SuperadminLayoutComponent,
-    canActivate : [superadminGuard],
+    canActivate: [superadminGuard],
     children: [
       {
         path: '', // Changed from "superadmin"

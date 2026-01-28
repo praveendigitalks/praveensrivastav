@@ -36,7 +36,7 @@ export class LoggeddevicesComponent {
 
     this.userService.getLogUserDevices(userId).subscribe({
       next: (res: any) => {
-        console.log('🚀 ~ LoggeddevicesComponent ~ getLoggedUser ~ res:', res);
+        // console.log('🚀 ~ LoggeddevicesComponent ~ getLoggedUser ~ res:', res);
         this.logUserDevices = res.devices || res;
         this.loading = false;
       },

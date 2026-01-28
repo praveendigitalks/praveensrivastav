@@ -7,6 +7,9 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../userservice/user.service';
 import { SHARED_IMPORTS } from '../../../components/sharedImport';
+import { AuthService } from '../../../authentication/authservice/auth.service';
+import { MODULE } from '../../../components/module';
+import { ACTIONS } from '../../../components/permission';
 
 @Component({
   selector: 'app-adduser',
@@ -17,7 +20,7 @@ import { SHARED_IMPORTS } from '../../../components/sharedImport';
 export class AdduserComponent {
   userForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService : UserService, private router : Router) {
+  constructor(private fb: FormBuilder, private userService : UserService, private router : Router, private authService : AuthService) {
     this.userForm = this.fb.group({
       userName: ['', Validators.required],
       age: [ Validators.required],
@@ -25,6 +28,14 @@ export class AdduserComponent {
       password: ['', Validators.required],
       role: ['', Validators.required],
     });
+  }
+
+  ngOnInit(){
+    if(!this.authService.hasActionPermission(MODULE.USER, ACTIONS.CREATE)){
+      alert("You Are not Authorized to Acess this Mdoule");
+      this.router.navigateByUrl("/user");
+    }
+
   }
 
   OnSubmit() {
