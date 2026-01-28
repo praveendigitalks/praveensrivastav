@@ -186,3 +186,102 @@ section .container {
    background: rgba(0, 0, 0, 0.9);
    padding:  50px;
 }
+
+
+.subscription-banner {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(28, 210, 110, 0.2);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1050;
+  padding: 15px 0;
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .subscription-title {
+    color: #4ceb95;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: "Raleway", sans-serif;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .status-text {
+    font-size: 0.9rem;
+    color: #fff;
+    margin: 0;
+
+    span {
+      font-weight: 500;
+      color: #18d26e;
+    }
+  }
+
+  .expiry-text {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin: 0;
+
+    span {
+      font-weight: 500;
+      color: #fff;
+    }
+  }
+
+  .subscription-btn {
+    background: linear-gradient(135deg, #18d26e 0%, #35e888 100%);
+    border: none;
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(24, 210, 110, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(24, 210, 110, 0.4);
+      background: linear-gradient(135deg, #35e888 0%, #4ceb95 100%);
+      color: #fff !important;
+    }
+
+    i {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* // Responsive adjustments */
+@media (max-width: 768px) {
+  .subscription-banner {
+    padding: 12px 0;
+    
+    .subscription-title {
+      font-size: 1rem;
+    }
+    
+    .status-text, .expiry-text {
+      font-size: 0.8rem;
+    }
+    
+    .subscription-btn {
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .subscription-banner {
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}

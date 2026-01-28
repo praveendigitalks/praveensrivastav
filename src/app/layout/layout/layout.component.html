@@ -1,7 +1,7 @@
 <!-- <p>layout works!</p> -->
 <!--  -->
 
-<div class="admin-layout-container" >
+<!-- <div class="admin-layout-container" >
   <app-header></app-header>
 
 
@@ -9,8 +9,22 @@
   <router-outlet></router-outlet>
   </main>
 
-  <!-- <footer> -->
-    <app-footer></app-footer>
-  <!-- </footer> -->
-</div>
 
+    <app-footer></app-footer>
+
+</div> -->
+
+<div class="admin-layout-container">
+  <app-header></app-header>
+  
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Subscription Banner - Persistent across all pages -->
+  <div id="subscription-banner" class="subscription-banner fixed-bottom">
+    <!-- Banner content above -->
+  </div>
+  
+  <app-footer></app-footer>
+</div>

@@ -1,19 +1,21 @@
-<!-- ======= Contact Section ======= -->
-<div id="contact" class="subscription section-show ">
-  <!-- <div class="container"> -->
-
- <!-- <div class="section-title"> -->
-  <div class="d-flex">
-   <h2 class="me-3">Subscription</h2>
-
-   <button class="btn btn-sm btn-success" (click)="tryme()" [routerLink]="['/subscriptionplan']">See Plans</button>
- </div>
-
-   <p>Package: {{ tenantData?.subscription?.status }}</p>
-   <p>Expires At: {{ tenantData?.subscription?.expiresAt | date }}</p>
-  <!-- </div> -->
-
-
-
-  <!-- </div> -->
-</div><!-- End Contact Section -->
+<!-- Subscription Banner - Always Visible at Bottom -->
+<div id="subscription-banner" class="subscription-banner fixed-bottom">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <div class="col-md-8 col-12">
+        <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-2 gap-sm-3">
+          <h3 class="subscription-title mb-0">Subscription</h3>
+          <div class="subscription-info">
+            <p class="mb-1 status-text">Package: <span>{{ tenantData?.subscription?.status || 'No Active Plan' }}</span></p>
+            <p class="mb-0 expiry-text">Expires: <span>{{ tenantData?.subscription?.expiresAt | date }}</span></p>
+          </div>
+        </div>
+      </div>    
+      <div class="col-md-4 col-12 text-md-end mt-2 mt-md-0">
+        <button class="btn btn-success btn-sm subscription-btn" (click)="tryme()" [routerLink]="['/subscriptionplan']">
+          <i class="bi bi-eye me-1"></i>See Plans
+        </button>
+      </div>
+    </div>    
+  </div>
+</div>
