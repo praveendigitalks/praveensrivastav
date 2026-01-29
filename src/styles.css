@@ -180,12 +180,22 @@ section .container {
   transform: scale(1.2);
 }
 
+/*--------------------------------------------------------------
+# super admin container
+--------------------------------------------------------------*/
+
 
 
 .superadmin-container{
    background: rgba(0, 0, 0, 0.9);
    padding:  50px;
 }
+
+
+
+/*--------------------------------------------------------------
+# Subscription trial css
+--------------------------------------------------------------*/
 
 
 .subscription-banner {
@@ -260,15 +270,15 @@ section .container {
 @media (max-width: 768px) {
   .subscription-banner {
     padding: 12px 0;
-    
+
     .subscription-title {
       font-size: 1rem;
     }
-    
+
     .status-text, .expiry-text {
       font-size: 0.8rem;
     }
-    
+
     .subscription-btn {
       width: 100%;
       max-width: 200px;

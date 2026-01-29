@@ -73,11 +73,11 @@ export class AuthService {
   hasActionPermission(module: string, action: string): boolean {
   const user = this.getUser();
   const perms = user?.role?.permissions;
-  console.log("🚀 ~ AuthService ~ hasActionPermission ~ perms:", perms)
+  // console.log("🚀 ~ AuthService ~ hasActionPermission ~ perms:", perms)
 
   // 🔥 Force array conversion
   const permissionsArray = Array.isArray(perms) ? perms : [];
-  console.log("🚀 ~ AuthService ~ hasActionPermission ~ permissionsArray:", permissionsArray)
+  // console.log("🚀 ~ AuthService ~ hasActionPermission ~ permissionsArray:", permissionsArray)
 
   return permissionsArray.some(p =>
     p.module?.trim() === module.trim() &&

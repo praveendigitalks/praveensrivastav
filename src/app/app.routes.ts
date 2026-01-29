@@ -37,6 +37,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path:'addabout/:aboutId',
+         canActivate: [authGuard],
+        loadComponent: () =>
+          import('./views/about/addabout/addabout.component').then(
+            (m) => m.AddaboutComponent
+          ),
+      },
+      {
         path: 'resume',
         loadComponent: () =>
           import('./views/resume/resume.component').then(

@@ -1,475 +1,251 @@
-<!-- ======= About Section ======= -->
+<!-- ======= About Section (SINGLE FORM) ======= -->
 <section id="about" class="about section-show">
-
-  <!-- ======= About Me ======= -->
   <div class="about-me container">
-    <div class="section-title" routerLink="/about">
+    <div class="section-title">
       <h2>About</h2>
       <p>Add About Section</p>
     </div>
 
-
+    <!-- ✅ SINGLE FORM - Everything inside -->
     <form (ngSubmit)="OnSubmit()" [formGroup]="aboutForm" class="php-email-form mt-4">
+
+      <!-- Profile Image -->
       <div class="row">
         <div class="col-lg-4" data-aos="fade-right">
           <div class="profile-upload-circle" (click)="triggerFileInput()" (dragover)="onDragOver($event)"
-            (drop)="onDrop($event)" [class.has-image]="selectedFile">
-            <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*"  />
+            (drop)="onDrop($event)" [class.has-image]="selectedFile || previewUrl">
 
-            <!-- Preview Image -->
-            <img [src]="previewUrl || '/favicon.jpeg'" class="preview-image" alt="Profile Preview" *ngIf="selectedFile" >
+            <input type="file" #fileInput id="fileInput" (change)="onFileSelected($event)" hidden accept="image/*">
 
-            <!-- No Image: Plus Icon -->
-            <div class="no-image-content" *ngIf="!selectedFile">
+            <img [src]="previewUrl || '/favicon.jpeg'" class="preview-image" alt="" *ngIf="selectedFile || previewUrl">
+
+            <div class="no-image-content" *ngIf="!selectedFile && !previewUrl">
               <i class="fas fa-plus-circle fa-5x"></i>
               <p>Click or Drop Image</p>
             </div>
-
-            <!-- Error -->
-            <div class="error-overlay" *ngIf="aboutForm.get('file')?.invalid && aboutForm.get('file')?.touched">
-              File required
-            </div>
           </div>
         </div>
 
-
+        <!-- Basic Info -->
         <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-          <!-- <h3>MEAN Stack,MERN Stack , Next Js &amp; Laravel Developer</h3> -->
-          <h3 class="info-box"><input type="text" name="position" class="form-control info-box"
-              formControlName="position" id="position" placeholder="position" required></h3>
+          <h3 class="info-box">
+            <input type="text" class="form-control info-box" formControlName="position" placeholder="Position">
+          </h3>
+
           <p class="fst-italic">
-            <input type="text" class="form-control" name="description" id="description" placeholder="description"
-              formControlName="description" required>
+            <textarea class="form-control" formControlName="description" rows="3" placeholder="Description"></textarea>
           </p>
+
           <div class="row">
             <div class="col-lg-6">
               <ul>
-                <li><input type="date" class="form-control" name="dob" id="dob" placeholder="dob" formControlName="dob"
-                    required></li>
-                <li><input type="number" class="form-control" name="phone" id="phone" placeholder="phone"
-                    formControlName="phone" required></li>
-                <li><input type="text" class="form-control" name="city" id="city" placeholder="city"
-                    formControlName="city" required></li>
+                <li><input type="date" class="form-control" formControlName="dob"></li>
+                <li><input type="tel" class="form-control" formControlName="phone"></li>
+                <li><input type="text" class="form-control" formControlName="city"></li>
               </ul>
             </div>
             <div class="col-lg-6">
               <ul>
-                <li><input type="text" class="form-control" name="degree" id="degree" placeholder="degree"
-                    formControlName="degree" required></li>
-                <li><input type="email" class="form-control" name="email" id="email" placeholder="email"
-                    formControlName="email" required>
-                </li>
+                <li><input type="text" class="form-control" formControlName="degree"></li>
+                <li><input type="email" class="form-control" formControlName="email"></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="my-3">
-          <div class="loading">Loading</div>
-          <div class="error-message"></div>
-          <div class="sent-message">Your message has been sent. Thank you!</div>
-        </div> -->
-      <div class="text-center my-3"><button type="submit">Create User</button></div>
+
+      <!-- ✅ WEBSKILLS Inside Same Form -->
+      <div class="skills container mt-5">
+        <i class="fa-solid fa-plus" (click)="addSkill()"></i>
+        <div class="section-title">
+          <h2>Web Skills</h2>
+        </div>
+
+        <!-- ✅ Nested FormArray -->
+        <div formArrayName="webskills">
+          <div class="row skills-content">
+            <div *ngFor="let skill of webskillsArray.controls; let i = index" [formGroupName]="i" class="col-lg-6">
+
+              <div class="skill-item mb-3 p-3 border rounded">
+                <div class="row align-items-center">
+                  <div class="col-md-5">
+                    <input formControlName="technology" class="form-control" placeholder="e.g. HTML, React, Node.js">
+                  </div>
+
+                  <div class="col-md-4">
+                    <input type="range" formControlName="proficiency" class="form-range" min="0" max="100">
+                    <small>{{ getProficiencyValue(i) }}%</small>
+                  </div>
+
+                  <div class="col-md-3 d-flex align-items-center">
+                    <div class="progress me-2 flex-grow-1" style="height: 20px;">
+                      <div class="progress-bar" [style.width.%]="getProficiencyValue(i)"></div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-danger ms-1" (click)="removeSkill(i)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center py-4 text-muted" *ngIf="webskillsArray.length === 0">
+            No skills added. Click "Add Skill" to start.
+          </div>
+        </div>
+      </div>
+      <!-- skills -->
+
+
+      <!-- ======= prior-skill ======= -->
+      <!-- ======= prior-skill ======= -->
+      <div class="prior-skill container">
+        <div class="section-title">
+          <i class="fa-solid fa-plus" (click)="addpriorSkill()"></i>
+          <h2>Prior Skills</h2>
+        </div>
+
+        <!-- ✅ ADD THIS ONE LINE - FormArray wrapper -->
+        <div formArrayName="priorskills">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 mt-4" *ngFor="let skill of priorSkillArray.controls; let i = index"
+              [formGroupName]="i">
+              <div class="text-center mb-2">
+                <input type="text" formControlName="skillName" class="form-control" placeholder="skillName">
+
+                <!-- ✅ PRIOR SKILLS helpers ONLY -->
+                <i *ngIf="getIconTypePrior(i) === 'fontawesome'" [class]="getIconClassPrior(i)"
+                  class="fs-2 text-primary">
+                </i>
+
+                <img *ngIf="getIconTypePrior(i) === 'image'" [src]="getIconUrlPrior(i)" class="img-fluid"
+                  style="max-height: 40px;" alt="icon" />
+              </div>
+
+              <select formControlName="iconType" class="form-select form-select-sm">
+                <option value="">Select Option</option>
+                <option value="fontawesome">FontAwesome</option>
+                <option value="image">Image URL</option>
+              </select>
+
+              <input formControlName="icon" class="form-control form-control-sm mt-1"
+                placeholder="fa-brands fa-react OR image URL" />
+
+              <button type="button" class="btn btn-sm btn-outline-danger mt-2 w-100" (click)="removepriorSkill(i)">
+                <i class="fas fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- ✅ END wrapper -->
+      </div>
+
+      <!-- End prior-skill -->
+
+      <!-- ======= Counts for Company projects ======= -->
+      <div class="counts container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="fa-regular fa-folder-open"></i>
+              <input type="number" class="form-control count-number" formControlName="totalProject">
+              <p>Total Projects</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+              <input type="number" class="form-control count-number" formControlName="MeanStack">
+              <p>MEAN STACK</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <input type="number" class="form-control count-number" formControlName="MernornextStack">
+              <p>MERN STACK / Next JS Stack</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <input type="number" class="form-control count-number" formControlName="otherproject">
+              <p>Other Projects</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- End Counts for company projects -->
+
+      <!-- ======= Company Major Projects ======= -->
+      <!-- ======= Company Projects ======= -->
+      <div class="company-projects container mt-5">
+        <div class="section-title">
+          <i class="fa-solid fa-plus" (click)="addCompanyProject()"></i>
+          <h2>Company Projects</h2>
+        </div>
+
+        <div formArrayName="companyProjects">
+          <div *ngFor="let project of companyProjectsArray.controls; let projectIndex = index"
+            [formGroupName]="projectIndex" class="card mb-4 p-4">
+
+            <!-- Project Details -->
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <input formControlName="projectTitle" class="form-control mb-2" placeholder="Project Title">
+                <input formControlName="projectBio" class="form-control mb-2" placeholder="Project Bio">
+                <textarea formControlName="projectDescription" class="form-control" rows="3"
+                  placeholder="Description"></textarea>
+              </div>
+            </div>
+
+            <!-- Nested Technologies -->
+            <div formArrayName="technologies">
+              <h5>Technologies <i class="fa-solid fa-plus text-primary" (click)="addTech(projectIndex)"></i></h5>
+
+              <!-- ✅ FIX: Use .controls for *ngFor -->
+              <div class="row" *ngFor="let tech of getTechControls(projectIndex).controls; let techIndex = index"
+                [formGroupName]="techIndex">
+                <div class="col-md-6 mb-2">
+                  <input formControlName="icon" class="form-control" placeholder="fa-brands fa-react OR image URL">
+                  <select formControlName="iconType" class="form-select form-select-sm mt-1">
+                    <option value="fontawesome">FontAwesome</option>
+                    <option value="image">Image URL</option>
+                  </select>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                  <!-- Icon Preview -->
+                  <i *ngIf="getTechIconType(projectIndex, techIndex) === 'fontawesome'"
+                    [class]="getTechIcon(projectIndex, techIndex)" class="fs-2 text-primary me-2"></i>
+
+                  <img *ngIf="getTechIconType(projectIndex, techIndex) === 'image'"
+                    [src]="getTechIcon(projectIndex, techIndex)" class="img-fluid me-2" style="max-height: 40px;" />
+
+                  <button type="button" class="btn btn-sm btn-outline-danger"
+                    (click)="removeTech(projectIndex, techIndex)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Remove Project -->
+            <button type="button" class="btn btn-outline-danger mt-3" (click)="removeCompanyProject(projectIndex)">
+              <i class="fas fa-trash"></i> Remove Project
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Submit Button -->
+      <div class="text-center my-5">
+        <button type="submit" class="btn btn-primary btn-lg">Save About</button>
+      </div>
     </form>
-
-
   </div>
-  <!-- End About Me -->
-
-  <!-- ======= Skills ======= -->
-  <div class="skills container">
-    <div class="section-title">
-      <h2>Web Skills</h2>
-    </div>
-
-    <div class="row skills-content">
-      <div class="col-lg-6">
-
-        <div class="progress">
-          <span class="skill">HTML <i class="val">100%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-              data-skill="100">
-            </div>
-          </div>
-        </div>
-
-        <div class="progress">
-          <span class="skill">CSS <i class="val">90%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
-              data-skill="90">
-            </div>
-          </div>
-        </div>
-
-        <div class="progress">
-          <span class="skill">JavaScript <i class="val">85%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"
-              data-skill="85">
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-lg-6">
-
-        <div class="progress">
-          <span class="skill">Bootstrap <i class="val">80%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-              data-skill="80">
-            </div>
-          </div>
-        </div>
-
-        <div class="progress">
-          <span class="skill">Tailwind CSS <i class="val">70%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
-              data-skill="90">
-            </div>
-          </div>
-        </div>
-
-        <div class="progress">
-          <span class="skill">Jquery<i class="val">70%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
-              data-skill="90">
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-  <!-- End Skills -->
-
-  <!-- ======= prior-skill ======= -->
-  <div class="prior-skill container">
-    <div class="section-title">
-      <h2>Prior Skills</h2>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-angular" style="color: #e51515;"></i>
-          <h3>Angular</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-react" style="color: #1985dd;"></i>
-          <h3>React</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png" alt="Next.js"
-            width="33" height="33" />
-          <h3 class="mx-2">Next Js</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-wordpress"></i>
-          <h3>Wordpress</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img class="postman" src="/portfolio/ts.png" style="color: #5578ff;" alt="">
-          <h3>TypeScript</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-node" style="color: #09b228;"></i>
-          <h3>Node Js</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-php" style="color: #14aae6;"></i>
-          <h3>Php</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-laravel" style="color: #b20969;"></i>
-          <h3>Laravel</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img class="postman" src="/portfolio/mongodb.png" style="color: #09b228;" alt="">
-          <h3>Mongo Db</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" alt="MySQL" width="33" height="33" />
-          <h3 class="mx-2">MySQL</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" alt="PostgreSQL"
-            width="33" height="33" />
-          <h3 class="mx-2">PostgreSQL</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="GraphQL" width="33"
-            height="33" />
-          <h3 class="mx-2">GraphQL</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <i class="fa-brands fa-github"></i>
-          <h3>GitHub</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazons3.svg" alt="AWS S3" width="33" height="33"
-            style="filter: invert(36%) sepia(92%) saturate(749%) hue-rotate(13deg);" />
-          <h3>AWS S3</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img class="postman" src="/portfolio/postman.png" style="color:  #e63232;">
-          <h3>Postman</h3>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mt-4">
-        <div class="icon-box">
-          <img class="postman" src="/portfolio/swagger.png" style="background-color: #15f605;">
-          <h3>Swagger</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End prior-skill -->
-
-  <!-- ======= Counts for Company projects ======= -->
-  <div class="counts container">
-    <div class="row">
-
-      <div class="col-lg-3 col-md-6">
-        <div class="count-box">
-          <i class="fa-regular fa-folder-open"></i>
-          <span class="count-number" data-target="11">0</span>
-          <p>Total Projects</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-        <div class="count-box">
-          <span class="count-number" data-target="2">0</span>
-          <p>MEAN STACK</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-        <div class="count-box">
-          <span class="count-number" data-target="3">0</span>
-          <p>MERN STACK / Next JS Stack</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-        <div class="count-box">
-          <span class="count-number" data-target="6">0</span>
-          <p>Other Projects</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- End Counts for company projects -->
-
-  <!-- ======= Company Major Projects ======= -->
-  <!-- ======= Company Major Projects ======= -->
-  <div class="projects container">
-    <div class="section-title">
-      <h2>Project for Companies</h2>
-    </div>
-
-    <div id="company-projects-slider" class="projects-slider swiper" data-aos="fade-up" data-aos-delay="100">
-
-      <div class="swiper-wrapper">
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              A React based hospital management platform,with modules like OPD, IPD,
-              Pharmacy,specially made for the Client. <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <img class="postman" src="/portfolio/mongodb.png" style="color: #09b228;" alt="">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/express.svg" alt="Express.js" width="20"
-                height="20" style="background-color: #fff;" />
-              <i class="fa-brands fa-react" style="color: #1985dd;"></i>
-              <i class="fa-brands fa-node-js" style="color: #09b228;"></i>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="GraphQL" width="20"
-                height="20" />
-            </div>
-            <h3>HIMS React Based</h3>
-            <h4>A SaaS based Hospital Full Fledged Software with role base Authentication in React</h4>
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              A powerful SaaS-based hospital management platform, fully customizable with modules like OPD, IPD,
-              Pharmacy, Laboratory, Radiology, and Central Store Inventory—built to support everyone from independent
-              pharmacies to the largest hospital ecosystems. <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <img class="postman" src="/portfolio/mongodb.png" style="color: #09b228;" alt="">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/express.svg" alt="Express.js" width="20"
-                height="20" style="background-color: #fff;" />
-              <i class="fa-brands fa-angular" style="color:  #e63232;"></i>
-              <i class="fa-brands fa-node-js" style="color: #09b228;"></i>
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/amazons3.svg" alt="AWS S3" width="15"
-                height="15" style="filter: invert(36%) sepia(92%) saturate(749%) hue-rotate(13deg);" />
-            </div>
-            <h3>HIMS</h3>
-            <h4>A SaaS based Hospital Full Fledged Software with role base Authentication</h4>
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              A simple Chatbot developed with Wordpress, Js & Php to use as plugins in software or websites where a
-              Chatbot need to be integerated<i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <i class="fa-brands fa-wordpress"></i>
-              <i class="fa-brands fa-php" style="color: #14aae6;"></i>
-              <i class="fa-brands fa-js" style="color: #e3e614;"></i>
-            </div>
-            <h3>Chatbot</h3>
-            <h4>A Wordpress base plugin with Php & Js used for prompt integeration</h4>
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              A Website focuses on B2B pharmaceutical drugs selling to Hospitals & Pharmacies<i
-                class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <img class="postman" src="/portfolio/mongodb.png" style="color: #09b228;" alt="">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/express.svg" alt="Express.js" width="20"
-                height="20" style="background-color: #fff;" />
-              <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png"
-                alt="Next.js" width="20" height="20" />
-              <i class="fa-brands fa-node-js" style="color: #09b228;"></i>
-            </div>
-            <h3>Curigen Pharmaceuticals LLP</h3>
-            <h4>A B2B website for selling Pharmaceutical Drugs</h4>
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              A Website focuses on the Women Beauty care products with no additive of chemically process products ,
-              providing Anti-allergic & natual skin friendly products.<i
-                class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <img class="postman" src="/portfolio/mongodb.png" style="color: #09b228;" alt="">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/express.svg" alt="Express.js" width="20"
-                height="20" style="background-color: #fff;" />
-              <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png"
-                alt="Next.js" width="20" height="20" />
-              <i class="fa-brands fa-node-js" style="color: #09b228;"></i>
-            </div>
-            <h3>Merena</h3>
-            <h4>A B2C website for Beauty Care Products</h4>
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              A Website focuses on the Women Health Care with combine compassionate, patient-centered care with
-              innovative fertility treatments to help individuals and couples overcome their fertility challenges.<i
-                class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <img class="postman" src="/portfolio/mongodb.png" style="color: #09b228;" alt="">
-              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/express.svg" alt="Express.js" width="20"
-                height="20" style="background-color: #fff;" />
-              <i class="fa-brands fa-angular" style="color:  #e63232;"></i>
-              <i class="fa-brands fa-node-js" style="color: #09b228;"></i>
-            </div>
-            <h3>Mom's Ivf</h3>
-            <h4>An Angular based software made for Women's Health Care</h4>
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              An Import Export driven Software solution with AI driven.The AI-Native Platform For
-              Global Trade Orchestration,with moto of :
-              <br> "Trade Simplified. Growth Amplified!". <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            <div class="d-flex">
-              <i class="fa-brands fa-laravel" style="color: #b20969;"></i>
-              <i class="fa-brands fa-php" style="color: #14aae6;"></i>
-              <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" alt="MySQL" width="30"
-                height="30" />
-            </div>
-            <h3>Trezix</h3>
-            <h4>An AI driven Import- Export Full Fledged Software</h4>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- only dots (no arrows) -->
-      <div class="swiper-pagination"></div>
-    </div>
-
-    <div class="owl-carousel projects-carousel">
-    </div>
-  </div>
-  <!-- End Company projects -->
-
-  <!-- End Company projects -->
-
-
 </section>
-<!-- End About Section -->

@@ -14,7 +14,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // Check if the request URL includes any of the skip URLs
   const shouldSkip = skipUrls.some(url => req.url.includes(url));
 
-  if (!shouldSkip && token && deviceId) {
+  if (token && deviceId) {
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

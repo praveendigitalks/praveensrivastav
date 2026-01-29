@@ -13,13 +13,13 @@ export class UserService {
   Userapis = `${environment.baseurl}/user`;
 
   getUser():Observable<any>{
-    return this.http.get(this.Userapis);
+    return this.http.get<any>(this.Userapis);
   }
     postUser(userData : any):Observable<any>{
-    return this.http.post(this.Userapis, userData);
+    return this.http.post<any>(this.Userapis, userData);
   }
 
   getLogUserDevices(userid : string):Observable<any>{
-    return this.http.get(`${this.Userapis}/logdevices/${userid}`);
+    return this.http.get<any>(`${this.Userapis}/logdevices/${userid}`);
   }
 }
