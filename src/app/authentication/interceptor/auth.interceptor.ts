@@ -8,7 +8,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const isSuperAdmin = parsedUser?.isSuperAdmin === true;
   // List of URLs to skip the interceptor
   const skipUrls = [
-    '/about'  // add relative path from your environment.baseurl
+    '/tenant'  // add relative path from your environment.baseurl
   ];
 
   // Check if the request URL includes any of the skip URLs

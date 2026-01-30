@@ -33,13 +33,13 @@ export class SuperadminSidebarComponent {
   constructor(private authService : AuthService, private router : Router, private aboutService : AboutService){}
 
    ngOnInit(){
-    this.aboutService.getAbout().subscribe({
-      next: (res: any) =>{
-       this.abouts = res;
-      }, error : (err) =>{
-        console.log(err, "error");
-      }
-    })
+    // this.aboutService.getAbout().subscribe({
+    //   next: (res: any) =>{
+    //    this.abouts = res;
+    //   }, error : (err) =>{
+    //     console.log(err, "error");
+    //   }
+    // })
    }
     toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
