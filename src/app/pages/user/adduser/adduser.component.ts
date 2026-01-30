@@ -31,7 +31,7 @@ export class AdduserComponent {
   }
 
   ngOnInit(){
-    if(!this.authService.hasActionPermission(MODULE.USER, ACTIONS.CREATE)){
+    if(!this.authService.hasActionPermission(MODULE.USER, ACTIONS.CREATE) && !this.authService.hasActionPermission(MODULE.USER, ACTIONS.UPDATE) ){
       alert("You Are not Authorized to Acess this Mdoule");
       this.router.navigateByUrl("/user");
     }

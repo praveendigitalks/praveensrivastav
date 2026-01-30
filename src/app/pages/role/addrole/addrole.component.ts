@@ -21,7 +21,7 @@ export class AddroleComponent {
   }
 
   ngOnInit(){
-  if(!this.authService.hasActionPermission(MODULE.ROLE, ACTIONS.CREATE)){
+  if(!this.authService.hasActionPermission(MODULE.ROLE, ACTIONS.CREATE) && !this.authService.hasActionPermission(MODULE.ROLE, ACTIONS.UPDATE)){
     alert("Your are not Authorized to Access this Module");
   this.router.navigateByUrl("/role");
   }

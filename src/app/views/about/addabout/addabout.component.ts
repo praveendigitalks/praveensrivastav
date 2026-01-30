@@ -51,7 +51,7 @@ export class AddaboutComponent {
 
   ngOnInit() {
     // authenticatied user check
-    if (!this.authService.hasActionPermission(MODULE.ABOUT, ACTIONS.CREATE)) {
+    if (!this.authService.hasActionPermission(MODULE.ABOUT, ACTIONS.CREATE)&& !this.authService.hasActionPermission(MODULE.ABOUT, ACTIONS.UPDATE)) {
       alert('You are not Authorized to Access this Module!');
       this.router.navigateByUrl('/about');
     }

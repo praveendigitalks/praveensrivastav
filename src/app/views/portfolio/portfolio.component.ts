@@ -10,6 +10,11 @@ import Swiper from 'swiper/bundle';
 import 'swiper/swiper-bundle.css';
 
 import PureCounter from '@srexi/purecounterjs';
+import { AuthService } from '../../authentication/authservice/auth.service';
+import { PortfolioService } from './portfolioservice/portfolio.service';
+import { Router } from '@angular/router';
+import { MODULE } from '../../components/module';
+import { ACTIONS } from '../../components/permission';
 
 
 @Component({
@@ -20,6 +25,17 @@ import PureCounter from '@srexi/purecounterjs';
   styleUrl: './portfolio.component.css'
 })
 export class PortfolioComponent implements AfterViewInit, OnDestroy {
+
+    portfolio : any = [];
+
+  constructor(private authService : AuthService, private portfolioService : PortfolioService, private router : Router){};
+
+  ngOnInit(){
+    if(!this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.READ)){
+       alert("You are not Authorized to access this module");
+       this.router.navigateByUrl("/");
+    }
+  }
 
   // use `any` because Isotope types are not available
   private portfolioIsotope?: any;

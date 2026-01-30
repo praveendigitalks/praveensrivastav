@@ -21,6 +21,7 @@ export const routes: Routes = [
 
   {
     path: '',
+    canActivate : [authGuard],
     component: LayoutComponent,
     children: [
       {
@@ -30,15 +31,13 @@ export const routes: Routes = [
       },
       {
         path: 'addabout',
-        canActivate: [authGuard],
         loadComponent: () =>
           import('./views/about/addabout/addabout.component').then(
             (m) => m.AddaboutComponent
           ),
       },
       {
-        path:'addabout/:aboutId',
-         canActivate: [authGuard],
+        path: 'addabout/:aboutId',
         loadComponent: () =>
           import('./views/about/addabout/addabout.component').then(
             (m) => m.AddaboutComponent
@@ -52,10 +51,24 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'addresume',
+        loadComponent: () =>
+          import('./views/resume/addresume/addresume.component').then(
+            (m) => m.AddresumeComponent
+          ),
+      },
+      {
         path: 'portfolio',
         loadComponent: () =>
           import('./views/portfolio/portfolio.component').then(
             (m) => m.PortfolioComponent
+          ),
+      },
+      {
+        path: 'addportfolio',
+        loadComponent: () =>
+          import('./views/portfolio/addportfolio/addportfolio.component').then(
+            (m) => m.AddportfolioComponent
           ),
       },
       {
@@ -66,14 +79,19 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'addcontact',
+        loadComponent: () =>
+          import('./views/contact/addcontact/addcontact.component').then(
+            (m) => m.AddcontactComponent
+          ),
+      },
+      {
         path: 'user',
-        canActivate: [authGuard],
         loadComponent: () =>
           import('./pages/user/user.component').then((m) => m.UserComponent),
       },
       {
         path: 'adduser',
-        canActivate: [authGuard],
         loadComponent: () =>
           import('./pages/user/adduser/adduser.component').then(
             (m) => m.AdduserComponent
@@ -81,17 +99,29 @@ export const routes: Routes = [
       },
       {
         path: 'role',
-        canActivate: [authGuard],
         loadComponent: () =>
           import('./pages/role/role.component').then((m) => m.RoleComponent),
       },
       {
         path: 'addrole',
-        canActivate: [authGuard],
         loadComponent: () =>
           import('./pages/role/addrole/addrole.component').then(
             (m) => m.AddroleComponent
           ),
+      },
+      {
+        path: 'permission',
+        loadComponent: () =>
+          import('./pages/permission/permission.component').then(
+            (m) => m.PermissionComponent
+          ),
+      },
+      {
+        path: 'addpermission',
+        loadComponent: () =>
+          import(
+            './pages/permission/addpermission/addpermission.component'
+          ).then((m) => m.AddpermissionComponent),
       },
       {
         path: 'profile/loggeddevices',

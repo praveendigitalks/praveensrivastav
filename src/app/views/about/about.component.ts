@@ -36,6 +36,10 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    if(!this.authService.hasActionPermission(MODULE.ABOUT, ACTIONS.READ)){
+      alert("Your are not Authorized to access this module");
+      this.router.navigateByUrl("/");
+    }
     this.isLogin = this.authService.isLoggedIn();
     this.loadAbout();
   }

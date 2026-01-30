@@ -11,7 +11,7 @@
 
         <li *ngIf="isLogin"><a class="nav-link" routerLink="/user" (click)="closeMenu()">User</a></li>
         <li *ngIf="isLogin"><a class="nav-link" routerLink="/role" (click)="closeMenu()">Role</a></li>
-        <li *ngIf="isLogin"><a class="nav-link" routerLink="/permisison" (click)="closeMenu()">Permission</a></li>
+        <li *ngIf="isLogin"><a class="nav-link" routerLink="/permission" (click)="closeMenu()">Permission</a></li>
         <li *ngIf="isLogin"><a class="nav-link" routerLink="/profile/loggeddevices" (click)="closeMenu()">Log Devices</a></li>
 
         <a class="nav-link" (click)="logout()" *ngIf="isLogin">
