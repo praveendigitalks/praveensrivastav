@@ -10,6 +10,12 @@
     <ul class="sidebar-nav">
 
       <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin">
+          <i class="fa-solid fa-sliders nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Dashbaord</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" routerLink="/superadmin/tenant">
           <i class="fa-solid fa-users nav-icon" *ngIf="isCollapsed"></i>
           <span class="nav-text">Platform Tenants</span>
@@ -26,14 +32,14 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/superadmin/accesscontrol">
+        <a class="nav-link" routerLink="/superadmin/usagemonitor">
           <i class="fa-solid fa-chart-line nav-icon" *ngIf="isCollapsed"></i>
           <span class="nav-text">Usage & Monitoring</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/superadmin/supportticekting">
+        <a class="nav-link" routerLink="/superadmin/supportticket">
           <i class="fa-solid fa-headset nav-icon" *ngIf="isCollapsed"></i>
           <span class="nav-text">Support & Ticketing</span>
         </a>
@@ -42,7 +48,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/superadmin/hospitalsreports">
+        <a class="nav-link" routerLink="/superadmin/analyticreport">
           <i class="fa-solid fa-chart-pie nav-icon" *ngIf="isCollapsed"></i>
           <span class="nav-text">Analytics & Reports</span>
         </a>

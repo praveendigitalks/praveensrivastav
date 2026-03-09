@@ -1,14 +1,204 @@
-<p>superadmin-dashboard works!</p>
-        <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
-          <div class="info-box">
-           <i class="fa-solid fa-share-nodes"></i>
-            <h3>Social Profiles</h3>
-            <div class="social-links">
-              <a href="https://github.com/praveensrivastav3j" class="github"> <i class="fa-brands fa-github"></i></a>
-              <a href="https://www.instagram.com/_praveensrivastav_/" class="instagram"><i
-                  class="fa-brands fa-instagram"></i></a>
-              <a href="https://www.linkedin.com/in/srivastav-praveen-754846160/" class="fa-brands fa-linkedin"><i
-                  class="bi bi-linkedin"></i></a>
+<!-- <div class="dashboard-root "> -->
+
+  <section class="Contact section-show">
+<!-- SECTION 1 – STATS CARDS -->
+  <section class="section">
+    <h2 class="section-title">Overview</h2>
+
+    <div class="stats-grid">
+      <div
+        class="stat-card"
+        *ngFor="let s of stats"
+        [ngClass]="{
+          'trend-up-card': s.trendType === 'up',
+          'trend-down-card': s.trendType === 'down'
+        }"
+      >
+        <div class="stat-header">
+          <div class="stat-title">{{ s.title }}</div>
+          <div class="stat-icon">
+            <span class="material-symbols-outlined">{{ s.icon }}</span>
+          </div>
+        </div>
+
+        <div class="stat-value">{{ s.value }}</div>
+
+        <div
+          class="stat-trend"
+          [ngClass]="{
+            'trend-up': s.trendType === 'up',
+            'trend-down': s.trendType === 'down',
+            'trend-neutral': s.trendType === 'neutral'
+          }"
+        >
+          <span
+            class="trend-arrow"
+            *ngIf="s.trendType === 'up' || s.trendType === 'down'"
+          >
+            {{ s.trendType === 'up' ? '↗' : '↘' }}
+          </span>
+          <span class="trend-text">{{ s.trend }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 – CHART AREA -->
+  <section class="section">
+    <div class="charts-grid">
+      <div class="card chart-card">
+        <div class="card-header">
+          <span class="card-title">Tenant Growth</span>
+          <button class="chip">Last 6 Months</button>
+        </div>
+        <div class="card-body chart-placeholder">
+          <span class="placeholder-text">Tenant Growth Chart Placeholder</span>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="card-header">
+          <span class="card-title">Revenue Analytics</span>
+          <div class="chart-legend">
+            <span class="legend-dot legend-primary"></span>
+            <span class="legend-label">MRR</span>
+            <span class="legend-dot legend-muted"></span>
+            <span class="legend-label">One-time</span>
+          </div>
+        </div>
+        <div class="card-body chart-placeholder donut-wrapper">
+          <div class="donut">
+            <div class="donut-inner">
+              <div class="donut-value">$142k</div>
+              <div class="donut-label">TOTAL REVENUE</div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 – RECENT TENANTS TABLE -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Recent Tenants</span>
+        <button class="link-button">View All</button>
+      </div>
+      <div class="card-body no-padding">
+        <div class="table">
+          <div class="table-row table-header">
+            <div>Tenant Name</div>
+            <div>Admin</div>
+            <div>Plan</div>
+            <div>Users</div>
+            <div>Subscription Expiry</div>
+            <div>Status</div>
+          </div>
+
+          <div class="table-row" *ngFor="let t of recentTenants">
+            <div>{{ t.name }}</div>
+            <div>{{ t.admin }}</div>
+            <div>{{ t.plan }}</div>
+            <div>{{ t.users }}</div>
+            <div>{{ t.expiry }}</div>
+            <div>
+              <span
+                class="status-pill"
+                [ngClass]="{
+                  'status-success': t.status === 'Active',
+                  'status-danger': t.status === 'Expired'
+                }"
+              >
+                {{ t.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 – RECENT PAYMENTS TABLE -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Recent Payments</span>
+      </div>
+      <div class="card-body no-padding">
+        <div class="table">
+          <div class="table-row table-header">
+            <div>Tenant</div>
+            <div>Plan</div>
+            <div>Amount</div>
+            <div>Payment Date</div>
+            <div>Status</div>
+          </div>
+
+          <div class="table-row" *ngFor="let p of recentPayments">
+            <div>{{ p.tenant }}</div>
+            <div>{{ p.plan }}</div>
+            <div>{{ p.amount | currency: 'USD' }}</div>
+            <div>{{ p.date }}</div>
+            <div>
+              <span
+                class="status-pill"
+                [ngClass]="{
+                  'status-success': p.status === 'Success',
+                  'status-warning': p.status === 'Pending',
+                  'status-danger': p.status === 'Failed'
+                }"
+              >
+                {{ p.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 – RECENT SUPPORT TICKETS -->
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Recent Support Tickets</span>
+      </div>
+      <div class="card-body no-padding">
+        <div class="table">
+          <div class="table-row table-header">
+            <div>Ticket ID</div>
+            <div>Tenant</div>
+            <div>Subject</div>
+            <div>Priority</div>
+            <div>Status</div>
+            <div>Created Date</div>
+          </div>
+
+          <div class="table-row" *ngFor="let t of recentTickets">
+            <div class="ticket-link">#{{ t.id }}</div>
+            <div>{{ t.tenant }}</div>
+            <div>{{ t.subject }}</div>
+            <div>
+              <span
+                class="status-pill"
+                [ngClass]="{
+                  'priority-high': t.priority === 'High',
+                  'priority-medium': t.priority === 'Medium',
+                  'priority-low': t.priority === 'Low'
+                }"
+              >
+                {{ t.priority }}
+              </span>
+            </div>
+            <div>{{ t.status }}</div>
+            <div>{{ t.created }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </section>
+
+<!-- </div> -->

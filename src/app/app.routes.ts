@@ -160,7 +160,31 @@ export const routes: Routes = [
             './SuperadminViews/tenants/addtenants/addtenants.component'
           ).then((m) => m.AddtenantsComponent),
       },
+
+      {
+       path: 'analyticreport',
+       loadComponent :() => import('./SuperadminViews/analyticsreporting/analyticreport/analyticreport.component').then( m => m.AnalyticreportComponent)
+      },
+      {
+       path: 'billingfinance',
+       loadComponent :() => import('./SuperadminViews/billingfinance/billingfinance/billingfinance.component').then( m => m.BillingfinanceComponent)
+      },
+      {
+       path: 'supportticket',
+       loadComponent :() => import('./SuperadminViews/supportticketing/supportticket/supportticket.component').then( m => m.SupportticketComponent)
+      },
+      {
+       path: 'usagemonitor',
+       loadComponent :() => import('./SuperadminViews/usagemonitoring/usagemonitoring/usagemonitoring.component').then( m => m.UsagemonitoringComponent)
+      },
+
+    {
+        path : '**',
+        redirectTo : ''
+    },
     ],
+
+
   },
 
   {

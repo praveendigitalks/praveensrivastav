@@ -1,0 +1,375 @@
+/* Keep your dark bg; card sits on top */
+.billing-shell {
+  border-radius: 18px;
+  background: rgba(10, 14, 20, 0.96);
+  padding: 20px 22px 18px;
+  box-shadow: 0 0 0 2px #4f46e5;
+  color: #e5e7eb;
+}
+
+/* Header */
+.bm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.bm-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bm-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(79, 70, 229, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f97316;
+}
+
+.bm-icon-box .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.bm-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #f9fafb;
+}
+
+.bm-subtitle {
+  font-size: 13px;
+  margin: 0;
+  color: #9ca3af;
+}
+
+.bm-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Generic icon button */
+.bm-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.bm-icon-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.bm-icon-btn:hover {
+  background: rgba(30, 64, 175, 0.7);
+}
+
+/* SUMMARY CARDS */
+.bm-summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.bm-summary-card {
+  background: #0b1120;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.bm-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bm-summary-title {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.bm-summary-icon {
+  font-size: 18px;
+  color: #fbbf24;
+}
+
+.bm-summary-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.bm-summary-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+.bm-summary-change {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bm-change-up {
+  color: #22c55e;
+}
+
+.bm-change-down {
+  color: #f97316;
+}
+
+/* FILTER CHIPS */
+.bm-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.bm-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e5e7eb;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.bm-filter-icon {
+  font-size: 16px;
+}
+
+.bm-filter-caret {
+  font-size: 18px;
+}
+
+/* TABLE CARD */
+.bm-table-card {
+  background: #020617;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 10px 0 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Table header row */
+.bm-table-header-row {
+  display: grid;
+  grid-template-columns: 2.4fr 1.6fr 1.1fr 1.4fr 1.6fr 1.6fr 1.4fr 1.2fr;
+  padding: 10px 20px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.9);
+}
+
+/* Data rows */
+.bm-table-row {
+  display: grid;
+  grid-template-columns: 2.4fr 1.6fr 1.1fr 1.4fr 1.6fr 1.6fr 1.4fr 1.2fr;
+  padding: 10px 20px;
+  font-size: 13px;
+  color: #e5e7eb;
+  align-items: center;
+}
+
+.bm-table-row:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.bm-table-row:nth-child(even) {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.bm-table-cell {
+  padding-right: 8px;
+}
+
+.bm-tenant-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bm-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.bm-tenant-name {
+  font-weight: 500;
+}
+
+.bm-amount {
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+/* Pills */
+.bm-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.bm-pill-soft {
+  background: rgba(96, 165, 250, 0.12);
+  color: #bfdbfe;
+}
+
+/* Status */
+.bm-status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.bm-status-paid {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.bm-status-pending {
+  background: rgba(234, 179, 8, 0.15);
+  color: #fde68a;
+}
+
+.bm-status-overdue {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fecaca;
+}
+
+.bm-status-cancelled {
+  background: rgba(148, 163, 184, 0.25);
+  color: #e5e7eb;
+}
+
+/* Actions */
+.bm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.bm-download {
+  color: #38bdf8;
+}
+
+/* Footer */
+.bm-table-footer {
+  padding: 8px 20px 10px;
+  border-top: 1px solid rgba(55, 65, 81, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #9ca3af;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.bm-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bm-page-btn {
+  min-width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.bm-page-active {
+  background: #f97316;
+  border-color: #f97316;
+  color: #020617;
+  font-weight: 600;
+}
+
+.bm-page-btn.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* utilities */
+.text-right {
+  text-align: right;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .bm-summary-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bm-table-header-row,
+  .bm-table-row {
+    grid-template-columns: 2.4fr 1.6fr 1.1fr 1.4fr 1.6fr 1.6fr;
+  }
+
+  .bm-table-title:nth-last-child(-n+2),
+  .bm-table-row > .bm-table-cell:nth-last-child(-n+2) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .billing-shell {
+    padding: 16px 14px;
+  }
+
+  .bm-summary-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bm-table-header-row,
+  .bm-table-row {
+    font-size: 12px;
+    padding-inline: 12px;
+  }
+}

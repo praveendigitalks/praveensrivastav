@@ -1,0 +1,173 @@
+
+<!-- Summary cards -->
+    <section class="ar-summary-row">
+      <div class="ar-summary-card" *ngFor="let c of summaryCards">
+        <div class="ar-summary-label">
+          {{ c.title }}
+        </div>
+        <div class="ar-summary-main">
+          <div class="ar-summary-value">{{ c.value }}</div>
+          <div
+            class="ar-summary-change"
+            [ngClass]="{
+              'ar-change-up': c.trendType === 'up',
+              'ar-change-down': c.trendType === 'down'
+            }"
+          >
+            {{ c.change }}
+          </div>
+        </div>
+      </div>
+    </section>
+<section id="analytics-reports" class="Contact section-show">
+  <div class="superadmin-container ar-shell">
+    <!-- Header -->
+    
+
+     <i class="fa-solid fa-plus mx-3" routerLink="/superadmin/addtenant"></i>
+    <div class="section-title">
+      <h2 routerLink="/adduser">Analytics & Reports</h2>
+      <p>High-level overview of platform performance</p>
+    </div>
+
+
+
+    <!-- Charts grid -->
+    <section class="ar-charts-grid">
+      <!-- Tenant Growth chart placeholder -->
+      <div class="ar-chart-card">
+        <div class="ar-chart-header">
+          <span class="ar-chart-title">Tenant Growth</span>
+          <button class="ar-chip">
+            Last 30 Days
+            <span class="material-symbols-outlined">expand_more</span>
+          </button>
+        </div>
+        <div class="ar-chart-body">
+          <div class="ar-bar-row">
+            <div class="ar-bar-col" *ngFor="let h of [35,50,60,80,70,90]">
+              <div class="ar-bar" [style.height.%]="h"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Growth line chart placeholder -->
+      <div class="ar-chart-card">
+        <div class="ar-chart-header">
+          <span class="ar-chart-title">Revenue Growth</span>
+          <button class="ar-icon-only">
+            <span class="material-symbols-outlined">more_horiz</span>
+          </button>
+        </div>
+        <div class="ar-chart-body">
+          <div class="ar-line-chart-placeholder">
+            <span>Interactive line chart visualization</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Activity bar chart placeholder -->
+      <div class="ar-chart-card">
+        <div class="ar-chart-header">
+          <span class="ar-chart-title">User Activity (By Hour)</span>
+        </div>
+        <div class="ar-chart-body">
+          <div class="ar-bar-row">
+            <div class="ar-bar-col" *ngFor="let h of [25,45,40,60,80]">
+              <div class="ar-bar" [style.height.%]="h"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Distribution donut placeholder -->
+      <div class="ar-chart-card">
+        <div class="ar-chart-header">
+          <span class="ar-chart-title">Plan Distribution</span>
+        </div>
+        <div class="ar-chart-body ar-plan-body">
+          <div class="ar-donut-placeholder">
+            <div class="ar-donut-ring"></div>
+            <div class="ar-donut-center">
+              <div class="ar-donut-value">1.2k</div>
+              <div class="ar-donut-label">Users</div>
+            </div>
+          </div>
+          <div class="ar-plan-legend">
+            <div class="ar-plan-row">
+              <span class="ar-plan-dot enterprise"></span>
+              <span>Enterprise</span>
+              <span class="ar-plan-percent">45%</span>
+            </div>
+            <div class="ar-plan-row">
+              <span class="ar-plan-dot professional"></span>
+              <span>Professional</span>
+              <span class="ar-plan-percent">30%</span>
+            </div>
+            <div class="ar-plan-row">
+              <span class="ar-plan-dot starter"></span>
+              <span>Starter</span>
+              <span class="ar-plan-percent">15%</span>
+            </div>
+            <div class="ar-plan-row">
+              <span class="ar-plan-dot free"></span>
+              <span>Free</span>
+              <span class="ar-plan-percent">10%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Generated reports table -->
+    <section class="ar-reports-card">
+      <div class="ar-reports-header">
+        <div>
+          <h3 class="ar-reports-title">Generated Reports</h3>
+          <p class="ar-reports-subtitle">
+            History of your system generated reports
+          </p>
+        </div>
+        <button class="ar-generate-btn">
+          <span class="material-symbols-outlined">add</span>
+          Generate New Report
+        </button>
+      </div>
+
+      <div class="ar-reports-table-header">
+        <div>Report Name</div>
+        <div>Report Type</div>
+        <div>Generated Date</div>
+        <div class="ar-download-header">Download</div>
+      </div>
+
+      <div
+        class="ar-reports-row"
+        *ngFor="let r of reports; let i = index"
+        [class.ar-row-highlight]="i === 0"
+      >
+        <div class="ar-report-name">
+          {{ r.name }}
+        </div>
+        <div>
+          <span class="ar-type-tag" [ngClass]="r.typeTagClass">
+            {{ r.type }}
+          </span>
+        </div>
+        <div>{{ r.date }}</div>
+        <div class="ar-download-cell">
+          <button class="ar-icon-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="ar-reports-footer">
+        <button class="ar-view-all-btn">
+          View All Reports
+        </button>
+      </div>
+    </section>
+  </div>
+</section>

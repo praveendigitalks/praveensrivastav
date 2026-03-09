@@ -67,7 +67,9 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   getCompanyProjects() {
     return this.aboutData[0]?.companyProjects || [];
   }
-
+ addAbout(){
+  this.router.navigateByUrl("/addabout")
+ }
 
 
 

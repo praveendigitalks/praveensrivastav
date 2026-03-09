@@ -1,0 +1,124 @@
+<!-- ======= Tenants Section ======= -->
+<section id="" class="Contact section-show">
+
+  <!-- Top summary cards -->
+  <section class="bm-summary-row">
+    <div class="bm-summary-card" *ngFor="let c of summaryCards">
+      <div class="bm-summary-header">
+        <span class="bm-summary-title">{{ c.title }}</span>
+        <span class="material-symbols-outlined bm-summary-icon">
+          {{ c.icon }}
+        </span>
+      </div>
+      <div class="bm-summary-main">
+        <span class="bm-summary-value">{{ c.value }}</span>
+        <span class="bm-summary-change" [ngClass]="{
+              'bm-change-up': c.trendType === 'up',
+              'bm-change-down': c.trendType === 'down'
+            }">
+          {{ c.change }}
+        </span>
+      </div>
+    </div>
+  </section>
+  <div class="superadmin-container">
+
+    <i class="fa-solid fa-plus mx-3" routerLink="/superadmin/addtenant"></i>
+    <div class="section-title">
+      <h2 routerLink="/adduser">Billing Management</h2>
+      <p>List of Bills</p>
+    </div>
+
+    <section class="bm-filters-row">
+      <button class="bm-filter-chip">
+        <span class="material-symbols-outlined bm-filter-icon">calendar_today</span>
+        <span>{{ filters.dateRange }}</span>
+        <span class="material-symbols-outlined bm-filter-caret">expand_more</span>
+      </button>
+
+      <button class="bm-filter-chip">
+        <span class="material-symbols-outlined bm-filter-icon">view_week</span>
+        <span>{{ filters.planType }}</span>
+        <span class="material-symbols-outlined bm-filter-caret">expand_more</span>
+      </button>
+
+      <button class="bm-filter-chip">
+        <span class="material-symbols-outlined bm-filter-icon">checklist</span>
+        <span>{{ filters.status }}</span>
+        <span class="material-symbols-outlined bm-filter-caret">expand_more</span>
+      </button>
+    </section>
+
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Tenant</th>
+          <th>Plan</th>
+          <th>Cycle</th>
+          <th>Amount</th>
+          <th>Last Payment</th>
+          <th>Next Date</th>
+          <th>Status</th>
+          <th>Invoice</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rows; let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            <div class="bm-avatar">
+              {{ r.initials }}
+            </div>
+            <div class="bm-tenant-text">
+              <div class="bm-tenant-name">{{ r.tenant }}</div>
+            </div>
+          </td>
+          <td> {{ r.plan }}
+          </td>
+          <td>{{r.cycle}}</td>
+          <td>{{r.amount}}</td>
+          <td>{{r.lastPayment}}</td>
+          <td>{{r.nextDate}}</td>
+          <td [ngClass]="{
+              'bm-status-paid': r.status === 'Paid',
+              'bm-status-pending': r.status === 'Pending',
+              'bm-status-overdue': r.status === 'Overdue',
+              'bm-status-cancelled': r.status === 'Cancelled'
+            }">{{r.status}}</td>
+          <td> <button class="bm-icon-btn bm-download">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+          <button class="bm-icon-btn">
+            <span class="material-symbols-outlined">more_vert</span>
+          </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+  <!-- Footer -->
+      <div class="bm-table-footer">
+        <span class="bm-footer-text">
+          Showing 1–4 of 1,240 results
+        </span>
+
+        <div class="bm-pagination">
+          <button class="bm-page-btn" [class.disabled]="currentPage === 1">
+            ‹
+          </button>
+          <button class="bm-page-btn bm-page-active">
+            1
+          </button>
+          <button class="bm-page-btn">
+            2
+          </button>
+          <button class="bm-page-btn" [class.disabled]="currentPage === totalPages">
+            ›
+          </button>
+        </div>
+      </div>
+</section><!-- End Contact Section -->
+

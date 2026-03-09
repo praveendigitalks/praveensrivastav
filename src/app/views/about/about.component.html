@@ -1,4 +1,7 @@
 <!-- ======= About Section ======= -->
+
+    <i  class="fa-solid fa-plus" *ngIf="!aboutData" (click)="addAbout()"></i>
+
 <section id="about" class="about section-show" *ngFor="let about of aboutData">
 
   <!-- ======= About Me ======= -->

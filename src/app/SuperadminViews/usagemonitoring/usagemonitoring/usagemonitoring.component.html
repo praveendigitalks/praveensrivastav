@@ -1,0 +1,151 @@
+<section id="usage-monitor" class="Contact section-show">
+  <div class="superadmin-container usage-shell">
+    <!-- Header -->
+   <!-- <i class="fa-solid fa-plus mx-3" routerLink="/superadmin/addtenant"></i> -->
+    <div class="section-title">
+      <h2 routerLink="/adduser">Usage Monitor</h2>
+      <p>Live view of API, storage, and session usage</p>
+    </div>
+
+    <!-- Quick filter card -->
+    <section class="um-quick-filter-card">
+      <div class="um-quick-filter-top">
+        <span class="um-quick-label">Quick Filter</span>
+        <button class="um-tenant-select">
+          <span>{{ quickFilterTenant }}</span>
+          <span class="material-symbols-outlined">expand_more</span>
+        </button>
+      </div>
+
+      <div class="um-range-row">
+        <button
+          class="um-range-pill"
+          [class.um-range-active]="quickFilterRange === 'Last 24h'"
+        >
+          Last 24h
+        </button>
+        <button class="um-range-pill">7 Days</button>
+        <button class="um-range-pill">30 Days</button>
+        <button class="um-range-pill">Custom</button>
+      </div>
+    </section>
+
+    <!-- Stat cards row -->
+    <section class="um-stat-row">
+      <div class="um-stat-card" *ngFor="let s of statCards">
+        <div class="um-stat-header">
+          <div class="um-stat-icon">
+            <span class="material-symbols-outlined">{{ s.icon }}</span>
+          </div>
+          <span
+            class="um-stat-change"
+            [ngClass]="{
+              'um-change-up': s.trendType === 'up',
+              'um-change-down': s.trendType === 'down'
+            }"
+          >
+            {{ s.change }}
+          </span>
+        </div>
+        <div class="um-stat-body">
+          <span class="um-stat-label">{{ s.title }}</span>
+          <span class="um-stat-value">{{ s.value }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Storage & Database cards -->
+    <section class="um-resource-row">
+      <!-- Storage -->
+      <div class="um-resource-card">
+        <div class="um-resource-header">
+          <div class="um-resource-left">
+            <div class="um-resource-icon storage">
+              <span class="material-symbols-outlined">cloud</span>
+            </div>
+            <div>
+              <div class="um-resource-title">{{ storageUsage.label }}</div>
+              <div class="um-resource-value">
+                {{ storageUsage.used }} / {{ storageUsage.total }}
+              </div>
+            </div>
+          </div>
+          <div class="um-resource-percent">
+            {{ storageUsage.percent }}%
+          </div>
+        </div>
+
+        <div class="um-progress-track">
+          <div
+            class="um-progress-bar"
+            [style.width.%]="storageUsage.percent"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Database -->
+      <div class="um-resource-card">
+        <div class="um-resource-header">
+          <div class="um-resource-left">
+            <div class="um-resource-icon database">
+              <span class="material-symbols-outlined">storage</span>
+            </div>
+            <div>
+              <div class="um-resource-title">{{ databaseUsage.label }}</div>
+              <div class="um-resource-value">
+                {{ databaseUsage.size }}
+              </div>
+            </div>
+          </div>
+
+          <button class="um-details-link">
+            Details
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Platform Usage chart -->
+    <section class="um-chart-card">
+      <div class="um-chart-header">
+        <div class="um-chart-title-wrap">
+          <span class="material-symbols-outlined um-chart-icon">
+            bar_chart
+          </span>
+          <span class="um-chart-title">Daily Platform Usage</span>
+        </div>
+      </div>
+
+      <div class="um-chart-body">
+        <div class="um-bar-row">
+          <div
+            class="um-bar-item"
+            *ngFor="let d of dailyUsage"
+          >
+            <div
+              class="um-bar"
+              [ngClass]="{ 'um-bar-today': d.isToday }"
+              [style.height.%]="d.value"
+            ></div>
+            <div class="um-bar-label">{{ d.label }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Placeholder for tenant distribution card -->
+    <section class="um-placeholder-card">
+      <div class="um-placeholder-header">
+        <span class="um-chart-title">Tenant Activity Distribution</span>
+      </div>
+      <div class="um-placeholder-body">
+        <span class="um-placeholder-text">
+          Chart placeholder – plug in real chart later.
+        </span>
+      </div>
+    </section>
+  </div>
+</section>
+
+

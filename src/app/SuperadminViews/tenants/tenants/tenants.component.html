@@ -34,4 +34,25 @@
 
 
   </div>
+  <!-- Footer -->
+      <div class="bm-table-footer">
+        <span class="bm-footer-text">
+          Showing 1–4 of 1,240 results
+        </span>
+
+        <div class="bm-pagination">
+          <button class="bm-page-btn" [class.disabled]="currentPage === 1">
+            ‹
+          </button>
+          <button class="bm-page-btn bm-page-active">
+            1
+          </button>
+          <button class="bm-page-btn">
+            2
+          </button>
+          <button class="bm-page-btn" [class.disabled]="currentPage === totalPages">
+            ›
+          </button>
+        </div>
+      </div>
 </div><!-- End Contact Section -->

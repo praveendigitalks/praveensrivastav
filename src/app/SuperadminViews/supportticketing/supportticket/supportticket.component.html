@@ -1,0 +1,222 @@
+<section id="support-tickets" class="Contact section-show">
+
+  <div class="superadmin-container st-shell">
+    <i class="fa-solid fa-plus mx-3" routerLink="/superadmin/addtenant"></i>
+    <div class="section-title">
+      <h2 routerLink="/adduser">Support Tickets</h2>
+      <p>Monitor and respond to customer issues</p>
+    </div>
+
+
+    <!-- st-layout gets a modifier class when a ticket is active -->
+    <div class="st-layout" [class.st-layout-split]="activeTicket">
+      <!-- LEFT: tickets list -->
+      <section class="st-list-panel">
+        <div class="st-search-wrap">
+          <span class="material-symbols-outlined st-search-icon">search</span>
+          <input
+            type="text"
+            class="st-search-input"
+            placeholder="Search by ID, tenant, or subject..."
+          />
+          <button class="st-refresh-btn">
+            <span class="material-symbols-outlined">refresh</span>
+          </button>
+        </div>
+
+        <div class="st-table-header-row">
+          <div>Ticket ID</div>
+          <div>Tenant</div>
+          <div>Subject</div>
+          <div>Priority</div>
+          <div>Status</div>
+          <div>Assigned To</div>
+          <div>Created</div>
+          <div class="st-actions-header">Actions</div>
+        </div>
+
+        <div
+          class="st-table-row"
+          *ngFor="let t of tickets"
+          [class.st-row-active]="activeTicket?.id === t.id"
+          (click)="selectTicket(t)"
+        >
+          <div class="st-id-cell">
+            <span class="st-id-bar"></span>
+            <span class="st-id-text">#{{ t.id }}</span>
+          </div>
+
+          <div>{{ t.tenant }}</div>
+
+          <div class="st-subject-cell">
+            {{ t.subject }}
+          </div>
+
+          <div>
+            <span
+              class="st-pill"
+              [ngClass]="{
+                'st-critical': t.priority === 'Critical',
+                'st-high': t.priority === 'High',
+                'st-medium': t.priority === 'Medium'
+              }"
+            >
+              {{ t.priority }}
+            </span>
+          </div>
+
+          <div>
+            <span
+              class="st-status-pill"
+              [ngClass]="{
+                'st-status-progress': t.status === 'In Progress',
+                'st-status-open': t.status === 'Open',
+                'st-status-resolved': t.status === 'Resolved'
+              }"
+            >
+              {{ t.status }}
+            </span>
+          </div>
+
+          <div class="st-assignee-cell">
+            <div class="st-avatar">
+              {{ t.assignee.charAt(0) }}
+            </div>
+            <span class="st-assignee-name">
+              {{ t.assignee }}
+            </span>
+          </div>
+
+          <div>{{ t.created }}</div>
+
+          <div class="st-actions-cell">
+            <button class="st-icon-btn">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="st-list-footer">
+          <span class="st-footer-text">
+            Showing {{ tickets.length }} of 42 tickets
+          </span>
+          <div class="st-pagination">
+            <button class="st-page-btn">&lt;</button>
+            <button class="st-page-btn st-page-active">1</button>
+            <button class="st-page-btn">2</button>
+            <button class="st-page-btn">3</button>
+            <button class="st-page-btn">&gt;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: ticket details & chat (only rendered when activeTicket exists) -->
+      <section class="st-detail-panel" *ngIf="activeTicket">
+        <div class="st-detail-header">
+          <div>
+            <div class="st-detail-label">Currently viewing</div>
+            <div class="st-detail-title">
+              #{{ activeTicket?.id }} {{ activeTicket?.subject }}
+            </div>
+          </div>
+
+          <button class="st-close-btn" (click)="closeDetail()">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <div class="st-detail-tags">
+          <button class="st-tag">{{ activeTicket?.status }}</button>
+          <button class="st-tag">
+            {{ activeTicket?.assignee }}
+          </button>
+        </div>
+
+        <div class="st-tenant-summary">
+          <div class="st-tenant-header">
+            <div class="st-tenant-avatar">AC</div>
+            <div>
+              <div class="st-tenant-name">{{ activeTicket?.tenant }}</div>
+              <div class="st-tenant-meta">
+                Premium Tier Tenant • San Francisco, CA
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="st-conversation">
+          <div class="st-message-card">
+            <div class="st-message-meta">
+              <span class="st-message-author">Acme Admin</span>
+              <span class="st-message-time">{{ conversation[0]?.time }}</span>
+            </div>
+            <p class="st-message-text">
+              {{ conversation[0]?.text }}
+            </p>
+
+            <div class="st-attachment">
+              <div class="st-attachment-icon">
+                <span class="material-symbols-outlined">description</span>
+              </div>
+              <div class="st-attachment-info">
+                <div class="st-attachment-name">error_log_20231025.txt</div>
+                <div class="st-attachment-size">124 KB</div>
+              </div>
+              <button class="st-attachment-download">
+                Download
+              </button>
+            </div>
+          </div>
+
+          <div class="st-divider-label">
+            <span>Alex Smith joined the conversation</span>
+          </div>
+
+          <div class="st-message-card st-agent-message">
+            <div class="st-message-meta">
+              <span class="st-message-author">Alex Smith</span>
+              <span class="st-message-time">
+                {{ conversation[1]?.time }}
+              </span>
+            </div>
+            <p class="st-message-text">
+              {{ conversation[1]?.text }}
+            </p>
+          </div>
+        </div>
+
+        <div class="st-reply-panel">
+          <div class="st-editor-toolbar">
+            <button class="st-editor-btn">
+              <span class="material-symbols-outlined">format_bold</span>
+            </button>
+            <button class="st-editor-btn">
+              <span class="material-symbols-outlined">format_italic</span>
+            </button>
+            <button class="st-editor-btn">
+              <span class="material-symbols-outlined">attach_file</span>
+            </button>
+          </div>
+
+          <textarea
+            class="st-reply-input"
+            rows="3"
+            placeholder="Type your reply here..."
+            [(ngModel)]="quickReply"
+          ></textarea>
+
+          <div class="st-reply-footer">
+            <label class="st-internal-note">
+              <input type="checkbox" />
+              <span>Internal note</span>
+            </label>
+
+            <button class="st-send-btn" (click)="sendReply()">
+              Send Reply
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

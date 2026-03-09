@@ -26,4 +26,7 @@ export class TenantsComponent {
       })
     }
 
+    currentPage = 1;
+  totalPages = 2;
+
 }
