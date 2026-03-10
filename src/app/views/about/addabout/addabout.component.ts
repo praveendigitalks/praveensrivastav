@@ -9,7 +9,7 @@ import { AboutService } from '../aboutservice/about.service';
 
 @Component({
   selector: 'app-addabout',
-  imports: [RouterLink, SHARED_IMPORTS],
+  imports: [ SHARED_IMPORTS],
   templateUrl: './addabout.component.html',
   styleUrl: './../about.component.css',
 })

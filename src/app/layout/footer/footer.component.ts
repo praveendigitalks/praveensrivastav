@@ -8,26 +8,31 @@ import { RouterLink } from '@angular/router';
   selector: 'app-footer',
   imports: [SHARED_IMPORTS, RouterLink],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-
-
-  userData : any =[];
+  userData: any = [];
   // tenantData : any = []
-  tenantData: any = null;  // Or type your Tenant interface
+  tenantData: any = null; // Or type your Tenant interface
 
-loadUser() {
-  this.userData = this.authService.getUser();
-  const tenantId = this.userData?.tenantId;
-  this.tenantService.getTenantbyID(tenantId).subscribe(res => {
-    this.tenantData = res;  // Single object
-  });
-}
+  loadUser() {
+    this.userData = this.authService.getUser();
+    console.log(
+      '🚀 ~ FooterComponent ~ loadUser ~ this.userData:',
+      this.userData
+    );
+    const tenantId = this.userData?.tenantId?._id;
+    this.tenantService.getTenantbyID(tenantId).subscribe((res) => {
+      this.tenantData = res; // Single object
+    });
+  }
 
-  constructor(private authService : AuthService, private tenantService : TenantService){}
+  constructor(
+    private authService: AuthService,
+    private tenantService: TenantService
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadUser();
   }
 
@@ -43,10 +48,7 @@ loadUser() {
   //   })
   // }
 
-
-tryme(){
-  console.log("i am clickable")
-}
-
-
+  tryme() {
+    console.log('i am clickable');
+  }
 }

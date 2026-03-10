@@ -21,7 +21,7 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background: #040404 url("../public/Bg.jpeg") ;
+  background: #040404 transparent ;
   background-size: cover;
   left: 0;
   right: 0;

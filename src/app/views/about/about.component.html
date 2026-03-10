@@ -1,6 +1,36 @@
 <!-- ======= About Section ======= -->
 
-    <i  class="fa-solid fa-plus" *ngIf="!aboutData" (click)="addAbout()"></i>
+   <!-- ======= About Section ======= -->
+
+<!-- ✅ Empty state: no aboutData -->
+<ng-container *ngIf="!aboutData || aboutData.length === 0; else aboutSection">
+  <section id="about" class="about section-show empty-about">
+    <div class="about-me container text-center">
+      <div class="section-title">
+        <h2>About</h2>
+        <p>No about section created yet.</p>
+
+         <button
+        class="fab-add-about"
+        *ngIf="isLogin"
+        type="button"
+        (click)="addAbout()"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      </div>
+
+
+
+      <p class="text-muted mt-3">
+        Click the + button to create your about section.
+      </p>
+    </div>
+  </section>
+</ng-container>
+
+<!-- ✅ Normal state: aboutData present -->
+<ng-template #aboutSection>
 
 <section id="about" class="about section-show" *ngFor="let about of aboutData">
 
@@ -198,4 +228,7 @@
 
 
 </section>
+</ng-template>
+
+
 <!-- End About Section -->
