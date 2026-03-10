@@ -127,7 +127,9 @@ export class LoginComponent {
           const heroImage = res?.user?.tenantId?.heroImage;
 
           if (heroImage) {
-            const fullUrl = 'http://localhost:5000' + heroImage;
+            // const fullUrl = 'http://localhost:5000' + heroImage;
+            const fullUrl = 'https://praveensrivastav-backend.onrender.com' + heroImage;
+
             document.body.style.backgroundImage = `url(${fullUrl})`;
           } else {
             document.body.style.backgroundImage = "url('/Bg.jpeg')";

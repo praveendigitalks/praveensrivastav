@@ -88,7 +88,7 @@ export class HomeComponent implements AfterViewInit {
       //   document.body.style.backgroundPosition = 'center center';
       // }
       if (heroImage) {
-        const fullUrl = 'https://praveensrivastav-backend.onrender.com/sp' + heroImage;
+        const fullUrl = 'https://praveensrivastav-backend.onrender.com' + heroImage;
         document.body.style.backgroundImage = `url(${fullUrl})`;
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center center';
