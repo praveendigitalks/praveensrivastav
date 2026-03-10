@@ -81,12 +81,21 @@ export class HomeComponent implements AfterViewInit {
       }
 
       const heroImage = parsed?.tenantId?.heroImage;
+      // if (heroImage) {
+      //   const fullUrl = 'http://localhost:5000' + heroImage;
+      //   document.body.style.backgroundImage = `url(${fullUrl})`;
+      //   document.body.style.backgroundSize = 'cover';
+      //   document.body.style.backgroundPosition = 'center center';
+      // }
       if (heroImage) {
-        const fullUrl = 'http://localhost:5000' + heroImage;
+        const fullUrl = 'https://praveensrivastav-backend.onrender.com/sp' + heroImage;
         document.body.style.backgroundImage = `url(${fullUrl})`;
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center center';
       }
+
+
+
     }
   }
 
