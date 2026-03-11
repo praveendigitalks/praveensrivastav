@@ -21,7 +21,7 @@ export const routes: Routes = [
 
   {
     path: '',
-    canActivate : [authGuard],
+    // canActivate : [authGuard],
     component: LayoutComponent,
     children: [
       {
@@ -80,6 +80,13 @@ export const routes: Routes = [
       },
       {
         path: 'addcontact',
+        loadComponent: () =>
+          import('./views/contact/addcontact/addcontact.component').then(
+            (m) => m.AddcontactComponent
+          ),
+      },
+      {
+        path: 'addcontact/:contactId',
         loadComponent: () =>
           import('./views/contact/addcontact/addcontact.component').then(
             (m) => m.AddcontactComponent

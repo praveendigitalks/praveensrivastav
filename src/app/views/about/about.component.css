@@ -61,24 +61,25 @@
   line-height: 0;
 }
 
-/* ✅ NEW: tech stack icon row */
+/* tech stack icons (if used inside count-box) */
 .count-box .stack-icons {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px; /* space between icons */
+  gap: 6px;
   margin-bottom: 8px;
 }
 
 .count-box .stack-icons i,
 .count-box .stack-icons img {
-  position: static; /* override any inherited position */
+  position: static;
   font-size: 24px;
   height: 24px;
   width: 24px;
   object-fit: contain;
 }
+
 .counts .count-box.no-floating-icon i {
   position: static;
   transform: none;
@@ -97,7 +98,7 @@
 .counts .count-box p {
   padding: 0;
   margin: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
 }
 
@@ -117,7 +118,7 @@
   text-transform: uppercase;
   display: block;
   font-weight: 600;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
 }
 
@@ -137,18 +138,17 @@
   background-color: #18d26e;
 }
 
-/* ✅ YOUR ORIGINAL progress animation + dynamic */
+/* base animation */
 .progress-bar {
-  width: 0%; /* Start at 0% */
+  width: 0%;
   animation: slideProgress 2s ease-out forwards;
   transition: 0.9s;
   background-color: #18d26e;
 }
 
-/* 🔥 Dynamic slide animation */
 @keyframes slideProgress {
   to {
-    width: var(--target-width, 100%); /* Dynamic end width */
+    width: var(--target-width, 100%);
   }
 }
 
@@ -211,18 +211,15 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-/*/*--------------------------------------------------------------
-# projects
+/*--------------------------------------------------------------
+# projects (slider)
 --------------------------------------------------------------*/
-
-/* container keeps the slider centered and full width */
 .projects .projects-slider {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
 
-/* base item style from your theme */
 .projects .projects-item {
   box-sizing: content-box;
   min-height: 320px;
@@ -270,7 +267,7 @@
   z-index: 1;
 }
 
-/* ---- Slider layout ---- */
+/* Slider layout */
 .projects-slider .swiper-wrapper {
   display: flex;
   width: 100%;
@@ -278,27 +275,10 @@
 }
 
 .projects-slider .swiper-slide {
-  flex: 0 0 33.3333%; /* 3 slides visible */
+  flex: 0 0 33.3333%;
 }
 
-/* arrows below the slide, centered like screenshot */
-.slider-arrows {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 10px;
-}
-
-.slider-prev,
-.slider-next {
-  border: none;
-  background: transparent;
-  font-size: 22px;
-  cursor: pointer;
-  color: #fff;
-}
-
-/* dots row under arrows */
+/* Dots */
 .projects-slider .swiper-pagination {
   display: flex;
   justify-content: center;
@@ -316,33 +296,25 @@
 }
 
 .projects-slider .swiper-pagination-bullet-active {
-  background: #18d26e; /* active green dot */
+  background: #18d26e;
   transform: scale(1.2);
 }
 
-/* ---------- Responsive slides ---------- */
-
-/* Desktop (default: 3 cards) */
-.projects-slider .swiper-slide {
-  flex: 0 0 33.3333%;
-}
-
-/* Tablet */
+/* Responsive slides */
 @media (max-width: 991px) {
   .projects-slider .swiper-slide {
-    flex: 0 0 50%; /* 2 cards */
+    flex: 0 0 50%;
   }
 }
 
-/* Mobile */
 @media (max-width: 576px) {
   .projects-slider .swiper-slide {
-    flex: 0 0 100% !important; /* 1 card */
+    flex: 0 0 100% !important;
   }
 }
 
 /*--------------------------------------------------------------
-# Credits
+# Contact / Other styles you had
 --------------------------------------------------------------*/
 .contact .info-box {
   color: #444444;
@@ -400,20 +372,14 @@
 
 .contact .php-email-form .error-message {
   display: none;
-  background: rgba(255, 255, 255, 0.08);
   background: #ed3c0d;
   text-align: left;
   padding: 15px;
   font-weight: 600;
 }
 
-.contact .php-email-form .error-message br + br {
-  margin-top: 25px;
-}
-
 .contact .php-email-form .sent-message {
   display: none;
-  background: rgba(255, 255, 255, 0.08);
   background: #18d26e;
   text-align: center;
   padding: 15px;
@@ -428,7 +394,7 @@
 }
 
 .contact .php-email-form .loading:before {
-  content: "";
+  content: '';
   display: inline-block;
   border-radius: 50%;
   width: 24px;
@@ -455,12 +421,6 @@
   background-color: rgba(255, 255, 255, 0.11);
 }
 
-.contact .php-email-form input::-moz-placeholder,
-.contact .php-email-form textarea::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.3);
-  opacity: 1;
-}
-
 .contact .php-email-form input::placeholder,
 .contact .php-email-form textarea::placeholder {
   color: rgba(255, 255, 255, 0.3);
@@ -475,7 +435,7 @@
   padding: 12px 15px;
 }
 
-.contact .php-email-form button[type="submit"] {
+.contact .php-email-form button[type='submit'] {
   background: #18d26e;
   border: 0;
   padding: 10px 30px;
@@ -484,7 +444,7 @@
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type="submit"]:hover {
+.contact .php-email-form button[type='submit']:hover {
   background: #15bb62;
 }
 
@@ -499,9 +459,8 @@
 }
 
 /* upload file */
-
 .file-upload {
-  border: 2px dashed #900c3f; /* Dark Red Border */
+  border: 2px dashed #900c3f;
   padding: 20px;
   text-align: center;
   cursor: pointer;
@@ -537,8 +496,10 @@
 input.ng-invalid.ng-touched {
   border-color: red;
 }
+
+/* profile upload */
 .profile-upload-circle {
-  width: 250px; /* Fixed size like screenshot */
+  width: 250px;
   height: 250px;
   border-radius: 50%;
   border: 3px dashed #18d26e;
@@ -558,10 +519,9 @@ input.ng-invalid.ng-touched {
 }
 
 .profile-upload-circle.has-image {
-  border-style: solid; /* Solid when image loaded */
+  border-style: solid;
 }
 
-/* Preview covers circle */
 .preview-image {
   width: 100%;
   height: 100%;
@@ -569,7 +529,6 @@ input.ng-invalid.ng-touched {
   border-radius: 50%;
 }
 
-/* No image content */
 .no-image-content {
   text-align: center;
   color: #999;
@@ -579,7 +538,6 @@ input.ng-invalid.ng-touched {
   color: #18d26e;
 }
 
-/* Error overlay */
 .error-overlay {
   position: absolute;
   bottom: 10px;

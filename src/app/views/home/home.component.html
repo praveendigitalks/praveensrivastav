@@ -27,28 +27,31 @@
         <li><a class="nav-link" routerLink="/contact" (click)="closeMenu()">Contact</a></li>
       </ul>
 
-      <i
-        class="fa-solid mobile-nav-toggle"
-        [class.fa-bars]="!isMobileOpen"
-        [class.fa-xmark]="isMobileOpen"
-        (click)="toggleMenu()"
-      ></i>
+      <i class="fa-solid mobile-nav-toggle" [class.fa-bars]="!isMobileOpen" [class.fa-xmark]="isMobileOpen"
+        (click)="toggleMenu()"></i>
     </nav>
     <!-- navbar end -->
-
+    @if(isLogin){
     <div class="social-links">
-      <a href="https://github.com/praveensrivastav3j" class="github"
-        ><i class="fa-brands fa-github"></i
-      ></a>
-      <a href="mailto:praveensrivatav3july@zohomail.in" class="mail"
-        ><i class="fa-solid fa-envelope"></i
-      ></a>
-      <a
-        href="https://www.linkedin.com/in/srivastav-praveen-754846160/"
-        class="linkedin"
-        ><i class="fa-brands fa-linkedin"></i
-      ></a>
+      <a *ngFor="let sp of contact.socialprofileSchema" [href]="sp.social_link" target="_blank"
+        rel="noopener noreferrer">
+        <i *ngIf="sp.iconType === 'fontawesome'" [class]="sp.icon"></i>
+
+        <img *ngIf="sp.iconType === 'image'" [src]="sp.icon" alt="social icon" width="24" height="24" />
+      </a>
     </div>
+
+    }@else {
+    <div class="social-links">
+      <a href="https://github.com/praveensrivastav3j" class="github"><i class="fa-brands fa-github"></i></a>
+      <a href="mailto:praveensrivatav3july@zohomail.in" class="mail"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/srivastav-praveen-754846160/" class="linkedin"><i
+          class="fa-brands fa-linkedin"></i></a>
+    </div>
+
+    }
+
+
 
     <!-- Login link only when NOT logged in -->
     <p class="my-4" *ngIf="!isLogin">

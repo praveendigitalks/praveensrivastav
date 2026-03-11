@@ -8,6 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../authentication/authservice/auth.service';
+import { ContactService } from '../contact/contactservice/contact.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { AuthService } from '../../authentication/authservice/auth.service';
 })
 export class HomeComponent implements AfterViewInit {
   isLogin = false;
+  contact : any = [];
 
   // 👇 roles that will be typed in <span #roleText>
   roles: string[] = [
@@ -44,7 +46,7 @@ export class HomeComponent implements AfterViewInit {
 
   isMobileOpen = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private contactService : ContactService) {}
 
   ngOnInit() {
     this.isLogin = this.authService.isLoggedIn();
@@ -97,7 +99,31 @@ export class HomeComponent implements AfterViewInit {
 
 
     }
+
+      this.loadContact();
   }
+
+  private loadContact(): void {
+    // console.log('[About] loadAbout() called');
+
+    this.contactService.getContact().subscribe({
+      next: (res) => {
+        // console.log('[About] API success, res =', res);
+        this.contact = res[0] || [];
+
+        console.log(
+          "conatc data",this.contact,
+
+        );
+
+
+      },
+      error: (err) => {
+        console.error('[About] Error loading about data:', err);
+      }
+    });
+  }
+
 
   // bio → array of clean role strings
   private extractRolesFromBio(bio: string): string[] {

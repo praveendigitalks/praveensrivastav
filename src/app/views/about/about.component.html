@@ -1,234 +1,758 @@
 <!-- ======= About Section ======= -->
+@if (isLogin) {
 
-   <!-- ======= About Section ======= -->
+  <!-- ✅ Empty state: no aboutData -->
+  <ng-container *ngIf="!aboutData || aboutData.length === 0; else aboutSection">
+    <section id="about" class="about section-show empty-about">
+      <div class="about-me container text-center">
+        <div class="section-title">
+          <h2>About</h2>
+          <p>No about section created yet.</p>
 
-<!-- ✅ Empty state: no aboutData -->
-<ng-container *ngIf="!aboutData || aboutData.length === 0; else aboutSection">
-  <section id="about" class="about section-show empty-about">
-    <div class="about-me container text-center">
-      <div class="section-title">
-        <h2>About</h2>
-        <p>No about section created yet.</p>
+          <button
+            class="fab-add-about"
+            *ngIf="isLogin"
+            type="button"
+            (click)="addAbout()"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
 
-         <button
-        class="fab-add-about"
-        *ngIf="isLogin"
-        type="button"
-        (click)="addAbout()"
-      >
-        <i class="fa-solid fa-plus"></i>
-      </button>
-      </div>
-
-
-
-      <p class=" mt-3">
-        Click the + button to create your about section.
-      </p>
-    </div>
-  </section>
-</ng-container>
-
-<!-- ✅ Normal state: aboutData present -->
-<ng-template #aboutSection>
-
-<section id="about" class="about section-show" *ngFor="let about of aboutData">
-
-  <!-- ======= About Me ======= -->
-  <div class="about-me container">
-    <i class="fa-solid fa-plus" *ngIf="isLogin" (click)="editAbout(about._id)"></i>
-    <div class="section-title">
-      <h2>About</h2>
-      <p>Learn more about me</p>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-4" data-aos="fade-right">
-        <!-- <img [src]="about.image" class="img-fluid" alt="profile image"> -->
-        <img [src]="'https://praveensrivastav-backend.onrender.com' + about.image" class="img-fluid" />
-        <!-- <img [src]="'http://localhost:5000' + about.image" class="img-fluid" /> -->
-        <!-- http://localhost:5000/upload/about/1769252401931.jpeg -->
-
-      </div>
-      <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-        <!-- <h3>MEAN Stack,MERN Stack , Next Js &amp; Laravel Developer</h3> -->
-        <h3>{{about.position}}</h3>
-        <p class="fst-italic">
-          {{about.description}}
+        <p class="mt-3">
+          Click the + button to create your about section.
         </p>
-        <!-- <p class="fst-italic">
-          <i class="bi bi-chevron-right"></i> Worked as Laravel Developer for 9 months at Trezix Software Pvt.
-          Ltd,which is a Product Base Company.
-        </p> -->
+      </div>
+    </section>
+  </ng-container>
+
+  <!-- ✅ Normal state: aboutData present -->
+  <ng-template #aboutSection>
+    <!-- We assume only one about object; if multiple, you can adjust -->
+    <section
+      id="about"
+      class="about section-show"
+      *ngFor="let about of aboutData"
+    >
+      <!-- ======= About Me ======= -->
+      <div class="about-me container">
+        <i
+          class="fa-solid fa-plus"
+          *ngIf="isLogin"
+          (click)="editAbout(about._id)"
+        ></i>
+
+        <div class="section-title">
+          <h2>About</h2>
+          <p>Learn more about me</p>
+        </div>
+
         <div class="row">
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="bi bi-chevron-right"></i><strong>Birthday:</strong><span>{{ about.dob | date:'d MMMM yyyy'
-                  }}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>{{about.phone}}</span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>{{about.city}}</span></li>
-            </ul>
+          <div class="col-lg-4" data-aos="fade-right">
+            <img
+              [src]="'https://praveensrivastav-backend.onrender.com' + about.image"
+              class="img-fluid"
+              alt="Profile image"
+            />
           </div>
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>{{about.degree}} </span></li>
-              <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong>
-                <span>{{about.email}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
 
-  </div>
-  <!-- End About Me -->
+          <div
+            class="col-lg-8 pt-4 pt-lg-0 content"
+            data-aos="fade-left"
+          >
+            <h3>{{ about.position }}</h3>
 
-  <!-- ======= Skills (SINGLE CONTAINER) ======= -->
-  <div class="skills container">
-    <div class="section-title">
-      <h2>Web Skills</h2>
-    </div>
-
-    <div class="row skills-content">
-      <!-- ✅ Loop INSIDE container, not outside -->
-      <div class="col-lg-6" *ngFor="let webskill of aboutData[0]?.webskills; let i = index">
-        <div class="progress">
-          <span class="skill">{{webskill.technology}} <i class="val">{{webskill.proficiency}}%</i></span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar" #progressBar role="progressbar" [attr.aria-valuenow]="webskill.proficiency"
-              attr.aria-valuemin="0" [attr.aria-valuemax]="100" [attr.data-skill]="webskill.proficiency">
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- End Skills -->
-
-
-  <!-- ======= prior-skill ======= -->
-  <div class="prior-skill container">
-    <div class="section-title">
-      <h2>Prior Skills</h2>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-3 col-md-4 mt-4" *ngFor="let skill of getPriorSkills(); let i = index">
-        <div class="icon-box">
-          <!-- ✅ FontAwesome Icon -->
-          <i *ngIf="skill.iconType === 'fontawesome'" [class]="skill.icon" style=" font-size: 2.5rem;"></i>
-
-          <!-- ✅ Image Icon (Next.js etc.) -->
-          <img *ngIf="skill.iconType === 'image'" [src]="skill.icon" height="40" width="40"
-            alt="{{skill.skillName}} icon" style=" margin-right: 15px;" />
-
-          <h3 class="mt-2">{{skill.skillName}}</h3>
-        </div>
-      </div>
-    </div>
-
-    <!-- ✅ Empty state -->
-    <div class="text-center py-4 text-muted" *ngIf="getPriorSkills().length === 0">
-      No prior skills available.
-    </div>
-  </div>
-  <!-- End prior-skill -->
-
-  <!-- End prior-skill -->
-
-  <!-- ======= Counts for Company projects ======= -->
-  <div class="counts container">
-    <div class="row">
-      <div class="col-lg-3 col-md-6">
-        <div class="count-box">
-          <i class="fa-regular fa-folder-open"></i>
-          <span class="count-number" data-target="11">{{about?.totalProject}}</span>
-          <p>Total Projects</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-        <div class="count-box">
-          <span class="count-number" data-target="2">{{about.MeanStack}}</span>
-          <p>MEAN STACK</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-        <div class="count-box">
-          <span class="count-number" data-target="3">{{about.MernornextStack}}</span>
-          <p>MERN STACK / Next JS Stack</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-        <div class="count-box">
-          <span class="count-number" data-target="6">{{about.otherproject}}</span>
-          <p>Other Projects</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- End Counts for company projects -->
-
-  <!-- ======= Company Major Projects ======= -->
-  <!-- ======= Company Major Projects ======= -->
-  <div class="projects container">
-    <div class="section-title">
-      <h2>Project for Companies</h2>
-    </div>
-
-    <div id="company-projects-slider" class="projects-slider swiper" data-aos="fade-up" data-aos-delay="100">
-
-      <div class="swiper-wrapper">
-
-        <div class="swiper-slide" *ngFor="let company of getCompanyProjects(); let i = index">
-          <div class="projects-item">
-            <p>
-              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              {{company.projectDescription}}
-              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            <p class="fst-italic">
+              {{ about.description }}
             </p>
 
-            <!-- ✅ FIXED: Loop through technologies ARRAY -->
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <!-- FontAwesome Icons -->
-              <ng-container *ngFor="let tech of company.technologies">
-                <i *ngIf="tech.iconType === 'fontawesome'" [class]="tech.icon"
-                  style="font-size: 2rem; color: hsl(0, 11%, 95%);" class="me-2"></i>
+            <div class="row">
+              <div class="col-lg-6">
+                <ul>
+                  <li>
+                    <i class="bi bi-chevron-right"></i>
+                    <strong>Birthday:</strong>
+                    <span>{{ about.dob | date: 'd MMMM yyyy' }}</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-chevron-right"></i>
+                    <strong>Phone:</strong>
+                    <span>{{ about.phone }}</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-chevron-right"></i>
+                    <strong>City:</strong>
+                    <span>{{ about.city }}</span>
+                  </li>
+                </ul>
+              </div>
 
-                <img *ngIf="tech.iconType === 'image'" [src]="tech.icon" height="40" width="40" class="rounded me-2"
-                  alt="{{company.projectTitle}} tech" />
-              </ng-container>
+              <div class="col-lg-6">
+                <ul>
+                  <li>
+                    <i class="bi bi-chevron-right"></i>
+                    <strong>Degree:</strong>
+                    <span>{{ about.degree }}</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-chevron-right"></i>
+                    <strong>Email:</strong>
+                    <span>{{ about.email }}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <!-- End About Me -->
 
+      <!-- ======= Skills (SINGLE CONTAINER) ======= -->
+      <div class="skills container">
+        <div class="section-title">
+          <h2>Web Skills</h2>
+        </div>
 
-            <h3>{{company.projectTitle}}</h3>
-            <h4>{{company.projectBio}}</h4>
+        <div class="row skills-content">
+          <div
+            class="col-lg-6"
+            *ngFor="let webskill of aboutData[0]?.webskills; let i = index"
+          >
+            <div class="progress">
+              <span class="skill">
+                {{ webskill.technology }}
+                <i class="val">{{ webskill.proficiency }}%</i>
+              </span>
+              <div class="progress-bar-wrap">
+                <div
+                  class="progress-bar"
+                  #progressBar
+                  role="progressbar"
+                  [attr.aria-valuenow]="webskill.proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  [attr.data-skill]="webskill.proficiency"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Skills -->
+
+      <!-- ======= Prior Skills ======= -->
+      <div class="prior-skill container">
+        <div class="section-title">
+          <h2>Prior Skills</h2>
+        </div>
+
+        <div class="row">
+          <div
+            class="col-lg-3 col-md-4 mt-4"
+            *ngFor="let skill of getPriorSkills(); let i = index"
+          >
+            <div class="icon-box">
+              <i
+                *ngIf="skill.iconType === 'fontawesome'"
+                [class]="skill.icon"
+                style="font-size: 2.5rem;"
+              ></i>
+
+              <img
+                *ngIf="skill.iconType === 'image'"
+                [src]="skill.icon"
+                height="40"
+                width="40"
+                [alt]="skill.skillName + ' icon'"
+                style="margin-right: 15px;"
+              />
+
+              <h3 class="mt-2">{{ skill.skillName }}</h3>
+            </div>
           </div>
         </div>
 
+        <div
+          class="text-center py-4 text-muted"
+          *ngIf="getPriorSkills().length === 0"
+        >
+          No prior skills available.
+        </div>
+      </div>
+      <!-- End prior-skill -->
 
+      <!-- ======= Counts for Company projects ======= -->
+      <div class="counts container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="fa-regular fa-folder-open"></i>
+              <span class="count-number" data-target="11">
+                {{ about?.totalProject }}
+              </span>
+              <p>Total Projects</p>
+            </div>
+          </div>
 
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box no-floating-icon">
+              <span class="count-number" data-target="2">
+                {{ about.MeanStack }}
+              </span>
+              <p>MEAN STACK</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box no-floating-icon">
+              <span class="count-number" data-target="3">
+                {{ about.MernornextStack }}
+              </span>
+              <p>MERN STACK / Next JS Stack</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box no-floating-icon">
+              <span class="count-number" data-target="6">
+                {{ about.otherproject }}
+              </span>
+              <p>Other Projects</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Counts -->
+
+      <!-- ======= Company Major Projects (Slider for login) ======= -->
+      <div class="projects container">
+        <div class="section-title">
+          <h2>Project for Companies</h2>
+        </div>
+
+        <div
+          id="company-projects-slider"
+          class="projects-slider"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="swiper-wrapper">
+            <div
+              class="swiper-slide"
+              *ngFor="let company of getCompanyProjects(); let i = index"
+            >
+              <div class="projects-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  {{ company.projectDescription }}
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <ng-container *ngFor="let tech of company.technologies">
+                    <i
+                      *ngIf="tech.iconType === 'fontawesome'"
+                      [class]="tech.icon"
+                      style="font-size: 2rem; color: hsl(0, 11%, 95%);"
+                      class="me-2"
+                    ></i>
+
+                    <img
+                      *ngIf="tech.iconType === 'image'"
+                      [src]="tech.icon"
+                      height="40"
+                      width="40"
+                      class="rounded me-2"
+                      [alt]="company.projectTitle + ' tech'"
+                    />
+                  </ng-container>
+                </div>
+
+                <h3>{{ company.projectTitle }}</h3>
+                <h4>{{ company.projectBio }}</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dots -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      <!-- End Company projects -->
+    </section>
+  </ng-template>
+
+} @else {
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <!-- ======= About Me ======= -->
+    <div class="about-me container">
+      <div class="section-title">
+        <h2>About</h2>
+        <p>Learn more about me</p>
       </div>
 
-      <!-- only dots (no arrows) -->
-      <div class="swiper-pagination"></div>
+      <div class="row">
+        <div class="col-lg-4" data-aos="fade-right">
+          <img src="/favicon.jpeg" class="img-fluid" alt="" />
+        </div>
+        <div
+          class="col-lg-8 pt-4 pt-lg-0 content"
+          data-aos="fade-left"
+        >
+          <h3>MEAN Stack &amp; Laravel Developer</h3>
+          <p class="fst-italic">
+            Worked as Laravel Developer for 9 months at Trezix Software Pvt. Ltd. and now keenly interested for the
+            position of MEAN Stack Developer
+          </p>
+          <div class="row">
+            <div class="col-lg-6">
+              <ul>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <strong>Birthday:</strong>
+                  <span>3 July 2000</span>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <strong>Phone:</strong>
+                  <span>+91 7016225515</span>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <strong>City:</strong>
+                  <span>Surat,Gujarat,India</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <ul>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <strong>Degree:</strong>
+                  <span>Bachelor's in Mechanical Engineering </span>
+                </li>
+                <li>
+                  <i class="bi bi-chevron-right"></i>
+                  <strong>Email Address:</strong>
+                  <span>{{ 'srivastavpraveen3j@gmail.com' }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- End About Me -->
 
-    <div class="owl-carousel projects-carousel">
+    <!-- ======= Skills  ======= -->
+    <div class="skills container">
+      <div class="section-title">
+        <h2>Web Skills</h2>
+      </div>
+
+      <div class="row skills-content">
+        <div class="col-lg-6">
+          <div class="progress">
+            <span class="skill">HTML <i class="val">100%</i></span>
+            <div class="progress-bar-wrap">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="100"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">CSS <i class="val">90%</i></span>
+            <div class="progress-bar-wrap">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="90"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">JavaScript <i class="val">85%</i></span>
+            <div class="progress-bar-wrap">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="85"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="progress">
+            <span class="skill">Bootstrap <i class="val">80%</i></span>
+            <div class="progress-bar-wrap">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="80"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">Tailwind Css<i class="val">60%</i></span>
+            <div class="progress-bar-wrap">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="60"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+          <div class="progress">
+            <span class="skill">Jquery<i class="val">70%</i></span>
+            <div class="progress-bar-wrap">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="90"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- End Company projects -->
+    <!-- End Skills -->
 
-  <!-- End Company projects -->
+    <!-- ======= prior-skill ======= -->
+    <div class="prior-skill container">
+      <div class="section-title">
+        <h2>Prior Skills</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-angular" style="color: #e51515;"></i>
+            <h3 class="mt-2">Angular</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-react" style="color: #156fe5;"></i>
+            <h3 class="mt-2">React Js</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="https://img.icons8.com/?size=100&id=yUdJlcKanVbh&format=png&color=000000"
+              alt=""
+              height="33"
+              width="40"
+            />
+            <h3 class="mt-2">Next Js</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-wordpress"></i>
+            <h3 class="mt-2">Wordpress</h3>
+          </div>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-node" style="color: #15e531;"></i>
+            <h3 class="mt-2">Node Js</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-laravel" style="color: #e53415;"></i>
+            <h3 class="mt-2">Laravel</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-php" style="color: #1568e5;"></i>
+            <h3 class="mt-2">Php</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-java" style="color: #e58b15;"></i>
+            <h3 class="mt-2">Java</h3>
+          </div>
+        </div>
+      </div>
 
-</section>
-</ng-template>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img src="/portfolio/mongodb.png" alt="" height="33" width="40" />
+            <h3 class="mt-2">MongoDb</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="https://img.icons8.com/?size=100&id=UFXRpPFebwa2&format=png&color=000000"
+              alt=""
+              height="33"
+              width="40"
+            />
+            <h3 class="mt-2">MySQL</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="https://img.icons8.com/?size=100&id=38561&format=png&color=000000"
+              alt=""
+              height="33"
+              width="40"
+            />
+            <h3 class="mt-2">PostgreSQL</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="https://img.icons8.com/?size=100&id=zdI5E8moxhs-&format=png&color=000000"
+              alt=""
+              height="33"
+              width="40"
+            />
+            <h3 class="mt-2">GraphQL</h3>
+          </div>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="https://img.icons8.com/?size=100&id=106501&format=png&color=000000"
+              alt=""
+              height="33"
+              width="40"
+            />
+            <h3 class="mt-2">AWS S3 Bucket</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="https://img.icons8.com/?size=100&id=EPbEfEa7o8CB&format=png&color=000000"
+              alt=""
+              height="33"
+              width="40"
+            />
+            <h3 class="mt-2">Postman</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <img
+              src="/portfolio/swagger.png"
+              alt=""
+              height="33"
+              width="40"
+              style="color: #15e542;"
+            />
+            <h3 class="mt-2">Swagger</h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="fa-brands fa-github"></i>
+            <h3 class="mt-2">Github</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End prior-skill -->
 
-<!-- End About Section -->
+    <!-- ======= Counts ==== -->
+    <div class="counts container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="count-box">
+            <i class="fa-regular fa-folder-open"></i>
+            <span class="count-number" data-target="11">13</span>
+            <p>Total Projects</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+          <div class="count-box no-floating-icon">
+            <span class="count-number" data-target="2">5</span>
+            <p>MEAN STACK</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box no-floating-icon">
+            <span class="count-number" data-target="3">3</span>
+            <p>MERN STACK / Next JS Stack</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box no-floating-icon">
+            <span class="count-number" data-target="6">5</span>
+            <p>Other Projects</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Counts -->
+
+    <!-- ======= Major Projects ======= -->
+    <div class="projects container">
+      <div class="section-title">
+        <h2>Project for Companies</h2>
+      </div>
+
+      <div
+        id="company-projects-slider"
+        class="projects-slider"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="projects-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                An E-Learning Platform designed for medical students to access structured educational content online.
+                The platform allows educators to upload video lectures, notes, and study materials, while students can
+                subscribe and learn through a secure dashboard. It includes features such as course management, student
+                subscription handling, content pagination, and device-based login control to ensure secure and organized
+                learning access.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="/portfolio/mongodb.png" alt="" height="20" width="20" />
+              <img
+                src="https://img.icons8.com/?size=100&id=sFWl80NH39SW&format=png&color=000000"
+                alt=""
+                height="20"
+                width="20"
+              />
+              <i class="fa-brands fa-angular" style="color: #e63232;"></i>
+              <i class="fa-brands fa-node-js" style="color: #38e632;"></i>
+
+              <h3>E-Learning Platform for Health Sector</h3>
+              <h4>
+                Project Lead, Client Management , Back-end Structure Management & Api Development & Front-end Admin
+                Panel UI development & Api Integeration
+              </h4>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="projects-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Developed a custom Order Management Platform for a quick e-commerce website. The system allows customers
+                to browse products and place orders online. A fully functional admin panel was also built to provide
+                complete control over product listings, order tracking, inventory management, and customer orders. The
+                platform helps streamline the order processing workflow and enables efficient management of e-commerce
+                operations from a centralized dashboard.
+              </p>
+              <img src="/portfolio/mongodb.png" alt="" height="20" width="20" />
+              <img
+                src="https://img.icons8.com/?size=100&id=sFWl80NH39SW&format=png&color=000000"
+                alt=""
+                height="20"
+                width="20"
+              />
+              <i class="fa-brands fa-angular" style="color: #e63232;"></i>
+              <h3>E-Commerce Order Management System</h3>
+              <h4>Project Lead, Client Management & Front-end UI & Intergeration Management</h4>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="projects-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Developed a production and order management platform for a textile manufacturing company that handles
+                the complete lifecycle of fabric processing. The system allows users to place sample requests, which are
+                reviewed and approved before production begins. Once approved, orders are divided into batches and slots
+                for manufacturing. The platform tracks multiple production stages including Greige fabric availability,
+                Dyeing, Printing, Embossing, Drying, Folding, Dispatch, and Delivery. It also supports Purchase Order
+                (PO) generation, order management, shipment tracking, and dispatch management, enabling better
+                visibility and control over the entire textile manufacturing and delivery workflow.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="/portfolio/mongodb.png" alt="" height="20" width="20" />
+              <img
+                src="https://img.icons8.com/?size=100&id=sFWl80NH39SW&format=png&color=000000"
+                alt=""
+                height="20"
+                width="20"
+              />
+              <i class="fa-brands fa-node-js" style="color: #38e632;"></i>
+              <h3>Textile Production & Order Management System</h3>
+              <h4>Project Lead, Client Management & Back-end Structure Management & Api Development</h4>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="projects-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Developed a cloud-based Hospital Information Management System (HIMS) designed as a SaaS platform that
+                can be deployed for multiple hospitals with a subscription-based setup. The system supports
+                multi-hospital and multi-branch management, allowing each hospital to operate independently within the
+                same platform. It includes configurable modules such as OPD (Outpatient Management), IPD (Inpatient
+                Management), Pharmacy, Central Store, Sub-Pharmacy Inventory, Pathology Laboratory, and Radiology.
+                Hospitals can enable individual modules or a combination of modules based on their requirements. The
+                platform also features role-based access control and permission management, ensuring secure and
+                structured operations across departments.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="/portfolio/mongodb.png" alt="" height="20" width="20" />
+              <img
+                src="https://img.icons8.com/?size=100&id=sFWl80NH39SW&format=png&color=000000"
+                alt=""
+                height="20"
+                width="20"
+              />
+              <i class="fa-brands fa-angular" style="color: #e63232;"></i>
+              <i class="fa-brands fa-node-js" style="color: #38e632;"></i>
+              <h3>SaaS-Based Hospital Information Management System (HIMS)</h3>
+              <h4>
+                Project Lead for Phase 1 (march 2025 - july 2025), Client Management & Fullstack development of the
+                System
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <div class="owl-carousel projects-carousel"></div>
+    </div>
+    <!-- End projects  -->
+  </section>
+  <!-- End About Section -->
+
+}

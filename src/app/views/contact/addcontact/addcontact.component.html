@@ -1,1 +1,95 @@
-<p>addcontact works!</p>
+<section id="contact" class="contact section-show">
+  <div class="container">
+    <div class="section-title">
+      <h2 routerLink="/contact">Contact</h2>
+      <p>Add Contact Section</p>
+    </div>
+    <form (ngSubmit)="OnSubmit()" [formGroup]="contactForm" class="php-email-form mt-4">
+      <div class="col-lg-4" data-aos="fade-right">
+      </div>
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-stretch">
+          <div class="info-box">
+            <i class="fa-solid fa-location-dot"></i>
+            <h3>My Address</h3>
+            <input type="text" name="address" class="form-control mt-4" formControlName="address" id="tenantName"
+              placeholder="address" required>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-stretch">
+          <div class="info-box">
+            <!-- <i class="fa-solid fa-share-nodes"></i> -->
+          <i class="fa-solid fa-plus" (click)="addsocialprofile()"></i>
+            <h3>Social Profiles</h3>
+            <!-- ✅ ADD THIS ONE LINE - FormArray wrapper -->
+
+            <div formArrayName="socialprofileSchema">
+              <div class="row">
+                <div class="col-lg-3 col-md-4 mt-4" *ngFor="let skill of socialprofileArray.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="text-center mb-2">
+                    <input type="text" formControlName="social_link" class="form-control" placeholder="social link">
+
+                    <!-- ✅ PRIOR SKILLS helpers ONLY -->
+                    <i *ngIf="getIconTypePrior(i) === 'fontawesome'" [class]="getIconClassPrior(i)"
+                      class="fs-2 text-primary">
+                    </i>
+
+                    <img *ngIf="getIconTypePrior(i) === 'image'" [src]="getIconUrlPrior(i)" class="img-fluid"
+                      style="max-height: 40px;" alt="icon" />
+                  </div>
+
+                  <select formControlName="iconType" class="form-select form-select-sm">
+                    <option value="">Select Option</option>
+                    <option value="fontawesome">FontAwesome</option>
+                    <option value="image">Image URL</option>
+                  </select>
+
+                  <input formControlName="icon" class="form-control form-control-sm mt-1"
+                    placeholder="fa-brands fa-react OR image URL" />
+
+                  <button type="button" class="btn btn-sm btn-outline-danger mt-2 w-100"
+                    (click)="removesocialprofile(i)">
+                    <i class="fas fa-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- <input type="text" name="tenantName" class="form-control mt-4" formControlName="address" id="tenantName"
+              placeholder="tenantName" required> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-stretch">
+          <div class="info-box">
+            <i class="fa-solid fa-envelope"></i>
+            <h3>Email</h3>
+            <input type="email" name="address" class="form-control mt-4" formControlName="email" id="email"
+              placeholder="email" required>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-stretch">
+          <div class="info-box">
+            <i class="fa-solid fa-phone-volume"></i>
+            <h3>Phone Number</h3>
+            <input type="text" name="phone_no" class="form-control mt-4" formControlName="phone_no" id="phone_no"
+              placeholder="phone number" required>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="text-center my-3">
+        <button type="button" class="btn-cancel me-3" (click)="resetForm()">Cancel</button>
+        <button type="submit" class="btn-create" [disabled]="contactForm.invalid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner"></span>
+          Submit
+        </button>
+
+      </div>
+    </form>
+
+  </div>
+</section>
