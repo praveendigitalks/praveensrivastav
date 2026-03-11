@@ -22,14 +22,14 @@ export class BillingfinanceComponent {
   summaryCards = [
     {
       title: 'Monthly Revenue',
-      value: '$45,200.00',
+      value: '₹45,200.00',
       change: '+12.5%',
       trendType: 'up' as const,
       icon: 'credit_card'
     },
     {
       title: 'Pending Payments',
-      value: '$1,240.00',
+      value: '₹1,240.00',
       change: '-2.1%',
       trendType: 'down' as const,
       icon: 'hourglass_empty'

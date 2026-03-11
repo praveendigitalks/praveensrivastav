@@ -169,29 +169,62 @@ export const routes: Routes = [
       },
 
       {
-       path: 'analyticreport',
-       loadComponent :() => import('./SuperadminViews/analyticsreporting/analyticreport/analyticreport.component').then( m => m.AnalyticreportComponent)
+        path: 'analyticreport',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/analyticsreporting/analyticreport/analyticreport.component'
+          ).then((m) => m.AnalyticreportComponent),
       },
       {
-       path: 'billingfinance',
-       loadComponent :() => import('./SuperadminViews/billingfinance/billingfinance/billingfinance.component').then( m => m.BillingfinanceComponent)
+        path: 'billingfinance',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/billingfinance/billingfinance/billingfinance.component'
+          ).then((m) => m.BillingfinanceComponent),
       },
       {
-       path: 'supportticket',
-       loadComponent :() => import('./SuperadminViews/supportticketing/supportticket/supportticket.component').then( m => m.SupportticketComponent)
+        path: 'supportticket',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/supportticketing/supportticket/supportticket.component'
+          ).then((m) => m.SupportticketComponent),
       },
       {
-       path: 'usagemonitor',
-       loadComponent :() => import('./SuperadminViews/usagemonitoring/usagemonitoring/usagemonitoring.component').then( m => m.UsagemonitoringComponent)
+        path: 'usagemonitor',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/usagemonitoring/usagemonitoring/usagemonitoring.component'
+          ).then((m) => m.UsagemonitoringComponent),
       },
 
-    {
-        path : '**',
-        redirectTo : ''
-    },
+      {
+        path: 'subscriptionmanagement',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/subscription management/subscriptionmanagement/subscriptionmanagement.component'
+          ).then((m) => m.SubscriptionmanagementComponent),
+      },
+      {
+        path: 'addsubscriptionmanagement',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/subscription management/addsubscriptionmanagement/addsubscriptionmanagement.component'
+          ).then((m) => m.AddsubscriptionmanagementComponent),
+      },
+      {
+        path: 'addsubscriptionmanagement/:subscriptionid',
+        loadComponent: () =>
+          import(
+            './SuperadminViews/subscription management/addsubscriptionmanagement/addsubscriptionmanagement.component'
+          ).then((m) => m.AddsubscriptionmanagementComponent),
+      },
+
+
+      {
+        path: '**',
+        redirectTo: 'superadmin',
+      },
     ],
-
-
   },
 
   {

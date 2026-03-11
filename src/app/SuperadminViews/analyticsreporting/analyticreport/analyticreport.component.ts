@@ -26,7 +26,7 @@ export class AnalyticreportComponent {
   summaryCards: SummaryCard[] = [
     {
       title: 'Total Revenue',
-      value: '$128,430',
+      value: '₹128,430',
       change: '+12.5%',
       trendType: 'up'
     },

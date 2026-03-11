@@ -1,0 +1,135 @@
+<!-- Summary cards row -->
+<section class="bm-summary-row">
+  <div class="bm-summary-card" *ngFor="let c of summaryCards">
+    <div class="bm-summary-header">
+      <span class="bm-summary-title">{{ c.title }}</span>
+      <span class="material-symbols-outlined bm-summary-icon">
+        {{ c.icon }}
+      </span>
+    </div>
+    <div class="bm-summary-main">
+      <span class="bm-summary-value">{{ c.value }}</span>
+      <span class="bm-summary-change">{{ c.change }}</span>
+    </div>
+  </div>
+</section>
+
+<section class="subscription-shell">
+  <i class="fa-solid fa-plus mx-3" routerLink="/superadmin/addsubscriptionmanagement"></i>
+
+  <div class="section-title">
+    <h2 routerLink="/superadmin/addsubscriptionmanagement">Add Plans</h2>
+    <p>Manage and monitor all subscription plans</p>
+  </div>
+
+  <div class="plans-card">
+    <!-- Filters -->
+    <section class="bm-filters-row">
+      <button class="bm-filter-chip">
+        <span class="material-symbols-outlined bm-filter-icon">calendar_today</span>
+        <span>{{ filters.dateRange }}</span>
+        <span class="material-symbols-outlined bm-filter-caret">expand_more</span>
+      </button>
+
+      <button class="bm-filter-chip">
+        <span class="material-symbols-outlined bm-filter-icon">view_week</span>
+        <span>{{ filters.planType }}</span>
+        <span class="material-symbols-outlined bm-filter-caret">expand_more</span>
+      </button>
+
+      <button class="bm-filter-chip">
+        <span class="material-symbols-outlined bm-filter-icon">checklist</span>
+        <span>{{ filters.status }}</span>
+        <span class="material-symbols-outlined bm-filter-caret">expand_more</span>
+      </button>
+
+      <div class="plans-search d-flex">
+        <span class="material-symbols-outlined plans-search-icon">search</span>
+        <input type="text" placeholder="Search plans..." />
+      </div>
+    </section>
+
+    <div class="plans-table">
+      <div class="plans-header-row">
+        <div>Plan Name</div>
+        <div>Type</div>
+        <div class="text-right">Price</div>
+        <div>Billing</div>
+        <div>User Limit</div>
+        <div>Status</div>
+        <div>Created Date</div>
+        <div class="text-right">Actions</div>
+      </div>
+
+      <div class="plans-row" *ngFor="let p of pagedPlans">
+        <div class="plans-name-cell">
+          <div class="plans-avatar">{{ p.name.charAt(0) }}</div>
+          <div class="plans-name-text">{{ p.name }}</div>
+        </div>
+
+        <div>
+          <span class="plan-type-pill" [ngClass]="{
+                  'plan-pill-paid': getPlanType(p) === 'PAID',
+                  'plan-pill-trial': getPlanType(p) === 'TRIAL'
+                }">
+            {{ getPlanType(p) }}
+          </span>
+        </div>
+
+        <div class="text-right plans-price">
+          {{ formatPrice(p.price) }}
+        </div>
+
+        <div>{{ p.billingCycle }}</div>
+        <div>{{ p.userLimit }}</div>
+
+        <div>
+          <span class="bm-status-pill" [ngClass]="{
+                  'bm-status-paid': p.isActive,
+                  'bm-status-cancelled': !p.isActive
+                }">
+            {{ p.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+
+        <div>{{ formatDate(p.createdAt) }}</div>
+
+        <div class="text-right plans-actions">
+          <button class="bm-icon-btn bm-download" (click)="onEditPlan(p)">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button class="bm-icon-btn" (click)="onMore(p)">
+            <span class="material-symbols-outlined">more_vert</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bm-table-footer">
+      <span class="bm-footer-text">
+        Showing
+        {{ getStartIndex() }}
+        –
+        {{ getEndIndex() }}
+        of {{ subscriptionPlans.length }} results
+      </span>
+
+
+      <div class="bm-pagination">
+        <button class="bm-page-btn" [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+          ‹
+        </button>
+
+        <button class="bm-page-btn" *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class.bm-page-active]="currentPage === i + 1" (click)="goToPage(i + 1)">
+          {{ i + 1 }}
+        </button>
+
+        <button class="bm-page-btn" [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+          ›
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

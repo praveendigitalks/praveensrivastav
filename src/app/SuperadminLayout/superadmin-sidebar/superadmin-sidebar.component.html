@@ -22,6 +22,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" routerLink="/superadmin/subscriptionmanagement">
+          <i class="fa-solid fa-stopwatch nav-icon" *ngIf="isCollapsed"></i>
+          <span class="nav-text">Subscription Plans</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" routerLink="/superadmin/billingfinance">
           <i
             class="fa-solid fa-file-invoice-dollar nav-icon"

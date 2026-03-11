@@ -1,0 +1,707 @@
+/* PAGE SHELL */
+.subscription-shell {
+  padding: 18px 20px 22px;
+  background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+  color: #e5e7eb;
+  /* border-radius: 20px; */
+  box-shadow: 0 0 0 2px #4f46e5;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Layout */
+.subscription-layout {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr);
+  gap: 18px;
+}
+
+/* Left card */
+.create-card {
+  background: rgba(15, 23, 42, 0.98);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 18px 18px 16px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+}
+
+.create-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.create-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+.create-subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.create-header-icon {
+  font-size: 26px;
+  color: #f97316;
+  background: rgba(248, 113, 113, 0.12);
+  padding: 6px;
+  border-radius: 999px;
+}
+
+/* Plan form */
+.plan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-field label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.form-field input,
+.form-field select {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e5e7eb;
+  padding: 7px 9px;
+  font-size: 13px;
+  outline: none;
+}
+
+.form-field input::placeholder {
+  color: #6b7280;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px #4f46e5;
+}
+
+/* Toggle switch for status */
+.form-switch-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: #4b5563;
+  position: relative;
+  transition: background 0.18s ease;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #f9fafb;
+  transition: transform 0.18s ease;
+}
+
+.switch input:checked + .slider {
+  background: #22c55e;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(14px);
+}
+
+.switch-label {
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+/* Section blocks */
+.section-block {
+  border-radius: 14px;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.98);
+  padding: 10px 12px 12px;
+}
+
+.section-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.section-block-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+/* Module access grid (MAC) */
+.mac-table {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(55, 65, 81, 0.85);
+}
+
+.mac-header-row,
+.mac-row {
+  display: grid;
+  grid-template-columns: 2.2fr repeat(5, minmax(0, 1fr));
+  align-items: center;
+  font-size: 12px;
+}
+
+.mac-header-row {
+  background: #020617;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 7px 10px;
+}
+
+.mac-row {
+  padding: 7px 10px;
+  color: #e5e7eb;
+}
+
+.mac-row:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.mac-row:nth-child(even) {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.mac-col-module {
+  font-weight: 500;
+}
+
+.mac-col {
+  display: flex;
+  justify-content: center;
+}
+
+.mac-checkbox {
+  cursor: pointer;
+  position: relative;
+}
+
+.mac-checkbox input {
+  display: none;
+}
+
+.mac-checkbox span {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  background: rgba(15, 23, 42, 0.96);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mac-checkbox input:checked + span {
+  border-color: #4f46e5;
+  background: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.5);
+}
+
+.mac-checkbox input:checked + span::after {
+  content: '✓';
+  font-size: 11px;
+  color: #f9fafb;
+}
+
+/* Feature tags */
+.feature-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.feature-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  font-size: 11px;
+  color: #e5e7eb;
+}
+
+.feature-tag-close {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.feature-input-wrap {
+  display: flex;
+  gap: 6px;
+}
+
+.feature-input-wrap input {
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #e5e7eb;
+  outline: none;
+}
+
+.feature-input-wrap input::placeholder {
+  color: #6b7280;
+}
+
+.feature-add-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #020617;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Buttons */
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-secondary,
+.btn-primary {
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(148, 163, 184, 0.7);
+  color: #e5e7eb;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #020617;
+  font-weight: 600;
+}
+
+/* Right card: Existing plans */
+.plans-card {
+  background: #020617;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 16px 16px 10px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+}
+
+.plans-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.plans-header h3 {
+  margin: 0;
+  font-size: 15px;
+  color: #f9fafb;
+}
+
+.plans-header p {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.plans-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.98);
+}
+
+.plans-search-icon {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.plans-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 12px;
+}
+
+/* Table */
+.plans-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+}
+
+.plans-header-row,
+.plans-row {
+  display: grid;
+  grid-template-columns: 2.4fr 1.2fr 1.1fr 1.3fr 1.3fr 1.2fr 1.3fr 1.2fr;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.plans-header-row {
+  background: #020617;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+}
+
+.plans-row {
+  color: #e5e7eb;
+}
+
+.plans-row:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.96);
+}
+
+.plans-row:nth-child(even) {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.plans-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plans-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.plans-name-text {
+  font-weight: 500;
+}
+
+.plan-type-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.plan-pill-paid {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.plan-pill-trial {
+  background: rgba(56, 189, 248, 0.15);
+  color: #7dd3fc;
+}
+
+.plans-price {
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.plans-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/* Reuse bm generic styles from your billing page */
+.bm-summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.bm-summary-card {
+  background: #0b1120;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.bm-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bm-summary-title {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.bm-summary-icon {
+  font-size: 18px;
+  color: #fbbf24;
+}
+
+.bm-summary-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.bm-summary-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+.bm-summary-change {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bm-change-up {
+  color: #22c55e;
+}
+
+.bm-change-down {
+  color: #f97316;
+}
+
+/* Filter chips reused */
+.bm-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.bm-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e5e7eb;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.bm-filter-icon {
+  font-size: 16px;
+}
+
+.bm-filter-caret {
+  font-size: 18px;
+}
+
+/* Status pills from billing css */
+.bm-status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.bm-status-paid {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.bm-status-cancelled {
+  background: rgba(148, 163, 184, 0.25);
+  color: #e5e7eb;
+}
+
+/* Icon btn, footer, pagination reused */
+.bm-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.bm-icon-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.bm-icon-btn:hover {
+  background: rgba(30, 64, 175, 0.7);
+}
+
+.bm-download {
+  color: #38bdf8;
+}
+
+/* Footer + pagination */
+.bm-table-footer {
+  padding: 8px 14px 10px;
+  border-top: 1px solid rgba(55, 65, 81, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #9ca3af;
+  background: rgba(15, 23, 42, 0.95);
+  margin-top: 10px;
+  border-radius: 0 0 12px 12px;
+}
+
+.bm-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bm-page-btn {
+  min-width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.bm-page-active {
+  background: #f97316;
+  border-color: #f97316;
+  color: #020617;
+  font-weight: 600;
+}
+
+.bm-page-btn.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Utilities */
+.text-right {
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .subscription-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .form-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .plans-header-row,
+  .plans-row {
+    grid-template-columns: 2.6fr 1.3fr 1.2fr 1.6fr 1.4fr;
+  }
+
+  .plans-header-row > div:nth-child(n+6),
+  .plans-row > div:nth-child(n+6) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .subscription-shell {
+    padding: 14px 10px 16px;
+  }
+
+  .bm-summary-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-header-row,
+  .plans-row {
+    font-size: 11px;
+    padding-inline: 10px;
+  }
+}

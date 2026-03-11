@@ -1,21 +1,26 @@
-// subscriptionplans.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {
+  SubscriptionService,
+  SubscriptionPlanDto
+} from '../../../SuperadminViews/subscription management/service/subscription.service';
 
 @Component({
   selector: 'app-subscriptionplans',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './subscriptionplans.component.html',
-  styleUrl: './subscriptionplans.component.css',
+  styleUrl: './subscriptionplans.component.css'
 })
-export class SubscriptionplansComponent {
-  // modal state
+export class SubscriptionplansComponent implements OnInit {
   showCheckout = false;
   selectedPlanName = '';
   selectedPlanPrice = '';
   selectedPlanAmount = 0;
+
+  subscriptionPlans: SubscriptionPlanDto[] = [];
+  loading = false;
 
   payMethod: 'card' | 'upi' = 'card';
 
@@ -23,38 +28,73 @@ export class SubscriptionplansComponent {
     number: '',
     exp: '',
     cvc: '',
-    country: 'India',
+    country: 'India'
   };
 
   upiId = '';
 
-  openCheckout(name: string, priceLabel: string, amount: number) {
-    this.selectedPlanName = name;
-    this.selectedPlanPrice = priceLabel;
-    this.selectedPlanAmount = amount;
+  constructor(private subscriptionService: SubscriptionService) {}
+
+  ngOnInit(): void {
+    this.loadSubPlans();
+  }
+
+  loadSubPlans(): void {
+    this.loading = true;
+    this.subscriptionService.getPlans().subscribe({
+      next: res => {
+        this.subscriptionPlans = res || [];
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  formatPrice(value: number): string {
+    return `₹${value.toLocaleString('en-IN')}`;
+  }
+
+  getModuleNames(plan: SubscriptionPlanDto): string {
+    const names =
+      (plan.modulePermissions || [])
+        .filter(mp => (mp.actions || []).length > 0)
+        .map(mp => mp.module) || [];
+    return names.join(', ');
+  }
+
+  getDeliveryText(plan: SubscriptionPlanDto): string {
+    return `1–2 days from payment approval (up to ${plan.userLimit} users)`;
+  }
+
+  openCheckout(plan: SubscriptionPlanDto): void {
+    this.selectedPlanName = plan.name;
+    this.selectedPlanAmount = plan.price;
+    this.selectedPlanPrice = this.formatPrice(plan.price);
     this.showCheckout = true;
     this.payMethod = 'card';
   }
 
-  closeCheckout() {
+  closeCheckout(): void {
     this.showCheckout = false;
   }
 
-  formatCardNumber() {
+  formatCardNumber(): void {
     this.card.number = this.card.number
       .replace(/[^\d]/g, '')
       .replace(/(.{4})/g, '$1 ')
       .trim();
   }
 
-  formatExp() {
+  formatExp(): void {
     this.card.exp = this.card.exp
       .replace(/[^\d]/g, '')
       .slice(0, 4)
       .replace(/(\d{2})(\d{0,2})/, (_, m, y) => (y ? `${m}/${y}` : m));
   }
 
-  payNow() {
+  payNow(): void {
     if (!this.selectedPlanName) return;
 
     console.log('Demo pay:', {
@@ -63,7 +103,7 @@ export class SubscriptionplansComponent {
       amount: this.selectedPlanAmount,
       method: this.payMethod,
       card: this.card,
-      upiId: this.upiId,
+      upiId: this.upiId
     });
 
     alert(

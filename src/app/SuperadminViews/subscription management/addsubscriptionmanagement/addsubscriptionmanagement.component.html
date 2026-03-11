@@ -1,0 +1,153 @@
+
+
+<section class="subscription-shell">
+  <div class="section-title">
+    <h2 routerLink="/superadmin/addsubscriptionmanagement">
+      {{ planId ? 'Edit Plan' : 'Add Plans' }}
+    </h2>
+    <p routerLink="/superadmin/subscriptionmanagement">Subscription plans</p>
+  </div>
+
+  <div class="create-card">
+    <div class="create-header">
+      <div>
+        <h2 class="create-title">Subscription Plan Management</h2>
+        <p class="create-subtitle">
+          Configure pricing and limits for new subscription tiers
+        </p>
+      </div>
+      <span class="material-symbols-outlined create-header-icon"
+            routerLink="/superadmin/subscriptionmanagement">
+        receipt_long
+      </span>
+    </div>
+
+    <form class="plan-form" autocomplete="off">
+      <div class="form-grid-4">
+        <div class="form-field">
+          <label>Plan Name</label>
+          <input type="text"
+                 [(ngModel)]="planName"
+                 name="planName"
+                 placeholder="e.g. Enterprise Pro" />
+        </div>
+
+        <div class="form-field">
+          <label>Price (₹)</label>
+          <input type="number"
+                 min="0"
+                 step="0.01"
+                 [(ngModel)]="price"
+                 name="price"
+                 placeholder="0.00" />
+        </div>
+
+        <div class="form-field">
+          <label>Billing Cycle</label>
+          <select [(ngModel)]="billingCycle" name="billingCycle">
+            <option value="Monthly">Monthly</option>
+            <option value="Yearly">Yearly</option>
+            <option value="One-time">One-time</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid-4">
+        <div class="form-field">
+          <label>User Limit</label>
+          <input type="number"
+                 min="1"
+                 [(ngModel)]="userLimit"
+                 name="userLimit"
+                 placeholder="10" />
+        </div>
+
+        <div class="form-field">
+          <label>Storage Limit (GB)</label>
+          <input type="number"
+                 min="0"
+                 [(ngModel)]="storageLimitGB"
+                 name="storageLimitGB"
+                 placeholder="50" />
+        </div>
+
+        <div class="form-field form-switch-field">
+          <label>Status</label>
+          <label class="switch">
+            <input type="checkbox"
+                   [(ngModel)]="isActive"
+                   name="isActive" />
+            <span class="slider"></span>
+            <span class="switch-label">{{ isActive ? 'Active' : 'Inactive' }}</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-block-header">
+          <h3>Module Access Control</h3>
+        </div>
+
+        <div class="mac-table">
+          <div class="mac-header-row">
+            <div class="mac-col-module">Module Name</div>
+            <div class="mac-col" *ngFor="let a of actionList">
+              {{ a | titlecase }}
+            </div>
+          </div>
+
+          <div class="mac-row" *ngFor="let m of modulePermissions">
+            <div class="mac-col-module">{{ m.module }}</div>
+
+            <label class="mac-col mac-checkbox" *ngFor="let a of actionList">
+              <input type="checkbox"
+                     [checked]="hasModuleAction(m, a)"
+                     (change)="onToggleModulePermission(m, a)" />
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-block-header">
+          <h3>Feature List</h3>
+        </div>
+        <div class="feature-row">
+          <div class="feature-tags">
+            <span class="feature-tag" *ngFor="let f of features">
+              {{ f }}
+              <span class="material-symbols-outlined feature-tag-close"
+                    (click)="removeFeatureTag(f)">close</span>
+            </span>
+          </div>
+          <div class="feature-input-wrap">
+            <input type="text"
+                   [(ngModel)]="featureInput"
+                   name="featureInput"
+                   placeholder="+ Add Feature" />
+            <button type="button"
+                    class="feature-add-btn"
+                    (click)="addFeatureTag()">
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button"
+                class="btn-secondary"
+                (click)="onCancel()">
+          Cancel
+        </button>
+        <button type="button"
+                class="btn-primary"
+                [disabled]="loading"
+                (click)="onCreatePlan()">
+          {{ planId ? 'Update Plan' : 'Create Plan' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

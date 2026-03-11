@@ -1,119 +1,76 @@
-<!-- subscriptionplans.component.html -->
 <div class="packageList graySection contentSection">
   <div class="container">
     <h2 class="packageTitle">Select Your Portfolio Package</h2>
 
     <div class="row">
-      <!-- Starter -->
-      <div class="col-md-4">
+      <div class="col-md-4"
+           *ngFor="let plan of subscriptionPlans">
         <div class="thePackage">
-          <h3 class="packageTitle">Starter</h3>
-          <div class="thePackageInner">
-            <span class="fromPrice">From just</span>
-            <span class="thePrice" id="starter-price">₹3,500</span>
-            <div class="clearfix packageFeatures">
-              <ul class="priceTicks">
-                <li><b>Website Pages:</b>3 sections : Home, About , Resume</li>
-                <li><b>Mobile Responsive:</b> No</li>
-                <li>
-                  <b>Delivery Timeline:</b> 1-2 Days from the date of payment
-                  approval
-                </li>
-              </ul>
-            </div>
-            <a
-              class="to-form-btn packageBtn fs-5 text-decoration-none"
-              (click)="openCheckout('Starter', '₹3,500', 3500)"
-              >Book Now</a
-            >
-          </div>
-        </div>
-      </div>
+          <h3 class="packageTitle">{{ plan.name }}</h3>
 
-      <!-- Professional -->
-      <div class="col-md-4">
-        <div class="thePackage">
-          <h3 class="packageTitle">Professional</h3>
           <div class="thePackageInner">
             <span class="fromPrice">From just</span>
-            <span class="thePrice" id="professional-price">₹5,500</span>
-            <div class="clearfix packageFeatures">
-              <ul class="priceTicks">
-                <li>
-                  <b>Website Pages:</b>4 sections : Home, About , Resume,
-                  Contact
-                </li>
-                <li><b>Mobile Responsive:</b> Yes</li>
-                <li>
-                  <b>Delivery Timeline:</b> 1-2 Days from the date of payment
-                  approval
-                </li>
-              </ul>
-            </div>
-            <a
-              class="to-form-btn packageBtn fs-5 text-decoration-none"
-              (click)="openCheckout('Professional', '₹5,500', 5500)"
-              >Book Now</a
-            >
-          </div>
-        </div>
-      </div>
+            <span class="thePrice">
+              {{ formatPrice(plan.price) }}
+            </span>
 
-      <!-- Advanced -->
-      <div class="col-md-4">
-        <div class="thePackage">
-          <h3 class="packageTitle">Advanced</h3>
-          <div class="thePackageInner">
-            <span class="fromPrice">From just</span>
-            <span class="thePrice" id="advanced-price">₹10,000</span>
             <div class="clearfix packageFeatures">
               <ul class="priceTicks">
-                <li><b>Website Pages:</b>All Sections, No Limitation</li>
-                <li><b>Mobile Responsive:</b> Yes</li>
                 <li>
-                  <b>Delivery Timeline:</b> 1-2 Days from the date of payment
-                  approval
+                  <b>User Limit:</b>
+                  {{ plan.userLimit }} users
+                </li>
+                <li>
+                  <b>Storage:</b>
+                  {{ plan.storageLimitGB }} GB
+                </li>
+                <li>
+                  <b>Modules Included:</b>
+                  {{ getModuleNames(plan) }}
+                </li>
+                <li>
+                  <b>Features:</b>
+                  {{ plan.features.join(', ') }}
+                </li>
+                <li>
+                  <b>Delivery Timeline:</b>
+                  {{ getDeliveryText(plan) }}
                 </li>
               </ul>
             </div>
-            <a
-              class="to-form-btn packageBtn fs-5 text-decoration-none"
-              (click)="openCheckout('Advanced', '₹10,000', 10000)"
-              >Book Now</a
-            >
+
+            <a class="to-form-btn packageBtn fs-5 text-decoration-none"
+               (click)="openCheckout(plan)">
+              Book Now
+            </a>
           </div>
         </div>
       </div>
     </div>
 
-    <p
-      style="
-        font-size: 20px;
-        color: #000;
-        padding: 15px;
-      "
-    >
-      <strong
-        >Payment Terms: 50% payment in advance. Once the payment is confirmed
-        and verified, we will provide the setup URL within 2–3 business
-        days.</strong
-      >
+    <p style="font-size: 20px; color: #000; padding: 15px;">
+      <strong>
+        Payment Terms: 50% payment in advance. Once the payment is confirmed
+        and verified, we will provide the setup URL within 2–3 business days.
+      </strong>
     </p>
   </div>
 
-  <!-- ================== Checkout Modal ================== -->
-  <div
-    class="checkout-backdrop"
-    *ngIf="showCheckout"
-    (click)="closeCheckout()"
-  >
-    <div class="checkout-modal" (click)="$event.stopPropagation()">
+  <!-- Checkout Modal -->
+  <div class="checkout-backdrop"
+       *ngIf="showCheckout"
+       (click)="closeCheckout()">
+    <div class="checkout-modal"
+         (click)="$event.stopPropagation()">
       <div class="checkout-header">
         <h3>
           Unlock your Portfolio with
           <span>{{ selectedPlanName }}</span>
         </h3>
-        <button class="close-btn" (click)="closeCheckout()">✕</button>
+        <button class="close-btn"
+                (click)="closeCheckout()">
+          ✕
+        </button>
       </div>
 
       <p class="checkout-subtitle">
@@ -121,56 +78,47 @@
       </p>
 
       <div class="pay-tabs">
-        <button
-          type="button"
-          class="pay-tab"
-          [class.active]="payMethod === 'card'"
-          (click)="payMethod = 'card'"
-        >
+        <button type="button"
+                class="pay-tab"
+                [class.active]="payMethod === 'card'"
+                (click)="payMethod = 'card'">
           Card
         </button>
-        <button
-          type="button"
-          class="pay-tab"
-          [class.active]="payMethod === 'upi'"
-          (click)="payMethod = 'upi'"
-        >
+        <button type="button"
+                class="pay-tab"
+                [class.active]="payMethod === 'upi'"
+                (click)="payMethod = 'upi'">
           UPI
         </button>
       </div>
 
       <!-- Card form -->
-      <div *ngIf="payMethod === 'card'" class="pay-body">
+      <div *ngIf="payMethod === 'card'"
+           class="pay-body">
         <div class="form-row">
           <label>Card number</label>
-          <input
-            type="text"
-            maxlength="19"
-            placeholder="1234 1234 1234 1234"
-            [(ngModel)]="card.number"
-            (input)="formatCardNumber()"
-          />
+          <input type="text"
+                 maxlength="19"
+                 placeholder="1234 1234 1234 1234"
+                 [(ngModel)]="card.number"
+                 (input)="formatCardNumber()" />
         </div>
 
         <div class="form-row two-cols">
           <div>
             <label>Expiration date</label>
-            <input
-              type="text"
-              maxlength="5"
-              placeholder="MM/YY"
-              [(ngModel)]="card.exp"
-              (input)="formatExp()"
-            />
+            <input type="text"
+                   maxlength="5"
+                   placeholder="MM/YY"
+                   [(ngModel)]="card.exp"
+                   (input)="formatExp()" />
           </div>
           <div>
             <label>Security code</label>
-            <input
-              type="text"
-              maxlength="4"
-              placeholder="CVC"
-              [(ngModel)]="card.cvc"
-            />
+            <input type="text"
+                   maxlength="4"
+                   placeholder="CVC"
+                   [(ngModel)]="card.cvc" />
           </div>
         </div>
 
@@ -185,18 +133,18 @@
       </div>
 
       <!-- UPI form -->
-      <div *ngIf="payMethod === 'upi'" class="pay-body">
+      <div *ngIf="payMethod === 'upi'"
+           class="pay-body">
         <div class="form-row">
           <label>UPI ID</label>
-          <input
-            type="text"
-            placeholder="yourname@upi"
-            [(ngModel)]="upiId"
-          />
+          <input type="text"
+                 placeholder="yourname@upi"
+                 [(ngModel)]="upiId" />
         </div>
       </div>
 
-      <button class="pay-now-btn" (click)="payNow()">
+      <button class="pay-now-btn"
+              (click)="payNow()">
         Pay now
       </button>
 
