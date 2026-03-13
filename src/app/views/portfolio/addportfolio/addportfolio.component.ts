@@ -39,10 +39,10 @@ export class AddportfolioComponent {
   }
 
   ngOnInit() {
-    // if(!this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.CREATE) && !this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.UPDATE)){
-    //    alert("You are not Authorized to access this module");
-    //    this.router.navigateByUrl("/portfolio");
-    // }
+    if(!this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.CREATE) && !this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.UPDATE)){
+       alert("You are not Authorized to access this module");
+       this.router.navigateByUrl("/portfolio");
+    }
 
     this.route.params.subscribe((params) => {
       this.portfolioId = params['portfolioId'];

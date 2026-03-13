@@ -38,10 +38,10 @@ export class PortfolioComponent implements AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // if (!this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.READ)) {
-    //   alert('You are not Authorized to access this module');
-    //   this.router.navigateByUrl('/');
-    // }
+    if (!this.authService.hasActionPermission(MODULE.PORTFOLIO, ACTIONS.READ)) {
+      alert('You are not Authorized to access this module');
+      this.router.navigateByUrl('/');
+    }
 
     this.isLogin = this.authService.isLoggedIn();
     this.loadPortfolio();
