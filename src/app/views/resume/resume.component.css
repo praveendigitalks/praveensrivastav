@@ -59,3 +59,92 @@
   background: #18d26e;
   border: 2px solid #18d26e;
 }
+/* ===================== PRINT TEMPLATE MODAL ===================== */
+
+.print-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1050;
+}
+
+.print-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.print-modal-content {
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto;
+  padding: 20px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* close button override for dark bg */
+.print-modal-content .btn-close {
+  filter: invert(1);
+}
+
+/* Template cards */
+
+.template-card {
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.template-card.selected {
+  border-color: #18d26e;
+  box-shadow: 0 0 0 1px #18d26e;
+}
+
+.template-preview {
+  background: #1b1b1b;
+  padding: 16px 12px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Template specific accent colors (just visual hint) */
+.template-preview.template-t1 {
+  border-left: 4px solid #18d26e;
+}
+
+.template-preview.template-t2 {
+  border-left: 4px solid #3498db;
+}
+
+.template-preview.template-t3 {
+  border-left: 4px solid #f1c40f;
+}
+
+.template-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.template-sub {
+  font-size: 13px;
+  color: #cccccc;
+}

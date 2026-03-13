@@ -70,20 +70,51 @@ export class AuthService {
     return user?.permissions?.some((p: any) => p.module === module) || false;
   }
 
-  hasActionPermission(module: string, action: string): boolean {
+//   hasActionPermission(module: string, action: string): boolean {
+//   const user = this.getUser();
+//   const perms = user?.role?.permissions;
+//   console.log("🚀 ~ AuthService ~ hasActionPermission ~ perms:", user)
+
+//   // 🔥 Force array conversion
+//   const permissionsArray = Array.isArray(perms) ? perms : [];
+//   // console.log("🚀 ~ AuthService ~ hasActionPermission ~ permissionsArray:", permissionsArray)
+
+//   return permissionsArray.some(p =>
+//     p.module?.trim() === module.trim() &&
+//     Array.isArray(p.actions) &&
+//     p.actions.includes(action)
+//   );
+// }
+
+hasActionPermission(module: string, action: string): boolean {
   const user = this.getUser();
-  const perms = user?.role?.permissions;
-  // console.log("🚀 ~ AuthService ~ hasActionPermission ~ perms:", perms)
+  if (!user) return false;
 
-  // 🔥 Force array conversion
-  const permissionsArray = Array.isArray(perms) ? perms : [];
-  // console.log("🚀 ~ AuthService ~ hasActionPermission ~ permissionsArray:", permissionsArray)
+  const norm = (v: any) => (v || '').toString().trim().toUpperCase();
 
-  return permissionsArray.some(p =>
-    p.module?.trim() === module.trim() &&
-    Array.isArray(p.actions) &&
-    p.actions.includes(action)
-  );
+  const check = (perms: any[] | undefined, label: string) => {
+    console.log(label, 'perms =>', perms);
+    if (!Array.isArray(perms)) return false;
+    const entry = perms.find(p => norm(p.module) === norm(module));
+    console.log(label, 'entry for', module, '=>', entry);
+    return !!entry &&
+      Array.isArray(entry.actions) &&
+      entry.actions.map(norm).includes(norm(action));
+  };
+
+  // 1) Plan‑level
+  const tenant: any = user.tenantId;  // root tenant doc
+  const planPerms = tenant?.subscription?.planId?.modulePermissions;
+  console.log('🚀 planPerms =>', planPerms);
+  if (check(planPerms, 'plan.modulePermissions')) return true;
+
+  // 2) Role‑level
+  if (check(user.role?.permissions, 'role.permissions')) return true;
+
+  // 3) User‑level
+  if (check(user.permissions, 'user.permissions')) return true;
+
+  return false;
 }
 
 

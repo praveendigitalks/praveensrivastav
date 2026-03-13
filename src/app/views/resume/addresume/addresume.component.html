@@ -1,1 +1,176 @@
-<p>addresume works!</p>
+<section id="resume" class="resume section-show">
+  <div class="container">
+    <div class="section-title">
+      <h2 routerLink="/resume">Resume</h2>
+      <p>{{ resumeId ? 'Update Resume Section' : 'Add Resume Section' }}</p>
+    </div>
+
+    <form [formGroup]="resumeForm" (ngSubmit)="OnSubmit()">
+      <div class="row">
+        <!-- LEFT SIDE -->
+        <div class="col-lg-6">
+          <h3 class="resume-title">Summary</h3>
+
+          <div class="resume-item pb-0">
+            <input
+              type="text"
+              class="form-control mb-2"
+              placeholder="Full Name"
+              formControlName="profileName" />
+
+            <textarea
+              class="form-control mb-2"
+              rows="3"
+              placeholder="Career Overview"
+              formControlName="carrerOverview">
+            </textarea>
+
+            <input
+              type="text"
+              class="form-control mb-2"
+              placeholder="Address"
+              formControlName="address" />
+
+            <input
+              type="text"
+              class="form-control mb-2"
+              placeholder="Phone Number"
+              formControlName="phoneNumber" />
+
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email" />
+          </div>
+
+          <!-- EDUCATION -->
+          <div class="mt-4" formArrayName="education">
+            <div class="d-flex align-items-center mb-3">
+              <i
+                class="fa-solid fa-plus text-success fs-4 me-2 cursor-pointer"
+                (click)="addeducation()">
+              </i>
+              <h3 class="resume-title mb-0">Education</h3>
+            </div>
+
+            <div
+              *ngFor="let edu of educationArray.controls; let i = index"
+              [formGroupName]="i"
+              class="mb-4 p-3 border rounded">
+              <div class="d-flex justify-content-between mb-3">
+                <span class="fw-bold">Education {{ i + 1 }}</span>
+                <i
+                  class="fas fa-trash text-danger cursor-pointer"
+                  (click)="removeeducation(i)"
+                  *ngIf="educationArray.length > 1">
+                </i>
+              </div>
+
+              <input
+                class="form-control mb-2"
+                formControlName="degreeName"
+                placeholder="Degree" />
+
+              <input
+                type="date"
+                class="form-control mb-2"
+                formControlName="start_year" />
+
+              <input
+                type="date"
+                class="form-control mb-2"
+                formControlName="end_year" />
+
+              <input
+                class="form-control mb-2"
+                formControlName="institueName"
+                placeholder="Institute" />
+
+              <input
+                class="form-control"
+                formControlName="percentorcgpa"
+                placeholder="CGPA / Percentage" />
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="col-lg-6" formArrayName="professionSchema">
+          <div class="d-flex align-items-center mb-4">
+            <i
+              class="fa-solid fa-plus text-success fs-4 me-2 cursor-pointer"
+              (click)="addprofession()">
+            </i>
+            <h3 class="resume-title">Professional Experience</h3>
+          </div>
+
+          <div
+            *ngFor="let prof of professionArray.controls; let i = index"
+            [formGroupName]="i"
+            class="mb-5 p-4 border rounded">
+            <div class="text-end">
+              <i
+                class="fas fa-trash text-danger cursor-pointer"
+                (click)="removeprofession(i)"
+                *ngIf="professionArray.length > 1">
+              </i>
+            </div>
+
+            <input
+              class="form-control mb-2"
+              formControlName="positionName"
+              placeholder="Position" />
+
+            <input
+              type="date"
+              class="form-control mb-2"
+              formControlName="start_year" />
+
+            <input
+              type="date"
+              class="form-control mb-2"
+              formControlName="end_year" />
+
+            <input
+              class="form-control mb-3"
+              formControlName="experience"
+              placeholder="Experience summary" />
+
+            <!-- PROJECTS / ROLE DESCRIPTION -->
+            <div formArrayName="professiondescription">
+              <div class="d-flex align-items-center mb-2">
+                <i
+                  class="fa-solid fa-plus text-primary me-2 cursor-pointer"
+                  (click)="addProfessionDescription(i)">
+                </i>
+                <strong>Projects / Responsibilities</strong>
+              </div>
+
+              <div
+                *ngFor="let desc of getProfessionDescriptionArray(i).controls; let j = index"
+                class="mb-2">
+                <div class="d-flex align-items-start">
+                  <textarea
+                    class="form-control mb-1"
+                    [formControlName]="j"
+                    placeholder="Project / Responsibility description">
+                  </textarea>
+                  <i
+                    class="fas fa-trash text-danger cursor-pointer ms-2 mt-2"
+                    (click)="removeProfessionDescription(i, j)"
+                    *ngIf="getProfessionDescriptionArray(i).length > 1">
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary mt-3" type="submit">
+        {{ resumeId ? 'Update Resume' : 'Save Resume' }}
+      </button>
+    </form>
+  </div>
+</section>

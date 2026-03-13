@@ -1,1 +1,56 @@
-<p>addportfolio works!</p>
+<section id="portfolio" class="portfolio section-show">
+  <div class="container">
+
+    <div class="section-title">
+      <h2 routerLink="/portfolio">Portfolio</h2>
+      <p>{{ portfolioId ? 'Update Work' : 'Add Work' }} </p>
+    </div>
+
+
+    <form (ngSubmit)="OnSubmit()" [formGroup]="portfolioForm" class="php-email-form mt-4">
+      <div class="col-lg-4" data-aos="fade-right">
+        <div class="profile-upload-circle" (click)="triggerFileInput()" (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)" [class.has-image]="selectedFile || previewUrl">
+
+          <input type="file" #fileInput id="fileInput" (change)="onFileSelected($event)" hidden accept="image/*">
+
+          <img [src]="previewUrl || '/favicon.jpeg'" class="preview-image" alt="" *ngIf="selectedFile || previewUrl">
+
+          <div class="no-image-content" *ngIf="!selectedFile && !previewUrl">
+            <i class="fas fa-plus-circle fa-5x"></i>
+            <!-- <p>Click or Drop Image</p> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <input type="text" name="projectName" class="form-control" formControlName="projectName" id="projectName"
+            placeholder="project Name">
+        </div>
+        <div class="col-md-6 form-group">
+          <input type="text" class="form-control" name="projectDescription" id="projectDescription" placeholder="project Description"
+            formControlName="projectDescription">
+        </div>
+        <div class="col-md-6 form-group mt-3">
+          <input type="text" class="form-control" name="category" id="category" placeholder="category" formControlName="category"
+            >
+        </div>
+        <div class="col-md-6 form-group mt-3">
+          <input type="text" class="form-control" name="projectUrl" id="projectUrl" placeholder="projectUrl" formControlName="projectUrl">
+        </div>
+      </div>
+
+
+
+      <div class="text-center my-3">
+
+
+       <button class="btn btn-primary mt-3" type="submit">
+        {{ portfolioId ? 'Update Project Portfolio' : 'Add Project Portfolio' }}
+      </button>
+
+      </div>
+    </form>
+
+  </div>
+</section>

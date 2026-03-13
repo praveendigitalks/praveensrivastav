@@ -58,6 +58,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'addresume/:resumeId',
+        loadComponent: () =>
+          import('./views/resume/addresume/addresume.component').then(
+            (m) => m.AddresumeComponent
+          ),
+      },
+      {
         path: 'portfolio',
         loadComponent: () =>
           import('./views/portfolio/portfolio.component').then(
@@ -66,6 +73,13 @@ export const routes: Routes = [
       },
       {
         path: 'addportfolio',
+        loadComponent: () =>
+          import('./views/portfolio/addportfolio/addportfolio.component').then(
+            (m) => m.AddportfolioComponent
+          ),
+      },
+      {
+        path: 'addportfolio/:portfolioId',
         loadComponent: () =>
           import('./views/portfolio/addportfolio/addportfolio.component').then(
             (m) => m.AddportfolioComponent
