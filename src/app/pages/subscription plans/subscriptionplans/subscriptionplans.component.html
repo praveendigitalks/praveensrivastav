@@ -1,10 +1,65 @@
+<!-- src/app/FrontViews/subscriptionplans/subscriptionplans.component.html -->
 <div class="packageList graySection contentSection">
   <div class="container">
-    <h2 class="packageTitle">Select Your Portfolio Package</h2>
+    <h2 class="packageTitle" *ngIf="!activePlan">
+      Select Your Portfolio Package
+    </h2>
 
-    <div class="row">
-      <div class="col-md-4"
-           *ngFor="let plan of subscriptionPlans">
+    <h2 class="packageTitle" *ngIf="activePlan">
+      Your Current Portfolio Package
+    </h2>
+
+    <!-- Already purchased plan view -->
+    <div class="row" *ngIf="activePlan">
+      <div class="col-md-6 mx-auto">
+        <div class="thePackage active-package">
+          <h3 class="packageTitle">
+            {{ activePlan.name }} (Current Plan)
+          </h3>
+
+          <div class="thePackageInner">
+            <span class="fromPrice">You are paying</span>
+            <span class="thePrice">
+              {{ formatPrice(activePlan.price) }}
+            </span>
+
+            <div class="clearfix packageFeatures">
+              <ul class="priceTicks">
+                <li>
+                  <b>User Limit:</b>
+                  {{ activePlan.userLimit }} users
+                </li>
+                <li>
+                  <b>Storage:</b>
+                  {{ activePlan.storageLimitGB }} GB
+                </li>
+                <li>
+                  <b>Modules Included:</b>
+                  {{ getModuleNames(activePlan) }}
+                </li>
+                <li>
+                  <b>Features:</b>
+                  {{ activePlan.features.join(', ') }}
+                </li>
+                <li *ngIf="subscriptionExpiresAt">
+                  <b>Expires At:</b>
+                  {{ subscriptionExpiresAt | date: 'medium' }}
+                </li>
+              </ul>
+            </div>
+
+            <p class="text-success fw-bold mt-2">
+              Your subscription is active. You can continue using all included
+              features.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plans list (only when no active plan) -->
+    <div class="row" *ngIf="!activePlan">
+      <div class="col-md-4" *ngFor="let plan of subscriptionPlans">
         <div class="thePackage">
           <h3 class="packageTitle">{{ plan.name }}</h3>
 
@@ -39,8 +94,10 @@
               </ul>
             </div>
 
-            <a class="to-form-btn packageBtn fs-5 text-decoration-none"
-               (click)="openCheckout(plan)">
+            <a
+              class="to-form-btn packageBtn fs-5 text-decoration-none"
+              (click)="openCheckout(plan)"
+            >
               Book Now
             </a>
           </div>
@@ -48,7 +105,10 @@
       </div>
     </div>
 
-    <p style="font-size: 20px; color: #000; padding: 15px;">
+    <p
+      *ngIf="!activePlan"
+      style="font-size: 20px; color: #000; padding: 15px;"
+    >
       <strong>
         Payment Terms: 50% payment in advance. Once the payment is confirmed
         and verified, we will provide the setup URL within 2–3 business days.
@@ -56,21 +116,27 @@
     </p>
   </div>
 
-  <!-- Checkout Modal -->
-  <div class="checkout-backdrop"
-       *ngIf="showCheckout"
-       (click)="closeCheckout()">
-    <div class="checkout-modal"
-         (click)="$event.stopPropagation()">
+  <!-- Success video -->
+  <div class="video-container" *ngIf="showPaymentVideo">
+    <video
+      #paymentVideo
+      src="/Stripe Payment Method.mp4"
+      autoplay
+      muted
+      playsinline
+      class="payment-success-video-element"
+    ></video>
+  </div>
+
+  <!-- Checkout modal (only relevant when selecting a new plan) -->
+  <div class="checkout-backdrop" *ngIf="showCheckout" (click)="closeCheckout()">
+    <div class="checkout-modal" (click)="$event.stopPropagation()">
       <div class="checkout-header">
         <h3>
           Unlock your Portfolio with
           <span>{{ selectedPlanName }}</span>
         </h3>
-        <button class="close-btn"
-                (click)="closeCheckout()">
-          ✕
-        </button>
+        <button class="close-btn" (click)="closeCheckout()">✕</button>
       </div>
 
       <p class="checkout-subtitle">
@@ -78,78 +144,53 @@
       </p>
 
       <div class="pay-tabs">
-        <button type="button"
-                class="pay-tab"
-                [class.active]="payMethod === 'card'"
-                (click)="payMethod = 'card'">
+        <button
+          type="button"
+          class="pay-tab"
+          [class.active]="payMethod === 'card'"
+          (click)="payMethod = 'card'"
+        >
           Card
         </button>
-        <button type="button"
-                class="pay-tab"
-                [class.active]="payMethod === 'upi'"
-                (click)="payMethod = 'upi'">
+        <button
+          type="button"
+          class="pay-tab"
+          [class.active]="payMethod === 'upi'"
+          (click)="payMethod = 'upi'"
+        >
           UPI
         </button>
       </div>
 
-      <!-- Card form -->
-      <div *ngIf="payMethod === 'card'"
-           class="pay-body">
-        <div class="form-row">
-          <label>Card number</label>
-          <input type="text"
-                 maxlength="19"
-                 placeholder="1234 1234 1234 1234"
-                 [(ngModel)]="card.number"
-                 (input)="formatCardNumber()" />
-        </div>
-
-        <div class="form-row two-cols">
-          <div>
-            <label>Expiration date</label>
-            <input type="text"
-                   maxlength="5"
-                   placeholder="MM/YY"
-                   [(ngModel)]="card.exp"
-                   (input)="formatExp()" />
-          </div>
-          <div>
-            <label>Security code</label>
-            <input type="text"
-                   maxlength="4"
-                   placeholder="CVC"
-                   [(ngModel)]="card.cvc" />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label>Country</label>
-          <select [(ngModel)]="card.country">
-            <option value="India">India</option>
-            <option value="USA">United States</option>
-            <option value="UK">United Kingdom</option>
-          </select>
+      <div *ngIf="payMethod === 'card'" class="pay-body">
+        <label>Card details</label>
+        <div id="card-element" class="card-element-container"></div>
+        <div class="card-errors" *ngIf="cardErrors">
+          {{ cardErrors }}
         </div>
       </div>
 
-      <!-- UPI form -->
-      <div *ngIf="payMethod === 'upi'"
-           class="pay-body">
+      <div *ngIf="payMethod === 'upi'" class="pay-body">
         <div class="form-row">
           <label>UPI ID</label>
-          <input type="text"
-                 placeholder="yourname@upi"
-                 [(ngModel)]="upiId" />
+          <input
+            type="text"
+            placeholder="yourname@upi"
+            [(ngModel)]="upiId"
+          />
         </div>
       </div>
 
-      <button class="pay-now-btn"
-              (click)="payNow()">
-        Pay now
+      <button
+        class="pay-now-btn"
+        [disabled]="isPaying"
+        (click)="payNow()"
+      >
+        {{ isPaying ? 'Processing...' : 'Pay now' }}
       </button>
 
       <p class="checkout-footer">
-        Safe &amp; secure checkout (demo UI only, no real payment).
+        Safe &amp; secure checkout using Stripe (demo integration).
       </p>
     </div>
   </div>

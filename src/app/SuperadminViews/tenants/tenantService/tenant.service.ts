@@ -23,4 +23,10 @@ export class TenantService {
  getTenantbyID(id : string):Observable<any>{
   return this.http.get(`${this.tenantapi}/${id}`);
  }
+
+
+   activateplan(body : any): Observable<any> {
+    return this.http.post(`${this.tenantapi}/activate-tenant-plan`, body);
+  }
+
 }

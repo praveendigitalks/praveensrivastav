@@ -1,8 +1,7 @@
-/* subscriptionplans.component.css */
+/* src/app/FrontViews/subscriptionplans/subscriptionplans.component.css */
 
 .packageList {
   margin: 50px;
-  /* margin-bottom: 0px !important; */
 }
 
 h2.packageTitle {
@@ -115,7 +114,7 @@ a.packageBtn:hover {
   padding: 90px 0;
 }
 
-/* ======= Checkout modal ======= */
+/* Checkout modal */
 .checkout-backdrop {
   position: fixed;
   inset: 0;
@@ -244,6 +243,24 @@ a.packageBtn:hover {
   font-size: 11px;
   color: #666;
   text-align: center;
+}
+
+/* Success video */
+.video-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1100;
+}
+
+.payment-success-video-element {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* Responsive */

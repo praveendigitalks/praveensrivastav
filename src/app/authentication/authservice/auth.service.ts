@@ -70,6 +70,12 @@ export class AuthService {
     return user?.permissions?.some((p: any) => p.module === module) || false;
   }
 
+
+  gettenantuserId(){
+     const user = this.getUser();
+     return user?.tenantId?._id
+  }
+
 //   hasActionPermission(module: string, action: string): boolean {
 //   const user = this.getUser();
 //   const perms = user?.role?.permissions;
