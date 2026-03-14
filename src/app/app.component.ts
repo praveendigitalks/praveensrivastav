@@ -12,7 +12,8 @@ export class AppComponent {
   ngOnInit() {
 
     if (!localStorage.getItem('deviceId')) {
-      localStorage.setItem('deviceId', crypto.randomUUID());
+      // localStorage.setItem('deviceId', crypto.randomUUID());
+      localStorage.setItem('deviceId', (window.crypto?.randomUUID?.() || Date.now().toString()));
     }
 
     const user = localStorage.getItem('profileUser');

@@ -52,7 +52,8 @@ export class HomeComponent implements AfterViewInit {
     this.isLogin = this.authService.isLoggedIn();
 
     if (!localStorage.getItem('deviceId')) {
-      localStorage.setItem('deviceId', crypto.randomUUID());
+      // localStorage.setItem('deviceId', crypto.randomUUID());
+      localStorage.setItem('deviceId', (window.crypto?.randomUUID?.() || Date.now().toString()));
     }
 
     const user = localStorage.getItem('profileUser');
