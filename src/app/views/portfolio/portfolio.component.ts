@@ -92,7 +92,8 @@ export class PortfolioComponent implements AfterViewInit, OnDestroy {
     if (!projectImage) return '/portfolio/api.jfif';
     // projectImage already like `/upload/portfolio/xxx.jpg`
     // return `http://localhost:5000${projectImage}`;
-    return `https://praveensrivastav-backend.onrender.com${projectImage}`;
+    // return `https://praveensrivastav-backend.onrender.com${projectImage}`;
+    return `http://13.233.11.48${projectImage}`;
   }
 
   getCategoryClass(category: string | null | undefined): string {
